@@ -14,14 +14,15 @@ use monogatarya;
 -- Crear tabla Usuarios --
 create table if not exists Usuarios
 (
-    ID_User varchar(10),
+    Correo varchar(50),
     Rango varchar(10),
     Nombre varchar(50),
     Apellido varchar(50),
     Contrasena varchar(100),
     FotoPerfil longblob,
+
     
-    constraint PK_Usuarios primary key (ID_User)
+    constraint PK_Usuarios primary key (Correo)
 );
 
 -- Crear tabla Eventos --
@@ -40,11 +41,11 @@ create table if not exists Eventos
 -- Crear tabla CrearVer (M-M Usuarios <-> Eventos) --
 create table if not exists CrearVer
 (
-    ID_User varchar(10),
+    Correo varchar(10),
     ID_Eventos varchar(25),
 
-    constraint PK_CrearVer primary key (ID_User, ID_Eventos),
-    constraint FK_CV_Usuarios foreign key (ID_User) references Usuarios(ID_User) on delete cascade,
+    constraint PK_CrearVer primary key (Correo, ID_Eventos),
+    constraint FK_CV_Usuarios foreign key (Correo) references Usuarios(Correo) on delete cascade,
     constraint FK_CV_Eventos foreign key (ID_Eventos) references Eventos(ID_Eventos) on delete cascade
 );
 
@@ -92,7 +93,7 @@ create table if not exists BD_Mangas
 -- Crear tabla Capitulos --
 create table if not exists Capitulos
 (
-    ID_Episodios varchar(25),
+    ID_Capitulos varchar(25),
     NombreManga varchar(50),
     Titulo varchar(50),
     NumCapitulo int,
@@ -100,6 +101,6 @@ create table if not exists Capitulos
     Archivos longblob,
     ID_Mangas varchar(20), -- FK --
 
-    constraint PK_Capitulos primary key (ID_Episodios),
+    constraint PK_Capitulos primary key (ID_Capitulos),
     constraint FK_Mangas_Capitulos foreign key (ID_Mangas) references BD_Mangas(ID_Mangas) on delete cascade
 );
