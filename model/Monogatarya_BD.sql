@@ -99,3 +99,35 @@ CREATE TABLE IF NOT EXISTS Chapters
     CONSTRAINT PK_Chapters PRIMARY KEY (ID_Chapters),
     CONSTRAINT FK_Mangas_Chapters FOREIGN KEY (ID_Mangas) REFERENCES BD_Mangas(ID_Mangas) ON DELETE CASCADE
 );
+
+-- Crear procedure de comprovar el email si exite o no --
+DELIMITER //
+CREATE PROCEDURE sp_comprovar_email(
+	IN emailP varchar(50), 
+	OUT exist boolean
+)
+BEGIN
+	SELECT EXISTS(
+		SELECT email
+        FROM Users
+        WHERE email = emailP
+        ) INTO exist;
+END //
+DELIMITER ;
+
+-- Crear un procedure para validar si el login esta bien --
+DELIMITER //
+CREATE PROCEDURE sp_login(
+	IN emailP varchar(50),
+    IN passwordP varchar(100),
+    OUT valido boolean
+)
+BEGIN
+	SELECT EXISTS(
+		SELECT *
+        FROM Users
+        WHERE email = emailP
+        AND password = passwordP
+	) INTO valido;
+END //
+DELIMITER ;
