@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: auth/login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -39,7 +48,8 @@
                         </button>
                     </div>
                 </form>
-                <a href="profiles/profile-view.html" class="icon-btn white user-link" aria-label="Ir al perfil de usuario">
+                <a href="profiles/profile-view.html" class="icon-btn white user-link"
+                    aria-label="Ir al perfil de usuario">
                     <svg class="icon">
                         <use href="assets/img/icon-sprites.svg#usuario"></use>
                     </svg>
@@ -107,12 +117,13 @@
     <input type="checkbox" id="menu-toggle">
 
     <ul class="menu-width">
-        <li><a href="index.html">Página de inicio</a></li>
+        <li><a href="index.php">Página de inicio</a></li>
         <li><a href="catalogs/anime/anime-catalog.html">Catálogo de animes</a></li>
         <li><a href="catalogs/manga/manga-catalog.html">Catálogo de mangas</a></li>
         <li><a href="events/event-detail.html">Eventos</a></li>
         <li class="logout">
-            <form action="auth/logout.php" method="POST">
+            <form action="../controller/UserController.php" method="POST">
+                <input type="hidden" name="action" value="logout">
                 <button type="submit">Cerrar sesión</button>
             </form>
         </li>

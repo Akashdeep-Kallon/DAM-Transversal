@@ -22,6 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete'])) {
         $userController->delete();
     }
+
+    if (isset($_POST['action']) && $_POST['action'] === 'logout') {
+        $userController->logout();
+    }
 }
 
 class UserController
@@ -61,4 +65,14 @@ class UserController
     public function update() {}
     // delete an employee
     public function delete() {}
+
+    // logout an employee
+    public function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+        header("Location: ../view/auth/login.php");
+        exit;
+    }
 }
