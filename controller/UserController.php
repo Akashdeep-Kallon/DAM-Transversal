@@ -1,47 +1,56 @@
 <?php
 session_start();
 require_once '../model/Users.php';
+require_once '../model/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $user = new UserController();
+    $userController = new UserController();
 
     if (isset($_POST['register'])) {
-        $user->register();
+        $userController->register();
     }
 
     if (isset($_POST['login'])) {
-        $user->login();
+        $userController->login();
     }
 
     if (isset($_POST['update'])) {
-        $user->update();
+        $userController->update();
     }
 
     if (isset($_POST['delete'])) {
-        $user->delete();
+        $userController->delete();
     }
 }
 
 class UserController
-
 {
     // create an employee
     public function register()
-    
     {
-        if (!empty($_POST['name']) && !empty($_POST['lastname']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+        if (!empty($_POST['name']) && !empty($_POST['lastname']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_confirm'])) {
             $name = $_POST['name'];
             $surname = $_POST['lastname'];
             $email = $_POST['email'];
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $password = $_POST['password'];
+            $password_confirm = $_POST['password_confirm'];
 
             $user = new Users($email, false, $name, $surname, $password);
-            $user->register();
+
+            $db = new Database();
+            $conexion = $db->getConexion();
+
+            $user->register($password_confirm, $conexion);
         } else {
-            echo "<p>Error: todos los campos son obligatorios.</p>";
+            echo '<div class="error-box">
+                <span class="icon">ⓘ</span>
+                <span>Por favor, completa todos los campos.</span>
+            </div>';
+            // $error = "Por favor, completa todos los campos.";
+            // header("Location: register-lector.php?error=" . urlencode($error));
+            //    exit;
         }
-        header('Location: ../view/index.html');
         exit();
     }
 

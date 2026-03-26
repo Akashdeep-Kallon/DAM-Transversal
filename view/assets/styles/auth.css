@@ -151,10 +151,6 @@ form:has(.input-password:invalid:not(:placeholder-shown)) .error-password {
     display: flex;
 }
 
-/* Confirmación inválida */
-form:has(.input-confirm:invalid:not(:placeholder-shown)) .error-confirm {
-    display: flex;
-}
 
 /* REMEMBER */
 .remember {
