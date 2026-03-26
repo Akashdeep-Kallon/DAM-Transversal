@@ -16,29 +16,37 @@ class Users
         $this->password = $password;
     }
 
-    public function register()
+    public function register($password_confirm, $conexion)
     {
-        require_once 'db.php';
+        $conexion->query("CALL sp_comprovar_email('$this->email', @result)");
+        $result = $conexion->query("SELECT @result AS exist");
+        $row = $result->fetch_assoc();
+        $exist = intval($row["exist"]); // 1 o 0
 
-        $sql = "INSERT INTO Users (email, status, name, surname, password)
-            VALUES ('$this->email', $this->status, '$this->name', '$this->surname', '$this->password')";
-
-        if ($conexion->query($sql) === TRUE) {
-            echo "Usuario registrado exitosamente.";
-        } else {
-            echo "Error: " . $conexion->error;
+        if ($exist === 1) {
+            echo "<span>El correo electrónico ya está registrado. Inténtalo con otro.</span>";
+            return;
         }
 
+        if ($this->password !== $password_confirm) {
+            echo "<span>Las contraseñas no coinciden. Inténtalo de nuevo.</span>";
+            return;
+        }
+
+        if ($this->password === $password_confirm && $exist === 0) {
+            $insert = $conexion->query("INSERT INTO Users (email, status, name, surname, password)
+                VALUES ('$this->email', $this->status, '$this->name', '$this->surname', '$this->password')");
+            $insert->close();
+            header('Location: ../view/index.html');
+            exit();
+        }
+
+        $result->close();
         $conexion->close();
     }
 
-
-
     public function login()
     {
-        require_once 'db.php';
-        $sql = "SELECT * FROM users WHERE email='$this->email'";
-        $result = $conexion->query($sql);
-        $conexion->close();
+        
     }
 }
