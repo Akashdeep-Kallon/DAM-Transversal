@@ -56,7 +56,7 @@
                 <span>La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.</span>
             </div>
 
-            <input class="btn btn-primary" type="submit" value="Crear cuenta de promotor" name="register">
+            <input class="btn btn-primary" type="submit" value="Crear cuenta de promotor" name="register_promotor">
         </form>
     </main>
 </body>

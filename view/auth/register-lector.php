@@ -60,7 +60,7 @@
                 placeholder="Confirmar Contraseña" required minlength="6" maxlength="20"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$">
                 
-            <input class="btn btn-primary" type="submit" value="Registrarse" name="register">
+            <input class="btn btn-primary" type="submit" value="Registrarse" name="register_lector">
         </form>
     </main>
 
