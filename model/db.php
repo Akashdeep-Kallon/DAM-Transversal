@@ -3,9 +3,9 @@
 class Database
 {
     private $host = "sql7.freesqldatabase.com";
-    private $usuario = "sql7820250";
-    private $password = "Akashdick";
-    private $base_datos = "sql7820250";
+    private $usuario = "sql7822562";
+    private $password = "BEu3RFH9hk";
+    private $base_datos = "sql7822562";
 
     public $conexion;
 
