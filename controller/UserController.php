@@ -11,6 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userController->register();
     }
 
+    if (isset($_POST['register-promotor'])) {
+        $userController->register();
+    }
+
     if (isset($_POST['login'])) {
         $userController->login();
     }
@@ -21,10 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['delete'])) {
         $userController->delete();
-    }
-
-    if (isset($_POST['action']) && $_POST['action'] === 'logout') {
-        $userController->logout();
     }
 }
 
@@ -47,10 +47,6 @@ class UserController
 
             $user->register($password_confirm, $conexion);
         } else {
-            echo '<div class="error-box">
-                <span class="icon">ⓘ</span>
-                <span>Por favor, completa todos los campos.</span>
-            </div>';
             // $error = "Por favor, completa todos los campos.";
             // header("Location: register-lector.php?error=" . urlencode($error));
             //    exit;
@@ -59,20 +55,38 @@ class UserController
     }
 
     // read all employees
-    public function login() {}
+    public function login()
+    {
+        if (!empty($_POST['email']) && !empty($_POST['password'])) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $db = new Database();
+            $conexion = $db->getConexion();
+
+            $conexion->query("CALL sp_login('$email', '$password', @result)");
+            $result = $conexion->query("SELECT @result AS exist");
+            $row = $result->fetch_assoc();
+            $exist = intval($row["exist"]); // 1 o 0
+
+            if ($exist === 1) {
+                header('Location: ../view/index.php');
+                exit();
+            } else {
+                // $error = "Correo electrónico o contraseña incorrectos. Inténtalo de nuevo.";
+                // header("Location: index.php?error=" . urlencode($error));
+                // exit();
+            }
+        } else {
+            // $error = "Por favor, completa todos los campos.";
+            // header("Location: register-lector.php?error=" . urlencode($error));
+            //    exit;
+        }
+        exit();
+    }
 
     // update an employee
     public function update() {}
     // delete an employee
     public function delete() {}
-
-    // logout an employee
-    public function logout()
-    {
-        session_start();
-        session_unset();
-        session_destroy();
-        header("Location: ../view/auth/login.php");
-        exit;
-    }
 }
