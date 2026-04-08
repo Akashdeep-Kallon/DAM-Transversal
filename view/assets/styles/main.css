@@ -426,6 +426,17 @@ footer {
     padding: 1rem 0;
     text-align: center;
 }
+footer a{
+    color: grey;
+}
+
+.footer-legal {
+    margin: 1.5rem 0;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+}
+
+
 
 :where(a, button, input, textarea, select):focus-visible {
     outline: 3px solid var(--focus);
