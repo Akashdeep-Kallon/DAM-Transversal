@@ -20,7 +20,8 @@
             <img src="../assets/img/logo.webp" alt="Logo de la página">
             <h1>MONOGATARYA</h1>
             <div class="right-group">
-                <a href="profile-view.html" class="icon-btn white user-link" aria-label="Ir al perfil de lector">
+
+                <a href="profile_promotor-view.html" class="icon-btn white user-link" aria-label="Ir al perfil de promotor">
                     <svg class="icon">
                         <use href="../assets/img/icon-sprites.svg#usuario"></use>
                     </svg>
@@ -33,7 +34,7 @@
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel profile-panel" aria-labelledby="perfil-titulo">
-                <h2 id="perfil-titulo" class="section-title">Perfil del usuario</h2>
+               <?php echo"<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil $status</h2> ";?> 
                 <form class="profile-layout" action="../index.html" method="post">
 
                     <!-- COLUMNA IZQUIERDA -->
@@ -86,8 +87,8 @@
             </section>
         </div>
     </main>
-    <?php require 'includes/menu.php'; ?>
-    <?php require 'includes/footer.php'; ?>
+    <?php require '../includes/menu.php'; ?>
+    <?php require '../includes/footer.php'; ?>
 </body>
 
 </html>

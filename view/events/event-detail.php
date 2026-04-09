@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <?php require 'includes/header.php'; ?>
+    <?php require '../includes/header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
@@ -48,8 +48,8 @@
             </article>
         </div>
     </main>
-    <?php require 'includes/menu.php'; ?>
-    <?php require 'includes/footer.php'; ?>
+    <?php require '../includes/menu.php'; ?>
+    <?php require '../includes/footer.php'; ?>
 </body>
 
 </html>

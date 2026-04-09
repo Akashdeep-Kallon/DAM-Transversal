@@ -51,8 +51,8 @@
             </section>
         </div>
     </main>
-    <?php require 'includes/menu.php'; ?>
-    <?php require 'includes/footer.php'; ?>
+    <?php require '../includes/menu.php'; ?>
+    <?php require '../includes/footer.php'; ?>
 </body>
 
 </html>

@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 class UserController
 {
-    // create an employee
     public function register($status)
     {
         if (!empty($_POST['name']) && !empty($_POST['lastname']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_confirm'])) {
@@ -89,12 +88,11 @@ class UserController
         exit();
     }
 
-
     public function logout()
     {
         session_unset();
         session_destroy();
-        header("Location: ../view/home.html");
+        header("Location: /DAM-Transversal/view/home.html");
         exit;
     }
     public function update() {}

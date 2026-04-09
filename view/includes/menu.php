@@ -1,14 +1,24 @@
 <input type="checkbox" id="menu-toggle">
 
-    <ul class="menu-width">
-        <li><a href="index.php">Página de inicio</a></li>
-        <li><a href="catalogs/anime/anime-catalog.html">Catálogo de animes</a></li>
-        <li><a href="catalogs/manga/manga-catalog.html">Catálogo de mangas</a></li>
-        <li><a href="events/event-detail.html">Eventos</a></li>
-        <li class="logout">
-            <form action="../controller/UserController.php" method="POST">
-                <input type="hidden" name="logout">
-                <button type="submit">Cerrar sesión</button>
-            </form>
-        </li>
-    </ul>
+<ul class="menu-width">
+    <li><a href="/DAM-Transversal/view/index.php">Página de inicio</a></li>
+
+    <li><a href="/DAM-Transversal/view/catalogs/anime/anime-catalog.php">
+        Catálogo de animes
+    </a></li>
+
+    <li><a href="/DAM-Transversal/view/catalogs/manga/manga-catalog.php">
+        Catálogo de mangas
+    </a></li>
+
+    <li><a href="/DAM-Transversal/view/events/event-detail.php">
+        Eventos
+    </a></li>
+
+    <li class="logout">
+        <form action="/DAM-Transversal/controller/UserController.php" method="POST">
+            <input type="hidden" name="logout">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </li>
+</ul>
