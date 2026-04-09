@@ -122,7 +122,7 @@ class UserController
 
         session_unset();
         session_destroy();
-        header("Location: login.php");
+        header("Location: ../view/home.html");
         exit;
     }
     public function update() {}

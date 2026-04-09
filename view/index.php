@@ -114,7 +114,7 @@
         <li><a href="events/event-detail.html">Eventos</a></li>
         <li class="logout">
             <form action="../controller/UserController.php" method="POST">
-                <input type="hidden" name="action" value="logout">
+                <input type="hidden" name="logout">
                 <button type="submit">Cerrar sesión</button>
             </form>
         </li>
