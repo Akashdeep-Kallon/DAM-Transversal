@@ -253,8 +253,15 @@ header {
     color: var(--accent);
 }
 
-.menu-width .logout a {
+.logout button {
     color: var(--accent);
+    background: none;
+    font-size: large;
+    border: none;
+    padding: 0;
+}
+.logout button:hover {
+    font-weight: bold;
 }
 
 #menu-toggle:checked~.menu-width {
