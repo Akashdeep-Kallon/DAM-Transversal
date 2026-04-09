@@ -8,11 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userController = new UserController();
 
     if (isset($_POST['register_lector'])) {
-        $userController->register_lector();
+        $userController->register(false);
     }
 
     if (isset($_POST['register_promotor'])) {
-        $userController->register_promotor();
+        $userController->register(true);
     }
 
     if (isset($_POST['login'])) {
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 class UserController
 {
     // create an employee
-    public function register_lector()
+    public function register($status)
     {
         if (!empty($_POST['name']) && !empty($_POST['lastname']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_confirm'])) {
             $name = $_POST['name'];
@@ -44,30 +44,7 @@ class UserController
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
-            $user = new Users($email, false, $name, $surname, $password);
-
-            $db = new Database();
-            $conexion = $db->getConexion();
-
-            $user->register($password_confirm, $conexion);
-        } else {
-            // $error = "Por favor, completa todos los campos.";
-            // header("Location: register-lector.php?error=" . urlencode($error));
-            //    exit;
-        }
-        exit();
-    }
-
-    public function register_promotor()
-    {
-        if (!empty($_POST['name']) && !empty($_POST['lastname']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_confirm'])) {
-            $name = $_POST['name'];
-            $surname = $_POST['lastname'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $password_confirm = $_POST['password_confirm'];
-
-            $user = new Users($email, false, $name, $surname, $password);
+            $user = new Users($email, $status, $name, $surname, $password);
 
             $db = new Database();
             $conexion = $db->getConexion();
@@ -115,11 +92,6 @@ class UserController
 
     public function logout()
     {
-        if (ini_get('session.use_cookies')) {
-            $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
-        }
-
         session_unset();
         session_destroy();
         header("Location: ../view/home.html");

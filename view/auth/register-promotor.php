@@ -42,14 +42,21 @@
                 <span>Introduce un correo electrónico válido.</span>
             </div>
 
-            <label class="sr-only" for="promoter-entity">Nombre del proyecto o editorial</label>
-            <input id="promoter-entity" name="entity" class="btn-input" type="text" placeholder="Proyecto / Editorial"
-                required minlength="2" maxlength="50">
-
-            <label class="sr-only" for="promoter-password">Contraseña</label>
-            <input id="promoter-password" class="btn-input input-password" type="password" name="password" placeholder="Contraseña"
-                required minlength="6" maxlength="20" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$"
+            <label class="sr-only" for="reader-password">Contraseña</label>
+            <input id="reader-password" class="btn-input input-password" type="password" name="password"
+                placeholder="Contraseña" required minlength="6" maxlength="20"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$"
                 title="La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.">
+
+            <div class="error-box error-password">
+                <span class="icon">ⓘ</span>
+                <span>La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.</span>
+            </div>
+
+            <label class="sr-only" for="reader-confirm">Confirmar contraseña</label>
+            <input id="reader-confirm" class="btn-input" type="password" name="password_confirm"
+                placeholder="Confirmar Contraseña" required minlength="6" maxlength="20"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$">
 
             <div class="error-box error-password">
                 <span class="icon">ⓘ</span>
