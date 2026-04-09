@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/styles/event.css" />
+    <link rel="stylesheet" href="../assets/styles/main.css" />
+    <title>Monogatarya - Evento</title>
+</head>
+
+<body>
+    <?php require 'includes/header.php'; ?>
+
+    <main class="page-main">
+        <div class="layout-container">
+            <article class="card-panel event-editorial" aria-labelledby="evento-titulo">
+                <section>
+                    <h2 id="evento-titulo" class="section-title">Salón Monogatarya 2026</h2>
+                    <figure class="event-hero-image">
+                        <img src="../assets/gallery/card-onePiece.webp"
+                            alt="Escenario principal del evento de manga y anime">
+                    </figure>
+                    <h3>Descripción</h3>
+                    <p>Encuentro anual para lectores, coleccionistas y promotores. Incluye presentaciones de autores,
+                        firmas, talleres y zona de exposición.</p>
+                </section>
+                <aside class="event-aside" aria-labelledby="datos-evento">
+                    <h3 id="datos-evento">Datos del evento</h3>
+                    <dl>
+                        <dt>Fecha</dt>
+                        <dd>20/11/2026</dd>
+                        <dt>Ubicación</dt>
+                        <dd>Fira Barcelona - Pabellón 3</dd>
+                        <dt>Aforo</dt>
+                        <dd>5.000 asistentes</dd>
+                        <dt>Horario</dt>
+                        <dd>10:00 - 21:00</dd>
+                    </dl>
+                    <div class="stack-actions">
+                        <button type="button" class="btn btn-add">Reservar plaza</button>
+
+                        <button type="button" class="btn btn-delete">Anular reserva</button>
+
+                        <a href="event-edit.html" class="btn btn-add">Editar evento (promotor)</a>
+                    </div>
+                </aside>
+            </article>
+        </div>
+    </main>
+    <?php require 'includes/menu.php'; ?>
+    <?php require 'includes/footer.php'; ?>
+</body>
+
+</html>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/styles/main.css" />
     <link rel="stylesheet" href="../assets/styles/user.css" />
-    <title>Monogatarya - Perfil de Usuario</title>
+    <title>Monogatarya - Perfil de Usuario (Promotor)</title>
 </head>
 
 <body>
@@ -20,7 +20,8 @@
             <img src="../assets/img/logo.webp" alt="Logo de la página">
             <h1>MONOGATARYA</h1>
             <div class="right-group">
-                <a href="profile-view.html" class="icon-btn white user-link" aria-label="Ir al perfil de lector">
+
+                <a href="profile_promotor-view.html" class="icon-btn white user-link" aria-label="Ir al perfil de promotor">
                     <svg class="icon">
                         <use href="../assets/img/icon-sprites.svg#usuario"></use>
                     </svg>
@@ -33,7 +34,7 @@
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel profile-panel" aria-labelledby="perfil-titulo">
-                <h2 id="perfil-titulo" class="section-title">Perfil del usuario</h2>
+                <h2 id="perfil-titulo" class="section-title">Perfil del promotor</h2>
                 <form class="profile-layout" action="../index.html" method="post">
 
                     <!-- COLUMNA IZQUIERDA -->
@@ -86,29 +87,8 @@
             </section>
         </div>
     </main>
-
-    <input type="checkbox" id="menu-toggle">
-
-    <ul class="menu-width">
-        <li><a href="../index.html">Página de inicio</a></li>
-        <li><a href="../catalogs/anime/anime-catalog.html">Catálogo de animes</a></li>
-        <li><a href="../catalogs/manga/manga-catalog.html">Catálogo de mangas</a></li>
-        <li><a href="../events/event-detail.html">Eventos</a></li>
-        <li class="logout"><a href="../home.html">Cerrar sesión</a></li>
-    </ul>
-
-    <footer class="site-footer">
-        <nav class="container" aria-label="Mapa web del sitio">
-            <a href="index.html">Inicio</a>
-            <a href="catalogs/anime/anime-catalog.html">Catálogo de animes</a>
-            <a href="catalogs/manga/manga-catalog.html">Catálogo de mangas</a>
-            <a href="events/event-detail.html">Eventos</a>
-            <a href="profiles/profile-view.html">Perfil</a>
-            <a href="home.html">Cerrar sesión</a>   
-        </nav>
-        <p class="footer-legal">© 2026 Monogatarya. Todos los derechos reservados.</p>
-    </footer>
-
+    <?php require 'includes/menu.php'; ?>
+    <?php require 'includes/footer.php'; ?>
 </body>
 
 </html>
