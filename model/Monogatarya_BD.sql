@@ -10,7 +10,7 @@ We generated a database for our transversal project
 We updated the database with the necessary tables for the project, including the relationships between them.
 */
 
-USE sql7820250;
+USE sql7822562;
 
 -- Create Users table --
 CREATE TABLE IF NOT EXISTS Users
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS Chapters
     ID_Mangas VARCHAR(20), -- FK --
 
     CONSTRAINT PK_Chapters PRIMARY KEY (ID_Chapters),
-    CONSTRAINT FK_Mangas_Chapters FOREIGN KEY (ID_Mangas) REFERENCES BD_Mangas(ID_Mangas) ON DELETE CASCADE
+    CONSTRAINT FK_Mangas_Chapters FOREIGN KEY (ID_Mangas) REFERENCES Mangas(ID_Mangas) ON DELETE CASCADE
 );
 
 -- Crear procedure de comprovar el email si exite o no --
