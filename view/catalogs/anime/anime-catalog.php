@@ -14,6 +14,7 @@
 
     <main class="page-main">
         <div class="layout-container">
+
             <section class="card-panel" aria-labelledby="catalogo-title">
                 <h2 id="catalogo-title" class="section-title">Catálogo de animes</h2>
 
@@ -25,6 +26,16 @@
                     </article>
                 </div>
             </section>
+
+        <?php 
+
+        echo '<div class="paginacion">'; 
+        for($i=1; $i <= 10; $i++){
+        echo '<a href="anime-catalog.php?page='.$i.'">'.$i.'</a>';
+        }
+        echo '</div>'; 
+        ?>                
+
         </div>
     </main>
     <?php require '../../includes/menu.php'; ?>

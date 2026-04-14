@@ -20,4 +20,5 @@ class Database
         $this->conexion->set_charset("utf8mb4");
         return $this->conexion;
     }
+    
 }
