@@ -17,7 +17,7 @@
             <section class="card-panel" aria-labelledby="crear-evento-title">
                 <h2 id="crear-evento-title" class="section-title">Formulario de creación de evento de anime</h2>
                 
-                <form class="form-vertical" action="../../controller/UserController.php" method="post" enctype="multipart/form-data">
+                <form class="form-vertical" action="../../../controller/UserController.php" method="post" enctype="multipart/form-data">
 
                     <div class="field-group">
                         <label for="nombre-anime">Título del anime</label>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="field-group">
                         <label for="subtitulo-anime">Subir video</label>
-                        <input id="subtitulo-anime" type="file" name="A_video" accept="video/*" required>
+                        <input id="subtitulo-anime" type="file" name="A_video" accept="video/*">
                     </div>
                     <div class="field-group">
                         <label for="fecha-estreno">Fecha de estreno</label>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="field-group">
                         <label for="descripcion-evento">Descripcion</label>
-                        <textarea id="descripcion-evento" name="A_descripcion" required minlength="10" maxlength="300"></textarea>
+                        <textarea id="descripcion-evento" name="A_descripcion" required minlength="1" maxlength="300"></textarea>
                     </div>
 
                     <div class="inline-actions">

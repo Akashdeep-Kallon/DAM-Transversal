@@ -107,7 +107,7 @@ class UserController
             $episodios = $_POST['A_episodios'];
             $duracion = $_POST['A_duracion'];
             $imagen = $_POST['A_imagen'];
-            $video = $_FILES['A_video']['name'];
+            //$video = $_FILES['A_video']['name'];
             $fecha_estreno = $_POST['A_fecha_estreno'];
             $estudio = $_POST['A_estudio'];
             $generos = $_POST['A_generos'];
@@ -121,7 +121,7 @@ class UserController
                 $episodios,
                 $duracion,
                 '$imagen',
-                '$video',
+                '$fecha_estreno',
                 '$estudio',
                 '$generos',
                 '$descripcion'
