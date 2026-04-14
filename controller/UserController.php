@@ -30,6 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete'])) {
         $userController->delete();
     }
+    if (isset($_POST['crearAnime'])) {
+        $userController->createAnime();
+    }
 }
 
 class UserController
@@ -94,6 +97,11 @@ class UserController
         session_destroy();
         header("Location: /DAM-Transversal/view/home.html");
         exit;
+    }
+
+    public function createAnime() 
+    {
+
     }
     public function update() {}
     // delete an employee
