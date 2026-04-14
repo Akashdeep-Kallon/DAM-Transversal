@@ -12,7 +12,7 @@ class Catalog
         $connection = $db->getConnection();
 
         // ── 1. Cuántos animes hay en total 
-        $queryTotal = mysqli_query($connection, "SELECT COUNT(*) AS total FROM $catalog");
+        $queryTotal = mysqli_query($connection, "SELECT COUNT(*) AS total FROM Works WHERE Type = '$catalog'");
         $fila = mysqli_fetch_assoc($queryTotal);
         $totalMedia = $fila['total'];
 
@@ -44,7 +44,8 @@ class Catalog
         $offset = ($page - 1) * $limit;
 
         // ── 6. Consulta con LIMIT y OFFSET 
-        $sql = "SELECT * FROM $catalog LIMIT $limit OFFSET $offset";
+        
+        $sql = "SELECT * FROM Works WHERE Type = '$catalog' LIMIT $limit OFFSET $offset";
         $query = mysqli_query($connection, $sql);
 
         return [

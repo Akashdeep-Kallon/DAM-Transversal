@@ -14,7 +14,7 @@
     require_once '../../../controller/CatalogController.php';
     require_once '../../../model/db.php';
     $catalog = new Catalog();
-    $result = $catalog->returnCatalog('Animes');
+    $result = $catalog->returnCatalog('Anime');
     $query = $result['query'];
     $page = $result['page'];
     $totalPages = $result['totalPages'];
@@ -36,7 +36,7 @@
                         $img = !empty($anime['Image']) ? htmlspecialchars($anime['Image']) : '../../assets/img/background-image.webp';
                         $title = htmlspecialchars($anime['Title']);
                         $subtitle = htmlspecialchars($anime['Subtitle']);
-                        $id = $anime['ID_Anime'];
+                        $id = $anime['ID_Work'];
                     ?>
                         <article class="content-card">
                             <img class="card-image" src="<?php echo $img; ?>" alt="Portada de <?php echo $title; ?>">

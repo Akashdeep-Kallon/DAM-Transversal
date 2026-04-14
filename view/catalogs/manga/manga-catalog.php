@@ -14,7 +14,7 @@
     require_once '../../../controller/CatalogController.php';
     require_once '../../../model/db.php';
     $catalog = new Catalog();
-    $result = $catalog->returnCatalog('Mangas');
+    $result = $catalog->returnCatalog('Manga');
     $query = $result['query'];
     $page = $result['page'];
     $totalPages = $result['totalPages'];
@@ -36,7 +36,7 @@
                         $img = !empty($manga['Image']) ? htmlspecialchars($manga['Image']) : '../../assets/img/background-image.webp';
                         $title = htmlspecialchars($manga['Title']);
                         $subtitle = htmlspecialchars($manga['Subtitle']);
-                        $id = $manga['ID_Manga'];
+                        $id = $manga['ID_Work'];
                     ?>
                         <article class="content-card">
                             <img class="card-image" src="<?php echo $img; ?>" alt="Portada de <?php echo $title; ?>">
