@@ -3,7 +3,7 @@ session_start();
 require_once '../model/db.php';
 class Catalog
 {
-    private $ID;
+    private $ID_Work;
     private $ID_User;
 
     public function returnCatalog($catalog)

@@ -1,14 +1,26 @@
 /*
- Sergi Ye
- Akashdeep Singh
- Jinnan Chen
- Eric Huang
- 01/12/2025
- We generated a database for our transversal project
- 
- 18/03/2026
- We updated the database with the necessary tables for the project, including the relationships between them.
- */
+  Sergi Ye
+  Akashdeep Singh
+  Jinnan Chen
+  Eric Huang
+
+  01/12/2025
+  We generated the initial database structure for our transversal project.
+
+  18/03/2026
+  We updated the database with the necessary tables and relationships.
+
+  14/04/2026
+  Major refactor:
+  - Unified the old 'Mangas' and 'Animes' tables into a single 'Works' table.
+  - Added the 'Type' field (Manga/Anime) to classify each work.
+  - Updated the structure to avoid duplicated schemas and improve scalability.
+  - Created a universal 'Chapters' table linked to 'Works' via ID_Work.
+  - Updated stored procedures, including error handling with SIGNAL and ROLLBACK.
+  - Migrated old INSERT data from 'Animes' to the new 'Works' format.
+  - Improved login and email-check procedures for better security and consistency.
+*/
+
 USE sql7822562;
 
 -- USERS
