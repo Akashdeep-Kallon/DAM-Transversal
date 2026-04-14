@@ -72,11 +72,10 @@
                         $img = !empty($anime['Image']) ? htmlspecialchars($anime['Image']) : '../../assets/img/background-image.webp';
                         $title = htmlspecialchars($anime['Title']);
                         $subtitle = htmlspecialchars($anime['Subtitle']);
-                        $id = $anime['IDAnimes'];
+                        $id = $anime['ID_Anime'];
                         ?>
                         <article class="content-card">
-                            <img class="card-image" src="<?php echo $img; ?>"
-                                alt="Portada de <?php echo $title; ?>">
+                            <img class="card-image" src="<?php echo $img; ?>" alt="Portada de <?php echo $title; ?>">
                             <h3><?php echo $title; ?></h3>
                             <p><?php echo $subtitle; ?></p>
                             <a class="btn-link" href="anime-detail.php?id=<?php echo $id; ?>">

@@ -112,8 +112,7 @@ CREATE TABLE IF NOT EXISTS Chapters (
 );
 
 -- Crear procedure de comprovar el email si exite o no --
-DELIMITER // 
-CREATE PROCEDURE sp_comprovar_email(IN emailP varchar(50), OUT exist boolean) BEGIN
+DELIMITER / / CREATE PROCEDURE sp_comprovar_email(IN emailP varchar(50), OUT exist boolean) BEGIN
 SELECT
     EXISTS(
         SELECT
@@ -124,12 +123,10 @@ SELECT
             email = emailP
     ) INTO exist;
 
-END // 
-DELIMITER;
+END / / DELIMITER;
 
 -- Crear un procedure para validar si el login esta bien --
-DELIMITER // 
-CREATE PROCEDURE sp_login(
+DELIMITER / / CREATE PROCEDURE sp_login(
     IN emailP varchar(50),
     IN passwordP varchar(100),
     OUT valido boolean
@@ -145,12 +142,10 @@ SELECT
             AND password = passwordP
     ) INTO valido;
 
-END // 
-DELIMITER;
+END / / DELIMITER;
 
 -- CREAR ANIME --
-DELIMITER // 
-CREATE PROCEDURE sp_crearAnime(
+DELIMITER / / CREATE PROCEDURE sp_crearAnime(
     IN p_Title VARCHAR(25),
     IN p_Subtitle VARCHAR(25),
     IN p_EpisodeCount INT,
@@ -192,13 +187,279 @@ VALUES
         p_ID_User
     );
 
-END //
-DELIMITER ;
+END / / DELIMITER;
 
 DROP TABLE Animes;
+
 DROP TABLE Catalogs;
+
 DROP TABLE Chapters;
+
 DROP TABLE Episodes;
+
 DROP TABLE Events;
+
 DROP TABLE Mangas;
+
 DROP TABLE Users;
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'One Piece',
+        NULL,
+        NULL,
+        NULL,
+        'https://i.imgur.com/ZmYD4Uo.jpeg',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'El anime más popular del momento',
+        NULL
+    );
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'Cyberpunk: Edgerunners',
+        NULL,
+        NULL,
+        NULL,
+        'https://static.wikia.nocookie.net/cyberpunk/images/c/c1/Cyberpunk_Edgerunners_Trigger_2.jpg',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'Historias de un futuro donde la tecnología cambia la vida de todos',
+        NULL
+    );
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'Naruto',
+        NULL,
+        NULL,
+        NULL,
+        'https://m.media-amazon.com/images/M/MV5BZTNjOWI0ZTAtOGY1OS00ZGU0LWEyOWYtMjhkYjdlYmVjMDk2XkEyXkFqcGc@._V1_.jpg',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'La historia de un ninja que nunca se rinde y lucha por sus sueños',
+        NULL
+    );
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'Frieren: Beyond Journey''s End',
+        NULL,
+        NULL,
+        NULL,
+        'https://es.web.img3.acsta.net/c_310_420/pictures/23/07/31/10/02/0006409.jpg',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'Anime mejor valorado',
+        NULL
+    );
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'Kimetsu no Yaiba',
+        NULL,
+        NULL,
+        NULL,
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlx52AOnIL8Vq7yJLUK9ZwNOLUXL9Gi9-grg&s',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'Un joven lucha contra demonios para salvar a su hermana y proteger a los demás',
+        NULL
+    );
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'Jujutsu Kaisen',
+        NULL,
+        NULL,
+        NULL,
+        'https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/03/poster-jujutsu-kaisen-2.jpg?resize=1280%2C1810&ssl=1',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'Un estudiante de secundaria que se involucra en luchas contra espíritus malvados',
+        NULL
+    );
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'Re:Zero',
+        NULL,
+        NULL,
+        NULL,
+        'https://m.media-amazon.com/images/M/MV5BOTIyNGIzY2EtYjMyZS00Y2M0LWE4MTktNmQ3Y2IwZTBhNWE2XkEyXkFqcGc@._V1_.jpg',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'Un joven que es transportado a un mundo mágico y debe luchar por su supervivencia',
+        NULL
+    );
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'Steins;Gate',
+        NULL,
+        NULL,
+        NULL,
+        'https://m.media-amazon.com/images/M/MV5BZjI1YjZiMDUtZTI3MC00YTA5LWIzMmMtZmQ0NTZiYWM4NTYwXkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'Un joven que descubre un experimento que le permite viajar en el tiempo',
+        NULL
+    );
+
+INSERT INTO
+    Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Date_premiere,
+        Gender,
+        Description,
+        email
+    )
+VALUES
+    (
+        'Ficha 9',
+        NULL,
+        NULL,
+        NULL,
+        '../../assets/img/background-image.webp',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        'Descripción de la ficha',
+        NULL
+    );
