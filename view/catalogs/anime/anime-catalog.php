@@ -15,7 +15,7 @@
     require_once '../../../model/db.php';
     $catalog = new Catalog();
     $result = $catalog->returnCatalog('Animes');
-    $anime = $result['media'];
+    $query = $result['query'];
     $page = $result['page'];
     $totalPages = $result['totalPages'];
     require '../../includes/header.php';
@@ -31,13 +31,13 @@
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">
-                    <?php while ($anime) {
+                    <?php while ($anime = mysqli_fetch_assoc($query)) {
                         // Si la BD tiene columna de imagen úsala; si no, placeholder
                         $img = !empty($anime['Image']) ? htmlspecialchars($anime['Image']) : '../../assets/img/background-image.webp';
                         $title = htmlspecialchars($anime['Title']);
                         $subtitle = htmlspecialchars($anime['Subtitle']);
                         $id = $anime['ID_Anime'];
-                        ?>
+                    ?>
                         <article class="content-card">
                             <img class="card-image" src="<?php echo $img; ?>" alt="Portada de <?php echo $title; ?>">
                             <h3><?php echo $title; ?></h3>

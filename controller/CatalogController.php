@@ -47,12 +47,10 @@ class Catalog
         $sql = "SELECT * FROM $catalog LIMIT $limite OFFSET $offset";
         $query = mysqli_query($conexion, $sql);
 
-        $media = mysqli_fetch_assoc($query);
-
         return [
             'page' => $page,
             'totalPages' => $totalPages,
-            'media' => $media
+            'query' => $query
         ];
     }
 }
