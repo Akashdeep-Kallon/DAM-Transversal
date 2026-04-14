@@ -16,37 +16,56 @@
         <div class="layout-container">
             <section class="card-panel" aria-labelledby="crear-evento-title">
                 <h2 id="crear-evento-title" class="section-title">Formulario de creación de evento de anime</h2>
-                <form class="form-vertical" action="../../events/event-detail.html" method="post">
+                
+                <form class="form-vertical" action="../../controller/UserController.php" method="post">
 
                     <div class="field-group">
                         <label for="nombre-anime">Título del anime</label>
-                        <input id="nombre-anime" type="text" name="nombre" required minlength="3" maxlength="50">
+                        <input id="nombre-anime" type="text" name="A_nombre" required minlength="3" maxlength="50">
+                    </div>
+                    <div class="field-group">
+                        <label for="subtitulo-anime">Subtitulo del anime</label>
+                        <input id="subtitulo-anime" type="text" name="A_subtitulo" required minlength="5" maxlength="50">
+                    </div>
+                    <div class="field-group">
+                        <label for="subtitulo-anime">Numero de episodios</label>
+                        <input id="subtitulo-anime" type="text" name="A_episodios" required min="1">
+                    </div>
+                    <div class="field-group">
+                        <label for="subtitulo-anime">Duracion de episodios(minutos)</label>
+                        <input id="subtitulo-anime" type="text" name="A_duracion" required min="1">
+                    </div>
+                    <div class="field-group">
+                        <label for="subtitulo-anime">Link de Img portada</label>
+                        <input id="subtitulo-anime" type="text" name="A_imagen" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="subtitulo-anime">Subir video</label>
+                        <input id="subtitulo-anime" type="file" name="A_video" accept="video/*" required>
                     </div>
                     <div class="field-group">
                         <label for="fecha-estreno">Fecha de estreno</label>
-                        <input id="fecha-estreno" type="date" name="fecha_estreno" required>
+                        <input id="fecha-estreno" type="date" name="A_fecha_estreno" required>
                     </div>
                     <div class="field-group">
-                        <label for="estudio-anime">Estudio / plataforma</label>
-                        <input id="estudio-anime" type="text" name="estudio" required minlength="3">
+                        <label for="fecha-estreno">Estudio / plataforma</label>
+                        <input id="fecha-estreno" type="text" name="A_estudio" required>
                     </div>
                     <div class="field-group">
-                        <label for="temporada-anime">Temporada</label>
-                        <input id="temporada-anime" type="number" name="temporada" min="1" required>
+                        <label for="fecha-estreno">Generos</label>
+                        <input id="fecha-estreno" type="text" name="A_generos" required>
                     </div>
                     <div class="field-group">
-                        <label for="descripcion-evento">Sinopsis</label>
-                        <textarea id="descripcion-evento" name="descripcion" required minlength="10" maxlength="300"></textarea>
+                        <label for="descripcion-evento">Descripcion</label>
+                        <textarea id="descripcion-evento" name="A_descripcion" required minlength="10" maxlength="300"></textarea>
                     </div>
-                    <div class="field-group">
-                        <label for="imagen">Portada del anime</label>
-                        <input id="imagen" type="file" name="imagen" accept="image/*" required>
-                    </div>
+
                     <div class="inline-actions">
-                        <button type="submit" class="btn btn-add">Crear evento</button>
-                        <button type="reset" class="btn btn-delete">Cancelar</button>
+                        <button type="submit" class="btn btn-add" name="crearAnime">Crear evento</button>
+                        <button type="reset" class="btn btn-delete" name="cancelar">Cancelar</button>
                     </div>
                 </form>
+
             </section>
         </div>
     </main>

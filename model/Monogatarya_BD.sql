@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS Animes (
     Duration INT,
     Image VARCHAR(500),
     Video VARCHAR(100),
-    Studie VARCHAR(25),
+    Studio VARCHAR(25),
     Gender VARCHAR(50),
     Description VARCHAR(500),
     email VARCHAR(50),

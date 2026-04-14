@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../assets/styles/main.css" />
     <link rel="stylesheet" href="../../assets/styles/catalog.css" />
-    <title>Monogatarya - Catálogo de animes</title>
+    <title>Monogatarya - Catálogo de Animes</title>
 </head>
 
 <body>
