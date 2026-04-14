@@ -16,10 +16,10 @@ class Users
         $this->password = $password;
     }
 
-    public function register($password_confirm, $conexion)
+    public function register($password_confirm, $connection)
     {
-        $conexion->query("CALL sp_comprovar_email('$this->email', @result)");
-        $result = $conexion->query("SELECT @result AS exist");
+        $connection->query("CALL sp_comprovar_email('$this->email', @result)");
+        $result = $connection->query("SELECT @result AS exist");
         $row = $result->fetch_assoc();
         $exist = intval($row["exist"]); // 1 o 0
 
@@ -34,13 +34,13 @@ class Users
         }
 
         if ($this->password === $password_confirm && $exist === 0) {
-            $insert = $conexion->query("INSERT INTO Users (email, promotor, name, surname, password)
+            $connection->query("INSERT INTO Users (email, promotor, name, surname, password)
                 VALUES ('$this->email', $this->status, '$this->name', '$this->surname', '$this->password')");
             header('Location: ../view/index.php');
             exit();
         }
 
         $result->close();
-        $conexion->close();
+        $connection->close();
     }
 }

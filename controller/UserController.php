@@ -49,9 +49,9 @@ class UserController
             $user = new Users($email, $status, $name, $surname, $password);
 
             $db = new Database();
-            $conexion = $db->getConexion();
+            $connection = $db->getConnection();
 
-            $user->register($password_confirm, $conexion);
+            $user->register($password_confirm, $connection);
         } else {
             // $error = "Por favor, completa todos los campos.";
             // header("Location: register-lector.php?error=" . urlencode($error));
@@ -68,10 +68,10 @@ class UserController
             $password = $_POST['password'];
 
             $db = new Database();
-            $conexion = $db->getConexion();
+            $connection = $db->getConnection();
 
-            $conexion->query("CALL sp_login('$email', '$password', @result)");
-            $result = $conexion->query("SELECT @result AS exist");
+            $connection->query("CALL sp_login('$email', '$password', @result)");
+            $result = $connection->query("SELECT @result AS exist");
             $row = $result->fetch_assoc();
             $exist = intval($row["exist"]); // 1 o 0
 
@@ -114,8 +114,8 @@ class UserController
             $descripcion = $_POST['A_descripcion'];
            
             $db = new Database();
-            $conexion = $db->getConexion();
-            $conexion->query("CALL sp_crearAnime(
+            $connection = $db->getConnection();
+            $connection->query("CALL sp_crearAnime(
                 '$anime',
                 '$subtitulo',
                 $episodios,

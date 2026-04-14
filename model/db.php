@@ -7,18 +7,18 @@ class Database
     private $password = "BEu3RFH9hk";
     private $base_datos = "sql7822562";
 
-    public $conexion;
+    public $connection;
 
-    public function getConexion()
+    public function getConnection()
     {
-        $this->conexion = new mysqli($this->host, $this->usuario, $this->password, $this->base_datos);
+        $this->connection = new mysqli($this->host, $this->usuario, $this->password, $this->base_datos);
 
-        if ($this->conexion->connect_error) {
-            die("Error de conexión: " . $this->conexion->connect_error);
+        if ($this->connection->connect_error) {
+            die("Error de conexión: " . $this->connection->connect_error);
         }
 
-        $this->conexion->set_charset("utf8mb4");
-        return $this->conexion;
+        $this->connection->set_charset("utf8mb4");
+        return $this->connection;
     }
     
 }

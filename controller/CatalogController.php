@@ -9,18 +9,18 @@ class Catalog
     public function returnCatalog($catalog)
     {
         $db = new Database();
-        $conexion = $db->getConexion();
+        $connection = $db->getConnection();
 
         // ── 1. Cuántos animes hay en total 
-        $queryTotal = mysqli_query($conexion, "SELECT COUNT(*) AS total FROM $catalog");
+        $queryTotal = mysqli_query($connection, "SELECT COUNT(*) AS total FROM $catalog");
         $fila = mysqli_fetch_assoc($queryTotal);
         $totalMedia = $fila['total'];
 
         // ── 2. Cuántos mostramos por página 
-        $limite = 6;
+        $limit = 6;
 
         // ── 3. Cuántas páginas necesitamos 
-        $totalPages = ceil($totalMedia / $limite);
+        $totalPages = ceil($totalMedia / $limit);
 
         // ── 4. En qué página estamos (viene de ?page=N en la URL) 
         if (isset($_GET['page'])) {
@@ -41,11 +41,11 @@ class Catalog
         // Página 1 → offset 0  (empieza desde el primero)
         // Página 2 → offset 6  (empieza desde el séptimo)
         // Página 3 → offset 12 (empieza desde el treceavo) ...
-        $offset = ($page - 1) * $limite;
+        $offset = ($page - 1) * $limit;
 
         // ── 6. Consulta con LIMIT y OFFSET 
-        $sql = "SELECT * FROM $catalog LIMIT $limite OFFSET $offset";
-        $query = mysqli_query($conexion, $sql);
+        $sql = "SELECT * FROM $catalog LIMIT $limit OFFSET $offset";
+        $query = mysqli_query($connection, $sql);
 
         return [
             'page' => $page,
