@@ -34,7 +34,7 @@ class Users
         }
 
         if ($this->password === $password_confirm && $exist === 0) {
-            $connection->query("INSERT INTO Users (email, promotor, name, surname, password)
+            $connection->query("INSERT INTO Users (email, status, name, surname, password)
                 VALUES ('$this->email', $this->status, '$this->name', '$this->surname', '$this->password')");
             header('Location: ../view/index.php');
             exit();
