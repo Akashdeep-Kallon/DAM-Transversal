@@ -59,13 +59,13 @@
                         <label for="descripcion-evento">Descripcion</label>
                         <textarea id="descripcion-evento" name="A_descripcion" required minlength="10" maxlength="300"></textarea>
                     </div>
-                    
+
                     <div class="inline-actions">
                         <button type="submit" class="btn btn-add" name="crearAnime">Crear evento</button>
                         <button type="reset" class="btn btn-delete" name="cancelar">Cancelar</button>
                     </div>
                 </form>
-                ?>
+
             </section>
         </div>
     </main>
