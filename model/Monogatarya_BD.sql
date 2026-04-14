@@ -11,19 +11,19 @@
  */
 USE sql7822562;
 
--- Create Users table --
+-- USERS
 CREATE TABLE IF NOT EXISTS Users (
-    email varchar(50) not null,
-    promotor boolean default false,
-    name varchar(50) not null,
-    surname varchar(50) not null,
-    password varchar(100) not null,
-    constraint PK_Usuarios primary key (email)
+    email VARCHAR(50) NOT NULL,
+    promotor BOOLEAN DEFAULT FALSE,
+    name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_Users PRIMARY KEY (email)
 );
 
--- Create Events table --
+-- EVENTS
 CREATE TABLE IF NOT EXISTS Events (
-    ID_Event VARCHAR(25),
+    ID_Event VARCHAR(25) NOT NULL,
     Name VARCHAR(50),
     Description VARCHAR(100),
     Date DATE,
@@ -31,432 +31,209 @@ CREATE TABLE IF NOT EXISTS Events (
     CONSTRAINT PK_Events PRIMARY KEY (ID_Event)
 );
 
--- Create Catalogs table (M-M Users <-> Events) --
+-- CATALOGS (M-M)
 CREATE TABLE IF NOT EXISTS Catalogs (
     email VARCHAR(50),
     ID_Event VARCHAR(25),
     CONSTRAINT PK_Catalogs PRIMARY KEY (email, ID_Event),
-    CONSTRAINT FK_CV_Users FOREIGN KEY (email) REFERENCES Users(email) ON DELETE CASCADE,
-    CONSTRAINT FK_CV_Events FOREIGN KEY (ID_Event) REFERENCES Events(ID_Event) ON DELETE CASCADE
+    CONSTRAINT FK_Catalogs_Users FOREIGN KEY (email) 
+        REFERENCES Users(email) ON DELETE CASCADE,
+    CONSTRAINT FK_Catalogs_Events FOREIGN KEY (ID_Event) 
+        REFERENCES Events(ID_Event) ON DELETE CASCADE
 );
 
--- Create Animes table --
+-- ANIMES
 CREATE TABLE IF NOT EXISTS Animes (
     ID_Anime INT AUTO_INCREMENT,
     Title VARCHAR(25),
     Subtitle VARCHAR(100),
-    EpisodeCount INT,
+    Episodes INT,
     Duration INT,
     Image VARCHAR(500),
     Video VARCHAR(100),
-    Studio VARCHAR(25),
     Date_premiere DATE,
+    Studio VARCHAR(25),
     Gender VARCHAR(50),
     Description VARCHAR(500),
     email VARCHAR(50),
-    -- FK --
     CONSTRAINT PK_Animes PRIMARY KEY (ID_Anime),
-    CONSTRAINT FK_Users_Animes FOREIGN KEY (email) REFERENCES Users(email) ON DELETE
-    SET
-        NULL
+    CONSTRAINT FK_Users_Animes FOREIGN KEY (email) 
+        REFERENCES Users(email) ON DELETE SET NULL
 );
 
--- Create Episodes table --
+-- EPISODES
 CREATE TABLE IF NOT EXISTS Episodes (
     ID_Episode INT AUTO_INCREMENT,
-    AnimeName VARCHAR(25),
+    Anime_Name VARCHAR(25),
     Title VARCHAR(50),
     Description VARCHAR(100),
     Link VARCHAR(500),
-    EpisodeNumber INT,
-    IDAnime INT,
-    -- FK --
+    ID_Anime INT,
     CONSTRAINT PK_Episodes PRIMARY KEY (ID_Episode),
-    CONSTRAINT FK_Animes_Episodes FOREIGN KEY (ID_Anime) REFERENCES Animes(ID_Anime) ON DELETE CASCADE
+    CONSTRAINT FK_Animes_Episodes FOREIGN KEY (ID_Anime) 
+        REFERENCES Animes(ID_Anime) ON DELETE CASCADE
 );
 
--- Create Mangas table --
+-- MANGAS
 CREATE TABLE IF NOT EXISTS Mangas (
     ID_Manga INT AUTO_INCREMENT,
     Title VARCHAR(25),
     Subtitle VARCHAR(25),
-    ChapterNumber INT,
-    Duration INT,
-    Date_premiere DATE,
+    Chapters INT,
     Image VARCHAR(100),
-    Video VARCHAR(100),
-    Studie VARCHAR(25),
+    Date_premiere DATE,
+    Studio VARCHAR(25),
     Gender VARCHAR(50),
     Description VARCHAR(100),
     email VARCHAR(50),
-    -- FK --
     CONSTRAINT PK_Mangas PRIMARY KEY (ID_Manga),
-    CONSTRAINT FK_Users_Mangas FOREIGN KEY (email) REFERENCES Users(email) ON DELETE
-    SET
-        NULL
+    CONSTRAINT FK_Users_Mangas FOREIGN KEY (email) 
+        REFERENCES Users(email) ON DELETE SET NULL
 );
 
--- Create Chapters table --
+-- CHAPTERS
 CREATE TABLE IF NOT EXISTS Chapters (
     ID_Chapter INT AUTO_INCREMENT,
-    MangaName VARCHAR(50),
+    Manga_Name VARCHAR(50),
     Title VARCHAR(50),
-    ChapterNumber INT,
     Description VARCHAR(100),
     Link VARCHAR(500),
-    PageCount INT,
     ID_Manga INT,
-    -- FK --
     CONSTRAINT PK_Chapters PRIMARY KEY (ID_Chapter),
-    CONSTRAINT FK_Mangas_Chapters FOREIGN KEY (ID_Manga) REFERENCES Mangas(ID_Manga) ON DELETE CASCADE
+    CONSTRAINT FK_Mangas_Chapters FOREIGN KEY (ID_Manga) 
+        REFERENCES Mangas(ID_Manga) ON DELETE CASCADE
 );
 
--- Crear procedure de comprovar el email si exite o no --
-DELIMITER / / CREATE PROCEDURE sp_comprovar_email(IN emailP varchar(50), OUT exist boolean) BEGIN
-SELECT
-    EXISTS(
-        SELECT
-            email
-        FROM
-            Users
-        WHERE
-            email = emailP
+-- PROCEDURES
+DELIMITER //
+
+CREATE PROCEDURE sp_comprovar_email(
+    IN emailP VARCHAR(50),
+    OUT exist BOOLEAN
+)
+BEGIN
+    SELECT EXISTS(
+        SELECT 1 FROM Users WHERE email = emailP
     ) INTO exist;
+END //
 
-END / / DELIMITER;
-
--- Crear un procedure para validar si el login esta bien --
-DELIMITER / / CREATE PROCEDURE sp_login(
-    IN emailP varchar(50),
-    IN passwordP varchar(100),
-    OUT valido boolean
-) BEGIN
-SELECT
-    EXISTS(
-        SELECT
-            *
-        FROM
-            Users
-        WHERE
-            email = emailP
-            AND password = passwordP
+CREATE PROCEDURE sp_login(
+    IN emailP VARCHAR(50),
+    IN passwordP VARCHAR(100),
+    OUT valido BOOLEAN
+)
+BEGIN
+    SELECT EXISTS(
+        SELECT 1 FROM Users 
+        WHERE email = emailP AND password = passwordP
     ) INTO valido;
+END //
 
-END / / DELIMITER;
-
--- CREAR ANIME --
-DELIMITER / / CREATE PROCEDURE sp_crearAnime(
+CREATE PROCEDURE sp_crearAnime(
     IN p_Title VARCHAR(25),
-    IN p_Subtitle VARCHAR(25),
-    IN p_EpisodeCount INT,
+    IN p_Subtitle VARCHAR(100),
+    IN p_Episodes INT,
     IN p_Duration INT,
-    IN p_Image VARCHAR(100),
+    IN p_Image VARCHAR(500),
     IN p_Studio VARCHAR(25),
     IN p_Date_premiere DATE,
     IN p_Gender VARCHAR(50),
-    IN p_Description VARCHAR(100),
-    IN p_ID_User VARCHAR(50)
-) BEGIN
-INSERT INTO
-    Animes (
+    IN p_Description VARCHAR(500),
+    IN p_email VARCHAR(50)
+)
+BEGIN
+    INSERT INTO Animes (
         Title,
         Subtitle,
-        EpisodeCount,
+        Episodes,
         Duration,
         Image,
         Studio,
         Date_premiere,
         Gender,
         Description,
-        ID_User
+        email
     )
-VALUES
-    (
+    VALUES (
         p_Title,
         p_Subtitle,
-        p_EpisodeCount,
+        p_Episodes,
         p_Duration,
         p_Image,
         p_Studio,
         p_Date_premiere,
         p_Gender,
         p_Description,
-        p_ID_User
+        p_email
     );
+END //
 
-END / / DELIMITER;
-
+CREATE PROCEDURE drop_tables()
+BEGIN
 DROP TABLE Animes;
-
 DROP TABLE Catalogs;
-
 DROP TABLE Chapters;
-
 DROP TABLE Episodes;
-
 DROP TABLE Events;
-
 DROP TABLE Mangas;
-
 DROP TABLE Users;
+END //
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
-VALUES
-    (
-        'One Piece',
-        NULL,
-        NULL,
-        NULL,
-        'https://i.imgur.com/ZmYD4Uo.jpeg',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'El anime más popular del momento',
-        NULL
-    );
+DELIMITER ;
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
+INSERT INTO Animes 
+(Title, Subtitle, Episodes, Duration, Image, Video, Date_premiere, Studio, Gender, Description, email)
 VALUES
-    (
-        'Cyberpunk: Edgerunners',
-        NULL,
-        NULL,
-        NULL,
-        'https://static.wikia.nocookie.net/cyberpunk/images/c/c1/Cyberpunk_Edgerunners_Trigger_2.jpg',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'Historias de un futuro donde la tecnología cambia la vida de todos',
-        NULL
-    );
+('One Piece', NULL, NULL, NULL,
+ 'https://i.imgur.com/ZmYD4Uo.jpeg',
+ NULL, NULL, NULL, NULL,
+ 'El anime más popular del momento',
+ NULL),
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
-VALUES
-    (
-        'Naruto',
-        NULL,
-        NULL,
-        NULL,
-        'https://m.media-amazon.com/images/M/MV5BZTNjOWI0ZTAtOGY1OS00ZGU0LWEyOWYtMjhkYjdlYmVjMDk2XkEyXkFqcGc@._V1_.jpg',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'La historia de un ninja que nunca se rinde y lucha por sus sueños',
-        NULL
-    );
+('Cyberpunk: Edgerunners', NULL, NULL, NULL,
+ 'https://static.wikia.nocookie.net/cyberpunk/images/c/c1/Cyberpunk_Edgerunners_Trigger_2.jpg/revision/latest/scale-to-width-down/1200?cb=20230324074932&path-prefix=es',
+ NULL, NULL, NULL, NULL,
+ 'Historias de un futuro donde la tecnología cambia la vida de todos',
+ NULL),
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
-VALUES
-    (
-        'Frieren: Beyond Journey''s End',
-        NULL,
-        NULL,
-        NULL,
-        'https://es.web.img3.acsta.net/c_310_420/pictures/23/07/31/10/02/0006409.jpg',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'Anime mejor valorado',
-        NULL
-    );
+('Naruto', NULL, NULL, NULL,
+ 'https://m.media-amazon.com/images/M/MV5BZTNjOWI0ZTAtOGY1OS00ZGU0LWEyOWYtMjhkYjdlYmVjMDk2XkEyXkFqcGc@._V1_.jpg',
+ NULL, NULL, NULL, NULL,
+ 'La historia de un ninja que nunca se rinde y lucha por sus sueños',
+ NULL),
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
-VALUES
-    (
-        'Kimetsu no Yaiba',
-        NULL,
-        NULL,
-        NULL,
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlx52AOnIL8Vq7yJLUK9ZwNOLUXL9Gi9-grg&s',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'Un joven lucha contra demonios para salvar a su hermana y proteger a los demás',
-        NULL
-    );
+('Frieren: Beyond Journey''s End', NULL, NULL, NULL,
+ 'https://es.web.img3.acsta.net/c_310_420/pictures/23/07/31/10/02/0006409.jpg',
+ NULL, NULL, NULL, NULL,
+ 'Anime mejor valorado',
+ NULL),
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
-VALUES
-    (
-        'Jujutsu Kaisen',
-        NULL,
-        NULL,
-        NULL,
-        'https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/03/poster-jujutsu-kaisen-2.jpg?resize=1280%2C1810&ssl=1',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'Un estudiante de secundaria que se involucra en luchas contra espíritus malvados',
-        NULL
-    );
+('Kimetsu no Yaiba', NULL, NULL, NULL,
+ 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlx52AOnIL8Vq7yJLUK9ZwNOLUXL9Gi9-grg&s',
+ NULL, NULL, NULL, NULL,
+ 'Un joven lucha contra demonios para salvar a su hermana y proteger a los demás',
+ NULL),
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
-VALUES
-    (
-        'Re:Zero',
-        NULL,
-        NULL,
-        NULL,
-        'https://m.media-amazon.com/images/M/MV5BOTIyNGIzY2EtYjMyZS00Y2M0LWE4MTktNmQ3Y2IwZTBhNWE2XkEyXkFqcGc@._V1_.jpg',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'Un joven que es transportado a un mundo mágico y debe luchar por su supervivencia',
-        NULL
-    );
+('Jujutsu Kaisen', NULL, NULL, NULL,
+ 'https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/03/poster-jujutsu-kaisen-2.jpg?resize=1280%2C1810&ssl=1',
+ NULL, NULL, NULL, NULL,
+ 'Un estudiante de secundaria que se involucra en luchas contra espíritus malvados',
+ NULL),
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
-VALUES
-    (
-        'Steins;Gate',
-        NULL,
-        NULL,
-        NULL,
-        'https://m.media-amazon.com/images/M/MV5BZjI1YjZiMDUtZTI3MC00YTA5LWIzMmMtZmQ0NTZiYWM4NTYwXkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'Un joven que descubre un experimento que le permite viajar en el tiempo',
-        NULL
-    );
+('Re:Zero', NULL, NULL, NULL,
+ 'https://m.media-amazon.com/images/M/MV5BOTIyNGIzY2EtYjMyZS00Y2M0LWE4MTktNmQ3Y2IwZTBhNWE2XkEyXkFqcGc@._V1_.jpg',
+ NULL, NULL, NULL, NULL,
+ 'Un joven que es transportado a un mundo mágico y debe luchar por su supervivencia',
+ NULL),
 
-INSERT INTO
-    Animes (
-        Title,
-        Subtitle,
-        EpisodeCount,
-        Duration,
-        Image,
-        Video,
-        Studio,
-        Date_premiere,
-        Gender,
-        Description,
-        email
-    )
-VALUES
-    (
-        'Ficha 9',
-        NULL,
-        NULL,
-        NULL,
-        '../../assets/img/background-image.webp',
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        'Descripción de la ficha',
-        NULL
-    );
+('Steins;Gate', NULL, NULL, NULL,
+ 'https://m.media-amazon.com/images/M/MV5BZjI1YjZiMDUtZTI3MC00YTA5LWIzMmMtZmQ0NTZiYWM4NTYwXkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg',
+ NULL, NULL, NULL, NULL,
+ 'Un joven que descubre un experimento que le permite viajar en el tiempo',
+ NULL),
+
+('Ficha 9', NULL, NULL, NULL,
+ '../../assets/img/background-image.webp',
+ NULL, NULL, NULL, NULL,
+ 'Descripción de la ficha',
+ NULL);
