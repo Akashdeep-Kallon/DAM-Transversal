@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS Animes (
     Image VARCHAR(500),
     Video VARCHAR(100),
     Studio VARCHAR(25),
-    Date_premiere DATE DEFAULT CURRENT_DATE,
+    Date_premiere DATE,
     Gender VARCHAR(50),
     Description VARCHAR(500),
     email VARCHAR(50),
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS Mangas (
     Subtitle VARCHAR(25),
     ChapterNumber INT,
     Duration INT,
-    Date_premiere DATE DEFAULT CURRENT_DATE,
+    Date_premiere DATE,
     Image VARCHAR(100),
     Video VARCHAR(100),
     Studie VARCHAR(25),
@@ -112,7 +112,8 @@ CREATE TABLE IF NOT EXISTS Chapters (
 );
 
 -- Crear procedure de comprovar el email si exite o no --
-DELIMITER / / CREATE PROCEDURE sp_comprovar_email(IN emailP varchar(50), OUT exist boolean) BEGIN
+DELIMITER // 
+CREATE PROCEDURE sp_comprovar_email(IN emailP varchar(50), OUT exist boolean) BEGIN
 SELECT
     EXISTS(
         SELECT
@@ -123,10 +124,12 @@ SELECT
             email = emailP
     ) INTO exist;
 
-END / / DELIMITER;
+END // 
+DELIMITER;
 
 -- Crear un procedure para validar si el login esta bien --
-DELIMITER / / CREATE PROCEDURE sp_login(
+DELIMITER // 
+CREATE PROCEDURE sp_login(
     IN emailP varchar(50),
     IN passwordP varchar(100),
     OUT valido boolean
@@ -142,10 +145,12 @@ SELECT
             AND password = passwordP
     ) INTO valido;
 
-END / / DELIMITER;
+END // 
+DELIMITER;
 
 -- CREAR ANIME --
-DELIMITER / / CREATE PROCEDURE sp_crearAnime(
+DELIMITER // 
+CREATE PROCEDURE sp_crearAnime(
     IN p_Title VARCHAR(25),
     IN p_Subtitle VARCHAR(25),
     IN p_EpisodeCount INT,
@@ -153,6 +158,7 @@ DELIMITER / / CREATE PROCEDURE sp_crearAnime(
     IN p_Image VARCHAR(100),
     IN p_Video VARCHAR(100),
     IN p_Studio VARCHAR(25),
+    IN p_Date_premiere DATE,
     IN p_Gender VARCHAR(50),
     IN p_Description VARCHAR(100),
     IN p_ID_User VARCHAR(50)
@@ -166,6 +172,7 @@ INSERT INTO
         Image,
         Video,
         Studio,
+        Date_premiere,
         Gender,
         Description,
         ID_User
@@ -179,9 +186,19 @@ VALUES
         p_Image,
         p_Video,
         p_Studio,
+        p_Date_premiere,
         p_Gender,
         p_Description,
         p_ID_User
     );
 
-END / / DELIMITER;
+END //
+DELIMITER ;
+
+DROP TABLE Animes;
+DROP TABLE Catalogs;
+DROP TABLE Chapters;
+DROP TABLE Episodes;
+DROP TABLE Events;
+DROP TABLE Mangas;
+DROP TABLE Users;
