@@ -1,15 +1,29 @@
-/* Ocultar todas las páginas */
-.pagina {
-    display: none;
+.content-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
 }
 
-#page1 {
-    display: grid;
+.card-image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    background: #1a1a1a;
 }
 
-/* Mostrar solo la página activa */
-.pagina:target {
-    display: grid;
+.content-card .btn-link {
+    margin-top: auto;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 /* Paginación */
@@ -34,6 +48,18 @@
 .paginacion a:focus-visible {
     outline: 3px solid #ff9f9f;
     outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+    .card-grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .card-grid-3 {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 600px) {
