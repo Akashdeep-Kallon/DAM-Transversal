@@ -17,11 +17,11 @@
             <section class="card-panel" aria-labelledby="crear-evento-title">
                 <h2 id="crear-evento-title" class="section-title">Formulario de creación de evento de anime</h2>
                 
-                <form class="form-vertical" action="../../controller/UserController.php" method="post">
+                <form class="form-vertical" action="../../controller/UserController.php" method="post" enctype="multipart/form-data">
 
                     <div class="field-group">
                         <label for="nombre-anime">Título del anime</label>
-                        <input id="nombre-anime" type="text" name="A_nombre" required minlength="3" maxlength="50">
+                        <input id="nombre-anime" type="text" name="A_titulo" required minlength="3" maxlength="50">
                     </div>
                     <div class="field-group">
                         <label for="subtitulo-anime">Subtitulo del anime</label>

@@ -131,3 +131,46 @@ SELECT
     ) INTO valido;
 
 END / / DELIMITER;
+
+
+-- CREAR ANIME --
+
+DELIMITER //
+CREATE PROCEDURE sp_crearAnime(
+    IN p_Title VARCHAR(25),
+    IN p_Subtitle VARCHAR(25),
+    IN p_EpisodeCount INT,
+    IN p_Duration INT,
+    IN p_Image VARCHAR(100),
+    IN p_Video VARCHAR(100),
+    IN p_Studio VARCHAR(25),
+    IN p_Gender VARCHAR(50),
+    IN p_Description VARCHAR(100),
+    IN p_ID_User VARCHAR(50)
+)
+BEGIN
+    INSERT INTO Animes (
+        Title,
+        Subtitle,
+        EpisodeCount,
+        Duration,
+        Image,
+        Video,
+        Studio,
+        Gender,
+        Description,
+        ID_User
+    ) VALUES (
+        p_Title,
+        p_Subtitle,
+        p_EpisodeCount,
+        p_Duration,
+        p_Image,
+        p_Video,
+        p_Studio,
+        p_Gender,
+        p_Description,
+        p_ID_User
+    );
+END //
+DELIMITER ;
