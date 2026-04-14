@@ -26,28 +26,75 @@
     flex-wrap: wrap;
 }
 
-/* Paginación */
-.paginacion {
+.empty-msg {
+    grid-column: 1 / -1;
     text-align: center;
+    color: #aaa;
+    padding: 2rem 0;
+}
+
+/* Paginación  */
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.3rem;
     margin-top: 1.8rem;
 }
 
+.paginacion a,
+.paginacion-ellipsis,
+.paginacion-disabled {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+}
+
+/* Enlace normal */
 .paginacion a {
     color: #ff4141;
-    font-weight: 600;
-    text-decoration: none;
-    margin: 0 10px;
-    border-radius: 6px;
-    padding: .2rem .45rem;
+    border: 1px solid transparent;
 }
 
 .paginacion a:hover {
-    text-decoration: underline;
+    background: rgba(255, 65, 65, 0.12);
+    border-color: #ff4141;
 }
 
 .paginacion a:focus-visible {
     outline: 3px solid #ff9f9f;
     outline-offset: 2px;
+}
+
+/* Página activa */
+.paginacion a.paginacion-active {
+    background: #ff4141;
+    color: #fff;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Flechas deshabilitadas */
+.paginacion-disabled {
+    color: #555;
+    cursor: not-allowed;
+    border: 1px solid transparent;
+}
+
+/* Puntos suspensivos */
+.paginacion-ellipsis {
+    color: #888;
+    pointer-events: none;
+    min-width: 1.2rem;
 }
 
 @media (max-width: 900px) {
@@ -59,14 +106,5 @@
 @media (max-width: 640px) {
     .card-grid-3 {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-    .paginacion {
-        display: flex;
-        justify-content: center;
-        gap: 0.75rem;
-        flex-wrap: wrap;
     }
 }

@@ -42,31 +42,33 @@ CREATE TABLE IF NOT EXISTS Catalogs (
 
 -- Create Animes table --
 CREATE TABLE IF NOT EXISTS Animes (
-    IDAnimes VARCHAR(20),
+    IDAnimes INT AUTO_INCREMENT,
     Title VARCHAR(25),
-    Subtitle VARCHAR(25),
+    Subtitle VARCHAR(100),
     EpisodeCount INT,
     Duration INT,
-    Image VARCHAR(100),
+    Image VARCHAR(500),
     Video VARCHAR(100),
     Studie VARCHAR(25),
     Gender VARCHAR(50),
-    Description VARCHAR(100),
-    ID_User VARCHAR(50),
+    Description VARCHAR(500),
+    email VARCHAR(50),
     -- FK --
     CONSTRAINT PK_Animes PRIMARY KEY (IDAnimes),
-    CONSTRAINT FK_Users_Animes FOREIGN KEY (ID_User) REFERENCES Users(email) ON DELETE
+    CONSTRAINT FK_Users_Animes FOREIGN KEY (email) REFERENCES Users(email) ON DELETE
     SET
         NULL
 );
 
 -- Create Episodes table --
 CREATE TABLE IF NOT EXISTS Episodes (
-    IDEpisodes VARCHAR(25),
+    IDEpisodes INT AUTO_INCREMENT,
     AnimeName VARCHAR(25),
     Title VARCHAR(50),
+    Description VARCHAR(100),
+    Link VARCHAR(500),
     EpisodeNumber INT,
-    IDAnimes VARCHAR(20),
+    IDAnimes INT,
     -- FK --
     CONSTRAINT PK_Episodes PRIMARY KEY (IDEpisodes),
     CONSTRAINT FK_Animes_Episodes FOREIGN KEY (IDAnimes) REFERENCES Animes(IDAnimes) ON DELETE CASCADE
@@ -74,26 +76,34 @@ CREATE TABLE IF NOT EXISTS Episodes (
 
 -- Create Mangas table --
 CREATE TABLE IF NOT EXISTS Mangas (
-    ID_Mangas VARCHAR(20),
-    Name VARCHAR(25),
+    IDMangas INT AUTO_INCREMENT,
+    Title VARCHAR(25),
+    Subtitle VARCHAR(25),
     ChapterNumber INT,
+    Duration INT,
+    Image VARCHAR(100),
+    Video VARCHAR(100),
+    Studie VARCHAR(25),
+    Gender VARCHAR(50),
     Description VARCHAR(100),
-    ID_User VARCHAR(50),
+    email VARCHAR(50),
     -- FK --
     CONSTRAINT PK_Mangas PRIMARY KEY (ID_Mangas),
-    CONSTRAINT FK_Users_Mangas FOREIGN KEY (ID_User) REFERENCES Users(email) ON DELETE
+    CONSTRAINT FK_Users_Mangas FOREIGN KEY (email) REFERENCES Users(email) ON DELETE
     SET
         NULL
 );
 
 -- Create Chapters table --
 CREATE TABLE IF NOT EXISTS Chapters (
-    ID_Chapters VARCHAR(25),
+    IDChapters INT AUTO_INCREMENT,
     MangaName VARCHAR(50),
     Title VARCHAR(50),
     ChapterNumber INT,
+    Description VARCHAR(100),
+    Link VARCHAR(500),
     PageCount INT,
-    ID_Mangas VARCHAR(20),
+    ID_Mangas INT,
     -- FK --
     CONSTRAINT PK_Chapters PRIMARY KEY (ID_Chapters),
     CONSTRAINT FK_Mangas_Chapters FOREIGN KEY (ID_Mangas) REFERENCES Mangas(ID_Mangas) ON DELETE CASCADE

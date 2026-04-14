@@ -16,66 +16,22 @@ class Animes
         $this->ID_User = $ID_User;
     }
 
-    public function getID_Anime()
-    {
-        return $this->ID_Anime;
-    }
-
-    public function getName()
-    {
-        return $this->Name;
-    }
-
-    public function getEpisodeCount()
-    {
-        return $this->EpisodeCount;
-    }
-
-    public function getDescription()
-    {
-        return $this->Description;
-    }
-
-    public function getID_User()
-    {
-        return $this->ID_User;
-    }
-
-    public function setID_Anime($ID_Anime)
-    {
-        $this->ID_Anime = $ID_Anime;
-    }
-
-    public function setName($Name)
-    {
-        $this->Name = $Name;
-    }
-
-    public function setEpisodeCount($EpisodeCount)
-    {
-        $this->EpisodeCount = $EpisodeCount;
-    }
-
-    public function setDescription($Description)
-    {
-        $this->Description = $Description;
-    }
-
-    public function setID_User($ID_User)
-    {
-        $this->ID_User = $ID_User;
-    }
-
     public function setEventsAnime()
     {
         $db = new Database();
         $conexion = $db->getConexion();
         $sql = "SELECT * FROM Animes";
-        $query = mysqli_query($conexion, $sql) or die ("Pagination querry failed.");
+        $query = mysqli_query($conexion, $sql) or die("Pagination querry failed.");
 
-        if(mysqli_num_rows($query) > 0){
-
-        
+        if (mysqli_num_rows($query) > 0) {
+            $t_record = mysqli_num_rows($query);
+            $limit = 3;
+            $total_page = ceil($t_record / $limit);
+            echo '<div class="paginacion">';
+            for ($i = 1; $i <= $total_page; $i++) {
+                echo '<a href="anime-catalog.php?page=' . $i . '">' . $i . '</a>';
+            }
+            echo '</div>';
         }
     }
 }

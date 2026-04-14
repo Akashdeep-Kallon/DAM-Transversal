@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../assets/styles/main.css" />
     <link rel="stylesheet" href="../../assets/styles/catalog.css" />
-    <title>Monogatarya - Catálogo de mangas</title>
+    <title>Monogatarya - Catálogo de animes</title>
 </head>
 
 <body>
@@ -14,89 +14,106 @@
 
     <main class="page-main">
         <div class="layout-container">
-
             <section class="card-panel" aria-labelledby="catalogo-title">
+
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de animes</h2>
-                    <a class="btn btn-add" href="anime-crear.php">Crear Evento</a>
+                    <a class="btn btn-add" href="anime-crear.php">Crear Anime</a>
                 </div>
 
-                <!-- Página 1 -->
-                <div id="manga1" class="card-grid card-grid-3">
-                    <article class="content-card">
-                        <img class="card-image" src="https://i.imgur.com/ZmYD4Uo.jpeg" alt="Portada de Ficha 1">
-                        <h3>One Piece</h3>
-                        <p>El anime más popular del momento</p>
-                        <a class="btn-link" href="./lista/anime1.html">Más información</a>
-                    </article>
+                <?php
+                require_once '../../../model/db.php';
 
-                    <article class="content-card">
-                        <img class="card-image" src="https://static.wikia.nocookie.net/cyberpunk/images/c/c1/Cyberpunk_Edgerunners_Trigger_2.jpg/revision/latest/scale-to-width-down/1200?cb=20230324074932&path-prefix=es" alt="Portada de Ficha 2">
-                        <h3>Cyberpunk: Edgerunners</h3>
-                        <p>Historias de un futuro donde la tecnología cambia la vida de todos</p>
-                        <a class="btn-link" href="./lista/anime2.html">Más información</a>
-                    </article>
+                $db = new Database();
+                $conexion = $db->getConexion();
 
-                    <article class="content-card">
-                        <img class="card-image" src="https://m.media-amazon.com/images/M/MV5BZTNjOWI0ZTAtOGY1OS00ZGU0LWEyOWYtMjhkYjdlYmVjMDk2XkEyXkFqcGc@._V1_.jpg" alt="Portada de Ficha 3">
-                        <h3>Naruto</h3>
-                        <p>La historia de un ninja que nunca se rinde y lucha por sus sueños</p>
-                        <a class="btn-link" href="../../events/event-detail.html">Más información (Proximamente)</a>
-                    </article>
+                // ── 1. Cuántos animes hay en total 
+                $queryTotal = mysqli_query($conexion, "SELECT COUNT(*) AS total FROM Animes");
+                $fila = mysqli_fetch_assoc($queryTotal);
+                $totalAnimes = $fila['total'];
 
-                    <article class="content-card">
-                        <img class="card-image" src="https://es.web.img3.acsta.net/c_310_420/pictures/23/07/31/10/02/0006409.jpg" alt="Portada de Ficha 4">
-                        <h3>Frieren: Beyond Journey's End</h3>
-                        <p>Anime mejor valorado</p>
-                        <a class="btn-link" href="../../events/event-detail.html">Más información (Proximamente)</a>
-                    </article>
+                // ── 2. Cuántos mostramos por página 
+                $limite = 6;
 
-                    <article class="content-card">
-                        <img class="card-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlx52AOnIL8Vq7yJLUK9ZwNOLUXL9Gi9-grg&s" alt="Portada de Ficha 5">
-                        <h3>Kimetsu no Yaiba</h3>
-                        <p>Un joven lucha contra demonios para salvar a su hermana y proteger a los demás</p>
-                        <a class="btn-link" href="../../events/event-detail.html">Más información (Proximamente)</a>
-                    </article>
+                // ── 3. Cuántas páginas necesitamos 
+                $totalPaginas = ceil($totalAnimes / $limite);
 
-                    <article class="content-card">
-                        <img class="card-image" src="https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2023/03/poster-jujutsu-kaisen-2.jpg?resize=1280%2C1810&ssl=1" alt="Portada de Ficha 6">
-                        <h3>Jujutsu Kaisen</h3>
-                        <p>Un estudiante de secundaria que se involucra en luchas contra espíritus malvados</p>
-                        <a class="btn-link" href="../../events/event-detail.html">Más información (Proximamente)</a>
-                    </article>
-                    <article class="content-card">
-                        <img class="card-image" src="https://m.media-amazon.com/images/M/MV5BOTIyNGIzY2EtYjMyZS00Y2M0LWE4MTktNmQ3Y2IwZTBhNWE2XkEyXkFqcGc@._V1_.jpg" alt="Portada de Ficha 7">
-                        <h3>Re:Zero</h3>
-                        <p>Un joven que es transportado a un mundo mágico y debe luchar por su supervivencia</p>
-                        <a class="btn-link" href="../../events/event-detail.html">Más información (Proximamente)</a>
-                    </article>
-                    <article class="content-card">
-                        <img class="card-image" src="https://m.media-amazon.com/images/M/MV5BZjI1YjZiMDUtZTI3MC00YTA5LWIzMmMtZmQ0NTZiYWM4NTYwXkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg" alt="Portada de Ficha 8">
-                        <h3>Steins;Gate</h3>
-                        <p>Un joven que descubre un experimento que le permite viajar en el tiempo</p>
-                        <a class="btn-link" href="../../events/event-detail.html">Más información (Proximamente)</a>
-                    </article>
-                    <article class="content-card">
-                        <img class="card-image" src="../../assets/img/background-image.webp" alt="Portada de Ficha 9">
-                        <h3>Ficha 9</h3>
-                        <p>Descripción de la ficha</p>
-                        <a class="btn-link" href="../../events/event-detail.html">Más información (Proximamente)</a>
-                    </article>
+                // ── 4. En qué página estamos (viene de ?page=N en la URL) 
+                if (isset($_GET['page'])) {
+                    $pagina = $_GET['page'];
+                } else {
+                    $pagina = 1;
+                }
+
+                // Seguridad: que la página no sea menor que 1 ni mayor que el total
+                if ($pagina < 1) {
+                    $pagina = 1;
+                }
+                if ($pagina > $totalPaginas) {
+                    $pagina = $totalPaginas;
+                }
+
+                // ── 5. Calculamos desde qué registro empezamos 
+                // Página 1 → offset 0  (empieza desde el primero)
+                // Página 2 → offset 6  (empieza desde el séptimo)
+                // Página 3 → offset 12 (empieza desde el treceavo) ...
+                $offset = ($pagina - 1) * $limite;
+
+                // ── 6. Consulta con LIMIT y OFFSET 
+                $sql = "SELECT * FROM Animes LIMIT $limite OFFSET $offset";
+                $query = mysqli_query($conexion, $sql);
+                ?>
+
+                <!-- Tarjetas de esta página -->
+                <div class="card-grid card-grid-3">
+                    <?php while ($anime = mysqli_fetch_assoc($query)) { ?>
+                        <?php
+                        // Si la BD tiene columna de imagen úsala; si no, placeholder
+                        $img = !empty($anime['Image']) ? htmlspecialchars($anime['Image']) : '../../assets/img/background-image.webp';
+                        $title = htmlspecialchars($anime['Title']);
+                        $subtitle = htmlspecialchars($anime['Subtitle']);
+                        $id = $anime['IDAnimes'];
+                        ?>
+                        <article class="content-card">
+                            <img class="card-image" src="<?php echo $img; ?>"
+                                alt="Portada de <?php echo $title; ?>">
+                            <h3><?php echo $title; ?></h3>
+                            <p><?php echo $subtitle; ?></p>
+                            <a class="btn-link" href="anime-detail.php?id=<?php echo $id; ?>">
+                                Más información
+                            </a>
+                        </article>
+                    <?php } ?>
                 </div>
+
+                <!-- Botones de paginación -->
+                <div class="paginacion">
+
+                    <!-- Botón « anterior -->
+                    <?php if ($pagina > 1) { ?>
+                        <a href="?page=<?php echo $pagina - 1; ?>">&laquo;</a>
+                    <?php } ?>
+
+                    <!-- Número de cada página -->
+                    <?php for ($i = 1; $i <= $totalPaginas; $i++) { ?>
+                        <?php if ($i == $pagina) { ?>
+                            <a href="?page=<?php echo $i; ?>" class="paginacion-active"><?php echo $i; ?></a>
+                        <?php } else { ?>
+                            <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                        <?php } ?>
+                    <?php } ?>
+
+                    <!-- Botón » siguiente -->
+                    <?php if ($pagina < $totalPaginas) { ?>
+                        <a href="?page=<?php echo $pagina + 1; ?>">&raquo;</a>
+                    <?php } ?>
+
+                </div>
+
             </section>
-
-        <?php 
-
-        echo '<div class="paginacion">'; 
-        for($i=1; $i <= 10; $i++){
-        echo '<a href="anime-catalog.php?page='.$i.'">'.$i.'</a>';
-        }
-        echo '</div>'; 
-        ?>                
-
         </div>
-        
     </main>
+
     <?php require '../../includes/menu.php'; ?>
     <?php require '../../includes/footer.php'; ?>
 </body>
