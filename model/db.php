@@ -2,20 +2,21 @@
 
 class Database
 {
-
-    // ssh -i ssh-key-Monogatarya.key -L 3307:127.0.0.1:3306 ubuntu@130.110.233.182
+/*
+    ssh -i ssh-key-Monogatarya.key -L 3307:127.0.0.1:3306 ubuntu@130.110.233.182
     private $host = "127.0.0.1";
     private $port = 3307;
     private $user = "admin";
     private $password = "Monogatarya@2025";
     private $base_date = "Monogatarya";
-/*
+*/
+
     private $host = "localhost";
     private $port = 3306;
     private $user = "admin";
     private $password = "Monogatarya@2025";
     private $base_date = "Monogatarya";
-*/
+
     public $connection;
 
     public function getConnection()
