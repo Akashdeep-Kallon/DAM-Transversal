@@ -133,6 +133,20 @@ footer {
     outline-offset: 3px;
 }
 
+.btn-ver-pagina {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #ff4d4d;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn-ver-pagina:hover {
+    background-color: #e63b3b;
+}
+
 @media (max-width: 1024px) {
     .header-gruop {
         min-height: var(--header-height-tablet);
