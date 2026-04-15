@@ -62,17 +62,22 @@ $status = $userData['status'];
 
                         <div class="field">
                             <label for="nombre">Nombre</label>
-                            <input id="nombre" name="nombre" required minlength="2" value="<?php echo htmlspecialchars($name); ?>">
+                            <input id="nombre" name="nombre" required minlength="2" value="<?php echo $name; ?>">
                         </div>
 
                         <div class="field">
                             <label for="apellido">Apellidos</label>
-                            <input id="apellido" name="apellido" required minlength="2" value="<?php echo htmlspecialchars($surname); ?>">
+                            <input id="apellido" name="apellido" required minlength="2" value="<?php echo $surname; ?>">
+                        </div>
+
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" required value="<?php echo $email; ?>">
                         </div>
 
                         <div class="field">
                             <label for="usuario">Nombre de usuario</label>
-                            <input id="usuario" name="usuario" required minlength="4" value="<?php echo htmlspecialchars($email); ?>">
+                            <input id="usuario" name="usuario" required minlength="4">
                         </div>
 
                         <div class="field">

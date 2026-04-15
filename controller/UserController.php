@@ -77,6 +77,7 @@ class UserController
 
             if ($exist === 1) {
                 $_SESSION['email'] = $email;
+                $_SESSION['usuario'] = $email;
 
                 $userQuery = $connection->query("SELECT status FROM Users WHERE email = '$email'");
                 if ($userRow = $userQuery->fetch_assoc()) {
