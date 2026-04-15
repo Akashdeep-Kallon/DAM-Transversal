@@ -1,4 +1,11 @@
-    <header>
+<?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+?>
+   
+   
+   <header>
         <div class="header-gruop">
             <label for="menu-toggle" class="icon-btn white" aria-label="Menú">
                 <svg class="icon">
