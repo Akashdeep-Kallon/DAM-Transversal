@@ -1,6 +1,14 @@
 <?php
 session_start();
-require_once '../model/db.php';
+require_once __DIR__ . '/../model/db.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $catalog = new Catalog();
+
+    if (isset($_POST['createWork'])) {
+        $catalog->createWork();
+    }
+}
 class Catalog
 {
     private $ID_Work;
@@ -54,5 +62,46 @@ class Catalog
             'query' => $query
         ];
     }
+
+    public function createWork() 
+    {
+        if (!empty($_POST['title']) && !empty($_POST['type'])) {
+            $type = $_POST['type'];
+            $title = $_POST['title'];
+            $subtitle = $_POST['subtitle'];
+            $episodes = $_POST['episodes'];
+            $duration = $_POST['duration'];
+            $image = $_POST['image'];
+            //$video = $_FILES['video']['name'];
+            $premiereDate = $_POST['premiere_date'];
+            $studio = $_POST['studio'];
+            $genres = $_POST['genres'];
+            $description = $_POST['description'];
+           
+            $db = new Database();
+            $connection = $db->getConnection();
+            $connection->query("CALL sp_add_Work(
+                '$type',
+                '$title',
+                '$subtitle',
+                $episodes,
+                '$image',
+                '$studio',
+                '$premiereDate',
+                '$genres',
+                '$description',
+                NULL
+            )");
+
+            $redirectType = strtolower($type);
+            if (!in_array($redirectType, ['anime', 'manga'])) {
+                $redirectType = 'anime';
+            }
+
+            header('Location: ../view/catalogs/' . $redirectType . '/' . $redirectType . '-catalog.php');
+            exit();
+        }
+    }
+
 }
 ?>

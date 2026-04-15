@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../model/Users.php';
-require_once '../model/db.php';
+require_once __DIR__ . '/../model/Users.php';
+require_once __DIR__ . '/../model/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -30,9 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete'])) {
         $userController->delete();
     }
-    if (isset($_POST['crearAnime'])) {
-        $userController->createAnime();
-    }
+
 }
 
 class UserController
@@ -76,6 +74,13 @@ class UserController
             $exist = intval($row["exist"]); // 1 o 0
 
             if ($exist === 1) {
+                $_SESSION['email'] = $email;
+
+                $userQuery = $connection->query("SELECT status FROM Users WHERE email = '$email'");
+                if ($userRow = $userQuery->fetch_assoc()) {
+                    $_SESSION['status'] = $userRow['status'];
+                }
+
                 header('Location: ../view/index.php');
                 exit();
             } else {
@@ -99,36 +104,45 @@ class UserController
         exit;
     }
 
-    public function createAnime() 
+    public function getLoggedUserProfile()
     {
-        if (!empty($_POST['A_titulo'])) {
-            $anime = $_POST['A_titulo'];
-            $subtitulo = $_POST['A_subtitulo'];
-            $episodios = $_POST['A_episodios'];
-            $duracion = $_POST['A_duracion'];
-            $imagen = $_POST['A_imagen'];
-            //$video = $_FILES['A_video']['name'];
-            $fecha_estreno = $_POST['A_fecha_estreno'];
-            $estudio = $_POST['A_estudio'];
-            $generos = $_POST['A_generos'];
-            $descripcion = $_POST['A_descripcion'];
-           
-            $db = new Database();
-            $connection = $db->getConnection();
-            $connection->query("CALL sp_crearAnime(
-                '$anime',
-                '$subtitulo',
-                $episodios,
-                $duracion,
-                '$imagen',
-                '$fecha_estreno',
-                '$estudio',
-                '$generos',
-                '$descripcion'
-            )");
-
+        if (empty($_SESSION['email'])) {
+            return null;
         }
+
+        $db = new Database();
+        $connection = $db->getConnection();
+
+        $stmt = $connection->prepare("SELECT name, surname, email, status FROM Users WHERE email = ?");
+        $stmt->bind_param('s', $_SESSION['email']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc() ?: null;
     }
+
+    public function getLoggedUserProfileData()
+    {
+        $data = [
+            'name' => '',
+            'surname' => '',
+            'email' => '',
+            'status' => 'invitado',
+        ];
+
+        $profile = $this->getLoggedUserProfile();
+        if (empty($profile)) {
+            return $data;
+        }
+
+        return [
+            'name' => $profile['name'],
+            'surname' => $profile['surname'],
+            'email' => $profile['email'],
+            'status' => $profile['status'] ? 'promotor' : 'lector',
+        ];
+    }
+
     public function update() {}
     // delete an employee
     public function delete() {}

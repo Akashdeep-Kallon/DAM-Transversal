@@ -11,8 +11,8 @@
 
 <body>
     <?php
-    require_once '../../../controller/CatalogController.php';
-    require_once '../../../model/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
     $catalog = new Catalog();
     $result = $catalog->returnCatalog('Anime');
     $query = $result['query'];
@@ -27,7 +27,7 @@
 
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de animes</h2>
-                    <a class="btn btn-add" href="anime-crear.php">Crear Anime</a>
+                    <a class="btn btn-add" href="../create_work.php">Crear Anime</a>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">
