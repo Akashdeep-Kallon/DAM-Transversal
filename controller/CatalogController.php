@@ -28,14 +28,10 @@ class Catalog
         $limit = 6;
 
         // ── 3. Cuántas páginas necesitamos 
-        $totalPages = ceil($totalMedia / $limit);
+        $totalPages = max(1, ceil($totalMedia / $limit));
 
         // ── 4. En qué página estamos (viene de ?page=N en la URL) 
-        if (isset($_GET['page'])) {
-            $page = $_GET['page'];
-        } else {
-            $page = 1;
-        }
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
         // Seguridad: que la página no sea menor que 1 ni mayor que el total
         if ($page < 1) {
@@ -53,7 +49,8 @@ class Catalog
 
         // ── 6. Consulta con LIMIT y OFFSET 
         
-        $sql = "SELECT * FROM Works WHERE Type = '$catalog' LIMIT $limit OFFSET $offset";
+        $escapedCatalog = $connection->real_escape_string($catalog);
+        $sql = "SELECT * FROM Works WHERE Type = '$escapedCatalog' LIMIT $limit OFFSET $offset";
         $query = mysqli_query($connection, $sql);
 
         return [

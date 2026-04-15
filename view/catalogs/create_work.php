@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../assets/styles/event.css" />
-    <link rel="stylesheet" href="../../assets/styles/main.css" />
+    <link rel="stylesheet" href="../assets/styles/event.css" />
+    <link rel="stylesheet" href="../assets/styles/main.css" />
     <title>Monogatarya - Crear Evento de Anime</title>
 </head>
 
 <body>
-    <?php require '../../includes/header.php'; ?>
+    <?php require '../includes/header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
@@ -80,8 +80,8 @@
 
     <input type="checkbox" id="menu-toggle">
 
-    <?php require '../../includes/menu.php'; ?>
-    <?php require '../../includes/footer.php'; ?>
+    <?php require '../includes/menu.php'; ?>
+    <?php require '../includes/footer.php'; ?>
 
 </body>
 
