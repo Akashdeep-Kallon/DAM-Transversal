@@ -2,12 +2,7 @@
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
-?>
-
-<head>
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
-</head>
-   
+?>   
    <header>
         <div class="header-gruop">
             <label for="menu-toggle" class="icon-btn white" aria-label="Menú">
