@@ -21,7 +21,7 @@
   - Improved login and email-check procedures for better security and consistency.
 */
 
-USE sql7822562;
+USE Monogatarya;
 
 -- USERS
 CREATE TABLE IF NOT EXISTS Users (
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Events (
 );
 
 -- WORKS
-CREATE TABLE Works (
+CREATE TABLE IF NOT EXISTS Works (
     ID_Work INT AUTO_INCREMENT,
     Type ENUM('Manga','Anime'),
     Title VARCHAR(25),
@@ -62,7 +62,7 @@ CREATE TABLE Works (
 );
 
 -- CHAPTERS
-CREATE TABLE  Chapters (
+CREATE TABLE IF NOT EXISTS Chapters (
     ID_Chapter INT AUTO_INCREMENT,
     Title VARCHAR(50),
     Description VARCHAR(100),
@@ -155,9 +155,10 @@ END //
 
 DELIMITER ;
 
+DELIMITER //
 CREATE PROCEDURE drop_tables()
 BEGIN
-DROP TABLE Animes;
+DROP TABLE Works;
 DROP TABLE Catalogs;
 DROP TABLE Chapters;
 DROP TABLE Episodes;
