@@ -2,22 +2,29 @@
 
 class Database
 {
-/*
-    ssh -i ssh-key-Monogatarya.key -L 3307:127.0.0.1:3306 ubuntu@130.110.233.182
-    private $host = "127.0.0.1";
-    private $port = 3307;
-    private $user = "admin";
-    private $password = "Monogatarya@2025";
-    private $base_date = "Monogatarya";
-*/
-
-    private $host = "localhost";
-    private $port = 3306;
-    private $user = "admin";
-    private $password = "Monogatarya@2025";
-    private $base_date = "Monogatarya";
+    private $host;
+    private $port;
+    private $user;
+    private $password;
+    private $base_date;
 
     public $connection;
+
+    public function __construct()
+    {
+        // Detectar si estás en local o en servidor
+        if ($_SERVER['HTTP_HOST'] == 'localhost') {
+            $this->host = "127.0.0.1";
+            $this->port = 3307;
+        } else {
+            $this->host = "localhost";
+            $this->port = 3306;
+        }
+
+        $this->user = "admin";
+        $this->password = "Monogatarya@2025";
+        $this->base_date = "Monogatarya";
+    }
 
     public function getConnection()
     {
