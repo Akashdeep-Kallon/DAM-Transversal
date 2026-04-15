@@ -20,52 +20,52 @@
                 <form class="form-vertical" action="../../controller/CatalogController.php" method="post" enctype="multipart/form-data">
 
                     <div class="field-group">
-                        <label for="tipo-obra">Tipo</label>
-                        <select id="tipo-obra" name="W_type" required>
-                            <option value="">Selecciona una opción</option>
+                        <label for="tipo-obra">Type</label>
+                        <select id="tipo-obra" name="type" required>
+                            <option value="">Choose an option</option>
                             <option value="Anime">Anime</option>
                             <option value="Manga">Manga</option>
                         </select>
                     </div>
                     <div class="field-group">
-                        <label for="nombre-anime">Título del anime</label>
-                        <input id="nombre-anime" type="text" name="W_titulo" required minlength="3" maxlength="50">
+                        <label for="title">Work title</label>
+                        <input id="title" type="text" name="title" required minlength="3" maxlength="50">
                     </div>
                     <div class="field-group">
-                        <label for="subtitulo-anime">Subtitulo del anime</label>
-                        <input id="subtitulo-anime" type="text" name="W_subtitulo" required minlength="5" maxlength="50">
+                        <label for="subtitle">Subtitle</label>
+                        <input id="subtitle" type="text" name="subtitle" required minlength="5" maxlength="50">
                     </div>
                     <div class="field-group">
-                        <label for="subtitulo-anime">Numero de episodios</label>
-                        <input id="subtitulo-anime" type="text" name="W_episodios" required min="1">
+                        <label for="episodes">Number of episodes</label>
+                        <input id="episodes" type="number" name="episodes" required min="1">
                     </div>
                     <div class="field-group">
-                        <label for="subtitulo-anime">Duracion de episodios(minutos)</label>
-                        <input id="subtitulo-anime" type="text" name="W_duracion" required min="1">
+                        <label for="duration">Episode duration (minutes)</label>
+                        <input id="duration" type="number" name="duration" required min="1">
                     </div>
                     <div class="field-group">
-                        <label for="subtitulo-anime">Link de Img portada</label>
-                        <input id="subtitulo-anime" type="text" name="W_imagen" required>
+                        <label for="image">Cover image URL</label>
+                        <input id="image" type="text" name="image" required>
                     </div>
                     <div class="field-group">
-                        <label for="subtitulo-anime">Subir video</label>
-                        <input id="subtitulo-anime" type="file" name="W_video" accept="video/*">
+                        <label for="video">Upload video</label>
+                        <input id="video" type="file" name="video" accept="video/*">
                     </div>
                     <div class="field-group">
-                        <label for="fecha-estreno">Fecha de estreno</label>
-                        <input id="fecha-estreno" type="date" name="W_fecha_estreno" required>
+                        <label for="premiere_date">Premiere date</label>
+                        <input id="premiere_date" type="date" name="premiere_date" required>
                     </div>
                     <div class="field-group">
-                        <label for="fecha-estreno">Estudio / plataforma</label>
-                        <input id="fecha-estreno" type="text" name="W_estudio" required>
+                        <label for="studio">Studio / platform</label>
+                        <input id="studio" type="text" name="studio" required>
                     </div>
                     <div class="field-group">
-                        <label for="fecha-estreno">Generos</label>
-                        <input id="fecha-estreno" type="text" name="W_generos" required>
+                        <label for="genres">Genres</label>
+                        <input id="genres" type="text" name="genres" required>
                     </div>
                     <div class="field-group">
-                        <label for="descripcion-evento">Descripcion</label>
-                        <textarea id="descripcion-evento" name="W_descripcion" required minlength="1" maxlength="300"></textarea>
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" required minlength="1" maxlength="300"></textarea>
                     </div>
 
                     <div class="inline-actions">

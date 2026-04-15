@@ -74,6 +74,13 @@ class UserController
             $exist = intval($row["exist"]); // 1 o 0
 
             if ($exist === 1) {
+                $_SESSION['email'] = $email;
+
+                $userQuery = $connection->query("SELECT status FROM Users WHERE email = '$email'");
+                if ($userRow = $userQuery->fetch_assoc()) {
+                    $_SESSION['status'] = $userRow['status'];
+                }
+
                 header('Location: ../view/index.php');
                 exit();
             } else {
@@ -95,6 +102,45 @@ class UserController
         session_destroy();
         header("Location: /DAM-Transversal/view/home.html");
         exit;
+    }
+
+    public function getLoggedUserProfile()
+    {
+        if (empty($_SESSION['email'])) {
+            return null;
+        }
+
+        $db = new Database();
+        $connection = $db->getConnection();
+
+        $stmt = $connection->prepare("SELECT name, surname, email, status FROM Users WHERE email = ?");
+        $stmt->bind_param('s', $_SESSION['email']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc() ?: null;
+    }
+
+    public function getLoggedUserProfileData()
+    {
+        $data = [
+            'name' => '',
+            'surname' => '',
+            'email' => '',
+            'status' => 'invitado',
+        ];
+
+        $profile = $this->getLoggedUserProfile();
+        if (empty($profile)) {
+            return $data;
+        }
+
+        return [
+            'name' => $profile['name'],
+            'surname' => $profile['surname'],
+            'email' => $profile['email'],
+            'status' => $profile['status'] ? 'promotor' : 'lector',
+        ];
     }
 
     public function update() {}

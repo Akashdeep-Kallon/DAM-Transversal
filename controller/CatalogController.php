@@ -65,31 +65,31 @@ class Catalog
 
     public function createWork() 
     {
-        if (!empty($_POST['W_titulo']) && !empty($_POST['W_type'])) {
-            $type = $_POST['W_type'];
-            $anime = $_POST['W_titulo'];
-            $subtitulo = $_POST['W_subtitulo'];
-            $episodios = $_POST['W_episodios'];
-            $duracion = $_POST['W_duracion'];
-            $imagen = $_POST['W_imagen'];
-            //$video = $_FILES['W_video']['name'];
-            $fecha_estreno = $_POST['W_fecha_estreno'];
-            $estudio = $_POST['W_estudio'];
-            $generos = $_POST['W_generos'];
-            $descripcion = $_POST['W_descripcion'];
+        if (!empty($_POST['title']) && !empty($_POST['type'])) {
+            $type = $_POST['type'];
+            $title = $_POST['title'];
+            $subtitle = $_POST['subtitle'];
+            $episodes = $_POST['episodes'];
+            $duration = $_POST['duration'];
+            $image = $_POST['image'];
+            //$video = $_FILES['video']['name'];
+            $premiereDate = $_POST['premiere_date'];
+            $studio = $_POST['studio'];
+            $genres = $_POST['genres'];
+            $description = $_POST['description'];
            
             $db = new Database();
             $connection = $db->getConnection();
             $connection->query("CALL sp_add_Work(
                 '$type',
-                '$anime',
-                '$subtitulo',
-                $episodios,
-                '$imagen',
-                '$estudio',
-                '$fecha_estreno',
-                '$generos',
-                '$descripcion',
+                '$title',
+                '$subtitle',
+                $episodes,
+                '$image',
+                '$studio',
+                '$premiereDate',
+                '$genres',
+                '$description',
                 NULL
             )");
 

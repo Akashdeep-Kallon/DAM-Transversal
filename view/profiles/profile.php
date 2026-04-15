@@ -1,3 +1,15 @@
+<?php
+session_start();
+require_once __DIR__ . '/../../controller/UserController.php';
+
+$userController = new UserController();
+$userData = $userController->getLoggedUserProfileData();
+
+$name = $userData['name'];
+$surname = $userData['surname'];
+$email = $userData['email'];
+$status = $userData['status'];
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -34,7 +46,7 @@
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel profile-panel" aria-labelledby="perfil-titulo">
-               <?php echo"<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil $status</h2> ";?> 
+               <?php echo "<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil " . htmlspecialchars(ucfirst($status)) . "</h2>"; ?>
                 <form class="profile-layout" action="../index.html" method="post">
 
                     <!-- COLUMNA IZQUIERDA -->
@@ -50,17 +62,17 @@
 
                         <div class="field">
                             <label for="nombre">Nombre</label>
-                            <input id="nombre" name="nombre" required minlength="2">
+                            <input id="nombre" name="nombre" required minlength="2" value="<?php echo htmlspecialchars($name); ?>">
                         </div>
 
                         <div class="field">
                             <label for="apellido">Apellidos</label>
-                            <input id="apellido" name="apellido" required minlength="2">
+                            <input id="apellido" name="apellido" required minlength="2" value="<?php echo htmlspecialchars($surname); ?>">
                         </div>
 
                         <div class="field">
                             <label for="usuario">Nombre de usuario</label>
-                            <input id="usuario" name="usuario" required minlength="4">
+                            <input id="usuario" name="usuario" required minlength="4" value="<?php echo htmlspecialchars($email); ?>">
                         </div>
 
                         <div class="field">
