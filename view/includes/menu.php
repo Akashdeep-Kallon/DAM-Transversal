@@ -21,12 +21,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
             Eventos
         </a></li>
 
-    <?php if (isset($_SESSION['usuario'])): ?>
+    <?php if (isset($_SESSION['usuario'])){ ?>
         <li class="logout">
             <form action="/DAM-Transversal/controller/UserController.php" method="POST">
                 <input type="hidden" name="logout">
                 <button type="submit">Cerrar sesión</button>
             </form>
         </li>
-    <?php endif; ?>
+    <?php } ?>
 </ul>

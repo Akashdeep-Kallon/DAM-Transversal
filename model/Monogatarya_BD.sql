@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS Events (
 CREATE TABLE IF NOT EXISTS Works (
     ID_Work INT AUTO_INCREMENT,
     Type ENUM('Manga','Anime'),
-    Title VARCHAR(25),
+    Title VARCHAR(50),
     Subtitle VARCHAR(100),
     Chapters INT,
     Image VARCHAR(500),
