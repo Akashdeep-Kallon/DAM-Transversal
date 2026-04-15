@@ -17,7 +17,7 @@
             <section class="card-panel" aria-labelledby="crear-evento-title">
                 <h2 id="crear-evento-title" class="section-title">Formulario de creación de evento de anime</h2>
                 
-                <form class="form-vertical" action="../../../controller/UserController.php" method="post" enctype="multipart/form-data">
+                <form class="form-vertical" action="../../../controller/CatalogController.php" method="post" enctype="multipart/form-data">
 
                     <div class="field-group">
                         <label for="nombre-anime">Título del anime</label>
