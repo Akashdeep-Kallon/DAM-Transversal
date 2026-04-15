@@ -22,31 +22,13 @@ $status = $userData['status'];
 </head>
 
 <body>
-    <header>
-        <div class="header-gruop">
-            <label for="menu-toggle" class="icon-btn white" aria-label="Menú">
-                <svg class="icon">
-                    <use href="../assets/img/icon-sprites.svg#menu"></use>
-                </svg>
-            </label>
-            <img src="../assets/img/logo.webp" alt="Logo de la página">
-            <h1>MONOGATARYA</h1>
-            <div class="right-group">
 
-                <a href="profile_promotor-view.html" class="icon-btn white user-link" aria-label="Ir al perfil de promotor">
-                    <svg class="icon">
-                        <use href="../assets/img/icon-sprites.svg#usuario"></use>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </header>
-
+    <?php require '../includes/clean_header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel profile-panel" aria-labelledby="perfil-titulo">
-               <?php echo "<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil " . htmlspecialchars(ucfirst($status)) . "</h2>"; ?>
+                <?php echo "<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil " . htmlspecialchars(ucfirst($status)) . "</h2>"; ?>
                 <form class="profile-layout" action="../index.html" method="post">
 
                     <!-- COLUMNA IZQUIERDA -->
@@ -62,22 +44,20 @@ $status = $userData['status'];
 
                         <div class="field">
                             <label for="nombre">Nombre</label>
-                            <input id="nombre" name="nombre" required minlength="2" value="<?php echo $name; ?>">
+                            <input id="nombre" name="nombre" required minlength="2"
+                                value="<?php echo htmlspecialchars($name); ?>">
                         </div>
 
                         <div class="field">
                             <label for="apellido">Apellidos</label>
-                            <input id="apellido" name="apellido" required minlength="2" value="<?php echo $surname; ?>">
-                        </div>
-
-                        <div class="field">
-                            <label for="email">Email</label>
-                            <input id="email" name="email" type="email" required value="<?php echo $email; ?>">
+                            <input id="apellido" name="apellido" required minlength="2"
+                                value="<?php echo htmlspecialchars($surname); ?>">
                         </div>
 
                         <div class="field">
                             <label for="usuario">Nombre de usuario</label>
-                            <input id="usuario" name="usuario" required minlength="4">
+                            <input id="usuario" name="usuario" required minlength="4"
+                                value="<?php echo htmlspecialchars($email); ?>">
                         </div>
 
                         <div class="field">
