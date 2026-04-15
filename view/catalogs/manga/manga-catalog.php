@@ -11,8 +11,8 @@
 
 <body>
     <?php
-    require_once '../../../controller/CatalogController.php';
-    require_once '../../../model/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
     $catalog = new Catalog();
     $result = $catalog->returnCatalog('Manga');
     $query = $result['query'];
