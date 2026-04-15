@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <?php require '../../includes/header.php'; ?>
+    <?php require '../includes/clean_header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
