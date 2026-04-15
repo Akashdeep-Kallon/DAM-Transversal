@@ -4,6 +4,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 }
 ?>
 
+<head>
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
+</head>
+
 <header>
     <div class="header-gruop">
         <label for="menu-toggle" class="icon-btn white" aria-label="Menú">
@@ -12,7 +16,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
             </svg>
         </label>
 
-        <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Logo de la página">
+        <a href="/DAM-Transversal/view/index.php" class="logo-link" aria-label="Volver a inicio">
+            <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Logo de la página Monogatarya">
+        </a>
 
         <h1>MONOGATARYA</h1>
 
