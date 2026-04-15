@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../model/Users.php';
-require_once '../model/db.php';
+require_once __DIR__ . '/../model/Users.php';
+require_once __DIR__ . '/../model/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -30,9 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete'])) {
         $userController->delete();
     }
-    if (isset($_POST['crearAnime'])) {
-        $userController->createAnime();
-    }
+
 }
 
 class UserController
@@ -99,36 +97,6 @@ class UserController
         exit;
     }
 
-    public function createAnime() 
-    {
-        if (!empty($_POST['A_titulo'])) {
-            $anime = $_POST['A_titulo'];
-            $subtitulo = $_POST['A_subtitulo'];
-            $episodios = $_POST['A_episodios'];
-            $duracion = $_POST['A_duracion'];
-            $imagen = $_POST['A_imagen'];
-            //$video = $_FILES['A_video']['name'];
-            $fecha_estreno = $_POST['A_fecha_estreno'];
-            $estudio = $_POST['A_estudio'];
-            $generos = $_POST['A_generos'];
-            $descripcion = $_POST['A_descripcion'];
-           
-            $db = new Database();
-            $connection = $db->getConnection();
-            $connection->query("CALL sp_crearAnime(
-                '$anime',
-                '$subtitulo',
-                $episodios,
-                $duracion,
-                '$imagen',
-                '$fecha_estreno',
-                '$estudio',
-                '$generos',
-                '$descripcion'
-            )");
-
-        }
-    }
     public function update() {}
     // delete an employee
     public function delete() {}
