@@ -84,7 +84,7 @@ class UserController
                     $_SESSION['status'] = $userRow['status'];
                 }
 
-                header('Location: ../view/index.php');
+                header('Location: /DAM-Transversal/view/profile/profile.php');
                 exit();
             } else {
                 // $error = "Correo electrónico o contraseña incorrectos. Inténtalo de nuevo.";
@@ -103,7 +103,7 @@ class UserController
     {
         session_unset();
         session_destroy();
-        header("Location: /DAM-Transversal/view/home.html");
+        header("Location: /DAM-Transversal/view/auth/login.php");
         exit;
     }
 
