@@ -1,5 +1,6 @@
 <?php
 
+// ssh -i ssh-key-Monogatarya.key -L 3307:127.0.0.1:3306 ubuntu@130.110.233.182
 class Database
 {
     private $host;
@@ -12,8 +13,9 @@ class Database
 
     public function __construct()
     {
-        // Detectar si estás en local o en servidor
-        if ($_SERVER['HTTP_HOST'] == 'localhost') {
+        $host = $_SERVER['HTTP_HOST'] ?? '';
+
+        if ($host === 'localhost' || $host === '127.0.0.1' || str_contains($host, 'localhost:')) {
             $this->host = "127.0.0.1";
             $this->port = 3307;
         } else {
@@ -37,7 +39,7 @@ class Database
         );
 
         if ($this->connection->connect_error) {
-            die("Error de conexión: " . $this->connection->connect_error);
+            die("Error de conexion: " . $this->connection->connect_error);
         }
 
         $this->connection->set_charset("utf8mb4");
