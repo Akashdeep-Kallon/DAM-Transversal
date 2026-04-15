@@ -1,12 +1,12 @@
 <?php
 session_start();
-require_once '../model/db.php';
+require_once __DIR__ . '/../model/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $catalog = new Catalog();
 
-    if (isset($_POST['crearAnime'])) {
-        $catalog->createAnime();
+    if (isset($_POST['createWork'])) {
+        $catalog->createWork();
     }
 }
 class Catalog
@@ -63,35 +63,43 @@ class Catalog
         ];
     }
 
-    public function createAnime() 
+    public function createWork() 
     {
-        if (!empty($_POST['A_titulo'])) {
-            $anime = $_POST['A_titulo'];
-            $subtitulo = $_POST['A_subtitulo'];
-            $episodios = $_POST['A_episodios'];
-            $duracion = $_POST['A_duracion'];
-            $imagen = $_POST['A_imagen'];
-            //$video = $_FILES['A_video']['name'];
-            $fecha_estreno = $_POST['A_fecha_estreno'];
-            $estudio = $_POST['A_estudio'];
-            $generos = $_POST['A_generos'];
-            $descripcion = $_POST['A_descripcion'];
+        if (!empty($_POST['title']) && !empty($_POST['type'])) {
+            $type = $_POST['type'];
+            $title = $_POST['title'];
+            $subtitle = $_POST['subtitle'];
+            $episodes = $_POST['episodes'];
+            $duration = $_POST['duration'];
+            $image = $_POST['image'];
+            //$video = $_FILES['video']['name'];
+            $premiereDate = $_POST['premiere_date'];
+            $studio = $_POST['studio'];
+            $genres = $_POST['genres'];
+            $description = $_POST['description'];
            
             $db = new Database();
             $connection = $db->getConnection();
-            $connection->query("CALL sp_crearAnime(
-                '$anime',
-                '$subtitulo',
-                $episodios,
-                $duracion,
-                '$imagen',
-                '$fecha_estreno',
-                '$estudio',
-                '$generos',
-                '$descripcion'
+            $connection->query("CALL sp_add_Work(
+                '$type',
+                '$title',
+                '$subtitle',
+                $episodes,
+                '$image',
+                '$studio',
+                '$premiereDate',
+                '$genres',
+                '$description',
+                NULL
             )");
-            header('Location: ../view/../view/catalogs/anime/anime-catalog.php');
-                exit();
+
+            $redirectType = strtolower($type);
+            if (!in_array($redirectType, ['anime', 'manga'])) {
+                $redirectType = 'anime';
+            }
+
+            header('Location: ../view/catalogs/' . $redirectType . '/' . $redirectType . '-catalog.php');
+            exit();
         }
     }
 
