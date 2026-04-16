@@ -50,7 +50,7 @@
                     <?php } ?>
                 </div>
 
-                <?php require __DIR__ . '/../includes/pagination.php'; ?>
+                <?php require __DIR__ . '/../../includes/pagination.php'; ?>
 
             </section>
         </div>
