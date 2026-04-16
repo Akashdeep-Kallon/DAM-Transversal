@@ -13,7 +13,7 @@
 
 <body>
 
-    <?php require 'includes/clean_header.php'; ?>
+    <?php require 'partials/header.php'; ?>
 
     <main>
         <section class="hero" aria-labelledby="hero-title">
