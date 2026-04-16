@@ -27,7 +27,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                         </svg>
                     </button>
 
-                    <input class="search-input" type="search" name="busqueda" placeholder="Search"
+                    <input class="search-input" type="search" name="search" placeholder="Buscar"
                         required minlength="2" maxlength="40">
 
                     <button class="icon-btn red" aria-label="Micrófono">

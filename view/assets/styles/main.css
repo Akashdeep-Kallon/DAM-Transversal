@@ -168,7 +168,7 @@ header {
     background-color: rgb(31, 31, 31);
 }
 
-.header-gruop img {
+.logo-link img {
     width: 75px;
     height: auto;
     display: block;
@@ -497,8 +497,8 @@ textarea {
     *,
     *::before,
     *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
+        animation: none;
+        transition: none;
+        scroll-behavior: auto;
     }
 }

@@ -18,6 +18,7 @@ $status = $userData['status'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/styles/main.css" />
     <link rel="stylesheet" href="../assets/styles/user.css" />
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Perfil de Usuario</title>
 </head>
 
@@ -55,7 +56,7 @@ $status = $userData['status'];
                         </div>
 
                         <div class="field">
-                            <label for="usuario">Nombre de usuario</label>
+                            <label for="usuario">Correo electrónico</label>
                             <input id="usuario" name="usuario" required minlength="4"
                                 value="<?php echo htmlspecialchars($email); ?>">
                         </div>
