@@ -28,7 +28,7 @@
             <section class="card-panel" aria-labelledby="catalogo-title">
 
                 <div class="section-header">
-                    <h2 id="catalogo-title" class="section-title">Catálogo de animes</h2>
+                    <h2 id="catalogo-title" class="section-title">Catálogo de Animes</h2>
                     <a class="btn btn-add" href="../create-work.php">Añadir Anime</a>
                 </div>
                 <!-- Tarjetas de esta página -->

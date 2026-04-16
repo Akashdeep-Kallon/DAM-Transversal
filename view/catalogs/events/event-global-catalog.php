@@ -11,7 +11,7 @@ $totalPages = $result['totalPages'];
 <section class="card-panel" aria-labelledby="catalogo-title">
 
     <div class="section-header">
-        <h2 id="catalogo-title" class="section-title">Catálogo de eventos</h2>
+        <h2 id="catalogo-title" class="section-title">Catálogo de Eventos</h2>
         <a class="btn btn-add" href="../create-work.php">Añadir Evento</a>
     </div>
 
