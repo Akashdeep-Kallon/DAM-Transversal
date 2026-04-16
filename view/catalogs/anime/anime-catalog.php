@@ -28,7 +28,7 @@
 
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de animes</h2>
-                    <a class="btn btn-add" href="../create_work.php">Crear Anime</a>
+                    <a class="btn btn-add" href="../create-work.php">Crear Anime</a>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">

@@ -13,7 +13,7 @@
 
     <header>
         <div class="header-gruop">
-            <a href="/DAM-Transversal/view/home.html" class="logo-link" aria-label="Volver a inicio">
+            <a href="/DAM-Transversal/view/home.php" class="logo-link" aria-label="Volver a inicio">
                 <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Logo de la página Monogatarya">
             </a>
             <h1>MONOGATARYA</h1>
