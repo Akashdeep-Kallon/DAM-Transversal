@@ -35,8 +35,9 @@
 USE Monogatarya;
  
 CREATE TABLE IF NOT EXISTS Users (
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     status BOOLEAN DEFAULT FALSE,
+    logo VARCHAR(100),
     name VARCHAR(50) NOT NULL,
     surname VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL,
@@ -116,8 +117,7 @@ CREATE PROCEDURE sp_login(
     OUT valido BOOLEAN
 ) BEGIN
 SELECT
-    EXISTS(
-        SELECT 1 FROM Users WHERE email = emailP AND password = passwordP) INTO valido;
+    EXISTS(SELECT 1 FROM Users WHERE email = emailP AND password = passwordP) INTO valido;
 END //
  
 DELIMITER //
@@ -214,20 +214,17 @@ BEGIN
 
     COMMIT;
 END //
-DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE drop_tables() BEGIN 
-DROP TABLE Works; 
-DROP TABLE Catalogs;
 DROP TABLE Chapters;
-DROP TABLE Episodes;
+DROP TABLE Event_Media;
 DROP TABLE Events;
-DROP TABLE Mangas;
+DROP TABLE Works;
 DROP TABLE Users;
 END //
 
-DELIMITER;
+DELIMITER ;
  
 INSERT INTO
     Works (

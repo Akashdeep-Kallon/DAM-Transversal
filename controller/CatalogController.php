@@ -176,7 +176,7 @@ class Catalog
             )
         ");
 
-            header('Location: /DAM-Transversal/view/catalogs/events/event-global-catalog.php');
+            header('Location: /DAM-Transversal/view/catalogs/events/event-catalog.php');
             exit();
         }
     }

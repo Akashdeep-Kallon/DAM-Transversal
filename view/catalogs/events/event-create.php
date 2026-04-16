@@ -24,11 +24,11 @@
 
                     <div class="field-group">
                         <label for="nombre-evento">Título</label>
-                        <input id="nombre-evento" type="text" name="title" required minlength="3" maxlength="50">
+                        <input id="nombre-evento" type="text" name="title" required minlength="5" maxlength="50">
                     </div>
                     <div class="field-group">
                         <label for="subtitle">Subtítulo</label>
-                        <input id="subtitle" type="text" name="subtitle" required minlength="5" maxlength="50">
+                        <input id="subtitle" type="text" name="subtitle" required minlength="5" maxlength="75">
                     </div>
                     <div class="field-group">
                         <label for="fecha-evento">Fecha</label>
@@ -36,11 +36,11 @@
                     </div>
                     <div class="field-group">
                         <label for="lugar-evento">Lugar</label>
-                        <input id="lugar-evento" type="text" name="location" required minlength="3">
+                        <input id="lugar-evento" type="text" name="location" required minlength="1" maxlength="150">
                     </div>
                     <div class="field-group">
                         <label for="aforo">Aforo</label>
-                        <input id="aforo" type="number" name="capacity" min="50" required>
+                        <input id="aforo" type="number" name="capacity" min="1" required>
                     </div>
                     <div class="field-group">
                         <label for="image">Imagen en URL</label>
@@ -49,7 +49,7 @@
                     <div class="field-group">
                         <label for="descripcion-evento">Descripción</label>
                         <textarea id="descripcion-evento" name="description" required minlength="10"
-                            maxlength="300"></textarea>
+                            maxlength="500"></textarea>
                     </div>
                     <div class="inline-actions">
                         <button type="submit" class="btn btn-add" name="create_event">Publicar evento</button>

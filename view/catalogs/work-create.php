@@ -32,11 +32,11 @@
                     </div>
                     <div class="field-group">
                         <label for="title">Work title</label>
-                        <input id="title" type="text" name="title" required minlength="3" maxlength="50">
+                        <input id="title" type="text" name="title" required minlength="5" maxlength="50">
                     </div>
                     <div class="field-group">
                         <label for="subtitle">Subtitle</label>
-                        <input id="subtitle" type="text" name="subtitle" required minlength="5" maxlength="50">
+                        <input id="subtitle" type="text" name="subtitle" required minlength="5" maxlength="75">
                     </div>
                     <div class="field-group">
                         <label for="episodes">Number of episodes</label>
@@ -60,15 +60,15 @@
                     </div>
                     <div class="field-group">
                         <label for="studio">Studio / platform</label>
-                        <input id="studio" type="text" name="studio" required>
+                        <input id="studio" type="text" name="studio" max="25" required>
                     </div>
                     <div class="field-group">
                         <label for="gender">Gender</label>
-                        <input id="gender" type="text" name="gender" required>
+                        <input id="gender" type="text" name="gender" max="50" required>
                     </div>
                     <div class="field-group">
                         <label for="description">Description</label>
-                        <textarea id="description" name="description" required minlength="1" maxlength="300"></textarea>
+                        <textarea id="description" name="description" required minlength="10" maxlength="500"></textarea>
                     </div>
 
                     <div class="inline-actions">
