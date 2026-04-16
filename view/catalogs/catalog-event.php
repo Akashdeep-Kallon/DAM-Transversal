@@ -12,7 +12,7 @@ $totalPages = $result['totalPages'];
 
     <div class="section-header">
         <h2 id="catalogo-title" class="section-title">Catálogo de eventos</h2>
-        <a class="btn btn-add" href="../create_event.php">Crear Evento</a>
+        <a class="btn btn-add" href="../create-work.php">Crear Evento</a>
     </div>
 
     <!-- Tarjetas de esta página -->

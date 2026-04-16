@@ -1,26 +1,26 @@
 <!-- Botones de paginación -->
 <div class="paginacion">
     <?php
-    $rango = 2;
-    $inicio = max(1, $page - $rango);
-    $fin = min($totalPages, $page + $rango);
+    $range = 2;
+    $start = max(1, $page - $range);
+    $end = min($totalPages, $page + $range);
     ?>
 
     <?php if ($page > 1) { ?>
         <a href="?page=<?php echo $page - 1; ?>">&laquo;</a>
     <?php } ?>
 
-    <?php if ($inicio > 1) { ?>
+    <?php if ($start > 1) { ?>
         <span>...</span>
     <?php } ?>
 
-    <?php for ($i = $inicio; $i <= $fin; $i++) { ?>
+    <?php for ($i = $start; $i <= $end; $i++) { ?>
         <a href="?page=<?php echo $i; ?>" <?php echo $i === $page ? 'class="paginacion-active"' : ''; ?>>
             <?php echo $i; ?>
         </a>
     <?php } ?>
 
-    <?php if ($fin < $totalPages) { ?>
+    <?php if ($end < $totalPages) { ?>
         <span>...</span>
     <?php } ?>
 
