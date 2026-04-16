@@ -23,11 +23,11 @@
                 <form class="form-vertical" action="/DAM-Transversal/controller/CatalogController.php" method="post">
 
                     <div class="field-group">
-                        <label for="nombre-evento">Título del evento</label>
+                        <label for="nombre-evento">Título</label>
                         <input id="nombre-evento" type="text" name="title" required minlength="3" maxlength="50">
                     </div>
                     <div class="field-group">
-                        <label for="subtitle">Subtítulo del evento</label>
+                        <label for="subtitle">Subtítulo</label>
                         <input id="subtitle" type="text" name="subtitle" required minlength="5" maxlength="50">
                     </div>
                     <div class="field-group">
@@ -43,7 +43,7 @@
                         <input id="aforo" type="number" name="capacity" min="50" required>
                     </div>
                     <div class="field-group">
-                        <label for="image">Imagen del evento en URL</label>
+                        <label for="image">Imagen en URL</label>
                         <input id="image" type="text" name="image" required>
                     </div>
                     <div class="field-group">
