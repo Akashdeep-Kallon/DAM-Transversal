@@ -12,7 +12,7 @@ $totalPages = $result['totalPages'];
 
     <div class="section-header">
         <h2 id="catalogo-title" class="section-title">Catálogo de Eventos</h2>
-        <a class="btn btn-add" href="../create-work.php">Añadir Evento</a>
+        <a class="btn btn-add" href="create-event.php">Añadir Evento</a>
     </div>
 
     <!-- Tarjetas de esta página -->
@@ -22,7 +22,7 @@ $totalPages = $result['totalPages'];
             $title = htmlspecialchars($event['Title']);
             $subtitle = htmlspecialchars($event['Subtitle']);
             $id = $event['ID_Event'];
-            $active = !empty($event['Active']);   // columna booleana / tinyint
+            $active = $event['Active'];   // columna booleana / tinyint
             ?>
             <article class="content-card event-card">
                 <img class="card-image" src="<?php echo $img; ?>" alt="Cartel <?php echo $title; ?>">

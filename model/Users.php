@@ -18,7 +18,7 @@ class Users
 
     public function register($password_confirm, $connection)
     {
-        $connection->query("CALL sp_comprovar_email('$this->email', @result)");
+        $connection->query("CALL sp_comprove_email('$this->email', @result)");
         $result = $connection->query("SELECT @result AS exist");
         $row = $result->fetch_assoc();
         $exist = intval($row["exist"]);

@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="inline-actions">
-                        <button type="submit" class="btn btn-add" name="createWork">Publicar obra</button>
+                        <button type="submit" class="btn btn-add" name="create_work">Publicar obra</button>
                         <button type="reset" class="btn btn-delete" name="cancelar">Cancelar</button>
                     </div>
                 </form>

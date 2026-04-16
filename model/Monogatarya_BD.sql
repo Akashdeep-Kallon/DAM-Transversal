@@ -55,9 +55,7 @@ CREATE TABLE IF NOT EXISTS Works (
     Description VARCHAR(500),
     email VARCHAR(50),
     CONSTRAINT PK_Works PRIMARY KEY (ID_Work),
-    FOREIGN KEY (email) REFERENCES Users(email) ON DELETE
-    SET
-        NULL
+    FOREIGN KEY (email) REFERENCES Users(email) ON DELETE SET NULL
 );
  
 CREATE TABLE IF NOT EXISTS Chapters (
@@ -82,13 +80,11 @@ CREATE TABLE IF NOT EXISTS Events (
     Date_event DATE NOT NULL,
     Location VARCHAR(150),
     Capacity INT,
-    Schedule VARCHAR(50),
+    Active BOOLEAN DEFAULT FALSE,
     email VARCHAR(50),
     -- normalised to lowercase
     CONSTRAINT PK_Events PRIMARY KEY (ID_Event),
-    FOREIGN KEY (email) REFERENCES Users(email) ON DELETE
-    SET
-        NULL
+    FOREIGN KEY (email) REFERENCES Users(email) ON DELETE SET NULL
 );
  
 CREATE TABLE IF NOT EXISTS Event_Media (
@@ -106,36 +102,22 @@ CREATE TABLE IF NOT EXISTS Event_Media (
  
 -- PROCEDURES
 DELIMITER //
-CREATE PROCEDURE sp_comprovar_email(
+CREATE PROCEDURE sp_comprove_email(
     IN emailP VARCHAR(50),
     OUT exist BOOLEAN
 ) BEGIN
 SELECT
-    EXISTS(
-        SELECT
-            1
-        FROM
-            Users
-        WHERE
-            email = emailP
-    ) INTO exist;
- 
-END / / CREATE PROCEDURE sp_login(
+    EXISTS(SELECT 1 FROM Users WHERE email = emailP) INTO exist;
+END // 
+
+CREATE PROCEDURE sp_login(
     IN emailP VARCHAR(50),
     IN passwordP VARCHAR(100),
     OUT valido BOOLEAN
 ) BEGIN
 SELECT
     EXISTS(
-        SELECT
-            1
-        FROM
-            Users
-        WHERE
-            email = emailP
-            AND password = passwordP
-    ) INTO valido;
- 
+        SELECT 1 FROM Users WHERE email = emailP AND password = passwordP) INTO valido;
 END //
  
 DELIMITER //
@@ -150,13 +132,10 @@ CREATE PROCEDURE sp_add_Work(
     IN p_Gender VARCHAR(50),
     IN p_Description VARCHAR(500),
     IN p_email VARCHAR(50)
-) BEGIN -- Control de errores
+) 
+BEGIN -- Control de errores
 DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN ROLLBACK;
- 
-SIGNAL SQLSTATE '45000'
-SET
-    MESSAGE_TEXT = 'Error al insertar la obra en Works';
- 
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error al insertar la obra en Works';
 END;
  
 START TRANSACTION;
@@ -189,27 +168,65 @@ VALUES
     );
  
 COMMIT;
- 
 END //
-DELIMITER;
- 
+
 DELIMITER //
-CREATE PROCEDURE drop_tables() BEGIN DROP TABLE Works;
- 
-DROP TABLE Catalogs;
- 
-DROP TABLE Chapters;
- 
-DROP TABLE Episodes;
- 
-DROP TABLE Events;
- 
-DROP TABLE Mangas;
- 
-DROP TABLE Users;
- 
+CREATE PROCEDURE sp_add_Event(
+    IN p_Title VARCHAR(100),
+    IN p_Subtitle VARCHAR(150),
+    IN p_Description TEXT,
+    IN p_Image VARCHAR(500),
+    IN p_Date_event DATE,
+    IN p_Location VARCHAR(150),
+    IN p_Capacity INT,
+    IN p_email VARCHAR(50)
+)
+BEGIN
+    -- Control de errores
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error al insertar Evento';
+    END;
+
+    START TRANSACTION;
+
+    INSERT INTO Events (
+        Title,
+        Subtitle,
+        Description,
+        Image,
+        Date_event,
+        Location,
+        Capacity,
+        email
+    )
+    VALUES (
+        p_Title,
+        p_Subtitle,
+        p_Description,
+        p_Image,
+        p_Date_event,
+        p_Location,
+        p_Capacity,
+        p_email
+    );
+
+    COMMIT;
 END //
- 
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE drop_tables() BEGIN 
+DROP TABLE Works; 
+DROP TABLE Catalogs;
+DROP TABLE Chapters;
+DROP TABLE Episodes;
+DROP TABLE Events;
+DROP TABLE Mangas;
+DROP TABLE Users;
+END //
+
 DELIMITER;
  
 INSERT INTO
