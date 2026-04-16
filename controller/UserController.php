@@ -46,12 +46,43 @@ class UserController
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
+
+        // VALIDACIONES
+
+        // Validar email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "El email no tiene un formato válido";
+            exit();
+        }
+
+        // Validar contraseña (mínimo 6 caracteres)
+        if (strlen($password) < 6) {
+            echo "La contraseña debe tener al menos 6 caracteres";
+            exit();
+        }
+
+        // Confirmación de contraseña
+        if ($password !== $password_confirm) {
+            echo "Las contraseñas no coinciden";
+            exit();
+        }
+
+
             $user = new Users($email, $status, $name, $surname, $password);
 
             $db = new Database();
             $connection = $db->getConnection();
 
-            $user->register($password_confirm, $connection);
+            $registered = $user->register($password_confirm, $connection);
+
+            if ($registered) {
+                $_SESSION['email'] = $email;
+                $_SESSION['usuario'] = $email;
+                $_SESSION['status'] = $status ? 1 : 0;
+
+                header('Location: /DAM-Transversal/view/profiles/profile.php');
+                exit();
+            }
         } else {
             // $error = "Por favor, completa todos los campos.";
             // header("Location: register-lector.php?error=" . urlencode($error));
@@ -84,7 +115,7 @@ class UserController
                     $_SESSION['status'] = $userRow['status'];
                 }
 
-                header('Location: /DAM-Transversal/view/profiles/profile.php');
+                header('Location: /DAM-Transversal/view/index.php');
                 exit();
             } else {
                 // $error = "Correo electrónico o contraseña incorrectos. Inténtalo de nuevo.";
