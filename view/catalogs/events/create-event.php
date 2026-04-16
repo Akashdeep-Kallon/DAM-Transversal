@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/event.css" />
     <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/main.css" />
     <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
-    <title>Monogatarya - Crear Evento</title>
+    <title>Monogatarya - Publicar Evento</title>
 </head>
 
 <body>
@@ -43,13 +43,13 @@
                         <input id="aforo" type="number" name="capacity" min="50" required>
                     </div>
                     <div class="field-group">
+                        <label for="image">Imagen del evento en URL</label>
+                        <input id="image" type="text" name="image" required>
+                    </div>
+                    <div class="field-group">
                         <label for="descripcion-evento">Descripción</label>
                         <textarea id="descripcion-evento" name="description" required minlength="10"
                             maxlength="300"></textarea>
-                    </div>
-                    <div class="field-group">
-                        <label for="image">Imagen del evento URL</label>
-                        <input id="image" type="text" name="image" required>
                     </div>
                     <div class="inline-actions">
                         <button type="submit" class="btn btn-add" name="create_event">Publicar evento</button>
