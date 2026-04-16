@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,22 +13,7 @@
 
 <body>
 
-    <header>
-        <div class="header-gruop">
-            <a href="/DAM-Transversal/view/home.html" class="logo-link" aria-label="Volver a inicio">
-                <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Logo de la página Monogatarya">
-            </a>
-            <h1>MONOGATARYA</h1>
-            <div class="right-group">
-                <form action="auth/login.php">
-                    <button class="btn btn-sesion" type="submit">Iniciar Sesión</button>
-                </form>
-                <form action="auth/register.html">
-                    <button class="btn btn-register" type="submit">Registrarse</button>
-                </form>
-            </div>
-        </div>
-    </header>
+    <?php require 'includes/clean_header.php'; ?>
 
     <main>
         <section class="hero" aria-labelledby="hero-title">
