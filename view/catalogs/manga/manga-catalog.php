@@ -38,14 +38,21 @@
                         $title = htmlspecialchars($manga['Title']);
                         $subtitle = htmlspecialchars($manga['Subtitle']);
                         $id = $manga['ID_Work'];
+                        $active = $manga['Active'];
                         ?>
                         <article class="content-card">
                             <img class="card-image" src="<?php echo $img; ?>" alt="Portada de <?php echo $title; ?>">
                             <h3><?php echo $title; ?></h3>
                             <p><?php echo $subtitle; ?></p>
-                            <a class="btn-link" href="manga-detail.php?id=<?php echo $id; ?>">
-                                Más información
-                            </a>
+                            <?php if ($active) { ?>
+                                <a class="btn-link" href="event-detail.php?id=<?php echo $id; ?>">
+                                    Leer Manga
+                                </a>
+                            <?php } else { ?>
+                                <button class="btn-link btn-muted" type="button" disabled>
+                                    Próximamente
+                                </button>
+                            <?php } ?>
                         </article>
                     <?php } ?>
                 </div>

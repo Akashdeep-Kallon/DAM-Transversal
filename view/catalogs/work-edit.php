@@ -32,7 +32,7 @@
                     </div>
                     <div class="field-group">
                         <label for="title">Work title</label>
-                        <input id="title" type="text" name="title" required minlength="3" maxlength="50">
+                        <input id="title" type="text" name="title" required minlength="5" maxlength="50">
                     </div>
                     <div class="field-group">
                         <label for="subtitle">Subtitle</label>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="field-group">
                         <label for="image">Cover image URL</label>
-                        <input id="image" type="text" name="image" required>
+                        <input id="image" type="text" name="image">
                     </div>
                     <div class="field-group">
                         <label for="video">Upload video</label>

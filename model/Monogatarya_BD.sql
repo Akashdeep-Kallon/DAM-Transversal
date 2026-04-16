@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS Works (
     Studio VARCHAR(25),
     Gender VARCHAR(50),
     Description VARCHAR(500),
+    Active BOOLEAN DEFAULT FALSE,
     email VARCHAR(50),
     CONSTRAINT PK_Works PRIMARY KEY (ID_Work),
     FOREIGN KEY (email) REFERENCES Users(email) ON DELETE SET NULL

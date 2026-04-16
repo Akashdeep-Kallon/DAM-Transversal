@@ -39,14 +39,21 @@
                         $title = htmlspecialchars($anime['Title']);
                         $subtitle = htmlspecialchars($anime['Subtitle']);
                         $id = $anime['ID_Work'];
+                        $active = $anime['Active'];
                         ?>
                         <article class="content-card">
                             <img class="card-image" src="<?php echo $img; ?>" alt="Portada de <?php echo $title; ?>">
                             <h3><?php echo $title; ?></h3>
                             <p><?php echo $subtitle; ?></p>
-                            <a class="btn-link" href="anime-detail.php?id=<?php echo $id; ?>">
-                                Más información
-                            </a>
+                            <?php if ($active) { ?>
+                                <a class="btn-link" href="event-detail.php?id=<?php echo $id; ?>">
+                                    Ver Anime
+                                </a>
+                            <?php } else { ?>
+                                <button class="btn-link btn-muted" type="button" disabled>
+                                    Próximamente
+                                </button>
+                            <?php } ?>
                         </article>
                     <?php } ?>
                 </div>

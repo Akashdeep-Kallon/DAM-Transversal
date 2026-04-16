@@ -18,6 +18,16 @@
     margin-top: auto;
 }
 
+.btn-muted {
+    background: #4b4b4b;
+    color: #d7d7d7;
+    cursor: not-allowed;
+}
+
+.btn-muted:hover {
+    background: #4b4b4b;
+}
+
 .section-header {
     display: flex;
     align-items: center;
