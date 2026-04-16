@@ -2,6 +2,8 @@
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
+
+var_dump($_SESSION);
 ?>
 
 <header>
@@ -39,7 +41,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
             </form>
 
             <?php if (isset($_SESSION['usuario'])): ?>
-                <!-- Usuario logueado -->
                 <a href="/DAM-Transversal/view/profiles/profile.php"
                     class="icon-btn white user-link" aria-label="Ir al perfil de usuario">
                     <svg class="icon">
