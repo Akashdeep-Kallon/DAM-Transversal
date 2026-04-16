@@ -21,8 +21,8 @@
                     <p>Descubre novedades de manga y anime, gestiona tu perfil y reserva eventos desde una experiencia
                         responsive y accesible.</p>
                     <div class="inline-actions">
-                        <a class="btn-link" href="events/event-detail.html">Ver evento destacado</a>
-                        <a class="btn-link" href="catalogs/anime/anime-catalog.html">Explorar catálogo</a>
+                        <a class="btn-link" href="events/event-detail.php">Ver evento destacado</a>
+                        <a class="btn-link" href="catalogs/anime/anime-catalog.php">Explorar catálogo</a>
                     </div>
                 </div>
                 <div class="gallery" aria-label="Galería destacada">
