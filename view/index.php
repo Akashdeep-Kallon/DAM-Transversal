@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -10,7 +6,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/styles/main.css" />
     <link rel="stylesheet" href="assets/styles/index.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
     <title>Monogatarya - Página principal</title>
 </head>
 
@@ -25,8 +21,8 @@ session_start();
                     <p>Descubre novedades de manga y anime, gestiona tu perfil y reserva eventos desde una experiencia
                         responsive y accesible.</p>
                     <div class="inline-actions">
-                        <a class="btn-link" href="events/event-detail.php">Ver evento destacado</a>
-                        <a class="btn-link" href="catalogs/anime/anime-catalog.php">Explorar catálogo</a>
+                        <a class="btn-link" href="events/event-detail.html">Ver evento destacado</a>
+                        <a class="btn-link" href="catalogs/anime/anime-catalog.html">Explorar catálogo</a>
                     </div>
                 </div>
                 <div class="gallery" aria-label="Galería destacada">
