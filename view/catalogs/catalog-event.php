@@ -42,21 +42,8 @@ $totalPages = $result['totalPages'];
         <?php } ?>
     </div>
 
-    <!-- Botones de paginación -->
-    <div class="paginacion">
-        <?php if ($page > 1) { ?>
-            <a href="?page=<?php echo $page - 1; ?>">&laquo;</a>
-        <?php } ?>
+    <?php require __DIR__ . '/../includes/pagination.php'; ?>
 
-        <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-            <a href="?page=<?php echo $i; ?>" <?php echo $i === $page ? 'class="paginacion-active"' : ''; ?>>
-                <?php echo $i; ?>
-            </a>
-        <?php } ?>
-
-        <?php if ($page < $totalPages) { ?>
-            <a href="?page=<?php echo $page + 1; ?>">&raquo;</a>
-        <?php } ?>
     </div>
 
 </section>

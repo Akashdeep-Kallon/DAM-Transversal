@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../assets/styles/main.css" />
     <link rel="stylesheet" href="../../assets/styles/catalog.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Catálogo de mangas</title>
 </head>
 
 <body>
     <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
     $catalog = new Catalog();
     $result = $catalog->returnCatalog('Manga');
     $query = $result['query'];
@@ -38,7 +38,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
                         $title = htmlspecialchars($manga['Title']);
                         $subtitle = htmlspecialchars($manga['Subtitle']);
                         $id = $manga['ID_Work'];
-                    ?>
+                        ?>
                         <article class="content-card">
                             <img class="card-image" src="<?php echo $img; ?>" alt="Portada de <?php echo $title; ?>">
                             <h3><?php echo $title; ?></h3>
@@ -50,29 +50,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
                     <?php } ?>
                 </div>
 
-                <!-- Botones de paginación -->
-                <div class="paginacion">
-
-                    <!-- Botón « anterior -->
-                    <?php if ($page > 1) { ?>
-                        <a href="?page=<?php echo $page - 1; ?>">&laquo;</a>
-                    <?php } ?>
-
-                    <!-- Número de cada página -->
-                    <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-                        <?php if ($i == $page) { ?>
-                            <a href="?page=<?php echo $i; ?>" class="paginacion-active"><?php echo $i; ?></a>
-                        <?php } else { ?>
-                            <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                        <?php } ?>
-                    <?php } ?>
-
-                    <!-- Botón » siguiente -->
-                    <?php if ($page < $totalPages) { ?>
-                        <a href="?page=<?php echo $page + 1; ?>">&raquo;</a>
-                    <?php } ?>
-
-                </div>
+                <?php require __DIR__ . '/../includes/pagination.php'; ?>
 
             </section>
         </div>
