@@ -39,11 +39,9 @@
                         <dd>10:00 - 21:00</dd>
                     </dl>
                     <div class="stack-actions">
+                        <a href="event-edit.php" class="btn btn-add">Editar evento</a>
                         <button type="button" class="btn btn-add">Reservar plaza</button>
-
                         <button type="button" class="btn btn-delete">Anular reserva</button>
-
-                        <a href="event-edit.html" class="btn btn-add">Editar evento (promotor)</a>
                     </div>
                 </aside>
             </article>

@@ -28,7 +28,7 @@
             <section class="card-panel" aria-labelledby="catalogo-title">
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de Mangas</h2>
-                    <a class="btn btn-add" href="../create-work.php">Añadir Manga</a>
+                    <a class="btn btn-add" href="../work-create.php">Añadir Manga</a>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">

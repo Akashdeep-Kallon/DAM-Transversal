@@ -465,8 +465,6 @@ textarea {
     text-align: center;
 }
 
-
-
 :where(a, button, input, textarea, select):focus-visible {
     outline: 3px solid var(--focus);
     outline-offset: 2px;
