@@ -28,7 +28,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
             <section class="card-panel" aria-labelledby="catalogo-title">
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de Mangas</h2>
-                    <a class="btn btn-add" href="manga-crear.php">Crear Manga</a>
+                    <a class="btn btn-add" href="../create_work.php">Crear Manga</a>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">
