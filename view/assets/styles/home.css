@@ -15,12 +15,12 @@
 html,
 body {
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     min-height: 100%;
     color: var(--text);
     font-family: Inter, Arial, sans-serif;
     background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .6)),
-        url("../img/background-image.webp") center / cover no-repeat fixed;
+    url("../img/background-image.webp") center / cover no-repeat fixed;
 }
 
 .header-gruop {
