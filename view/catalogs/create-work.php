@@ -6,19 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/styles/event.css" />
     <link rel="stylesheet" href="../assets/styles/main.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
-    <title>Monogatarya - Crear Evento de Anime</title>
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <title>Monogatarya - Publicar Obra</title>
 </head>
 
 <body>
-    <?php require '../includes/clean-header.php'; ?>
+
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel" aria-labelledby="crear-evento-title">
                 <h2 id="crear-evento-title" class="section-title">Formulario de creación de obra</h2>
-                
-                <form class="form-vertical" action="../../controller/CatalogController.php" method="post" enctype="multipart/form-data">
+
+                <form class="form-vertical" action="/DAM-Transversal/controller/CatalogController.php" method="post"
+                    enctype="multipart/form-data">
 
                     <div class="field-group">
                         <label for="tipo-obra">Type</label>
@@ -70,7 +72,7 @@
                     </div>
 
                     <div class="inline-actions">
-                        <button type="submit" class="btn btn-add" name="createWork">Crear evento</button>
+                        <button type="submit" class="btn btn-add" name="createWork">Publicar obra</button>
                         <button type="reset" class="btn btn-delete" name="cancelar">Cancelar</button>
                     </div>
                 </form>
@@ -81,8 +83,8 @@
 
     <input type="checkbox" id="menu-toggle">
 
-    <?php require '../includes/menu.php'; ?>
-    <?php require '../includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 
 </body>
 

@@ -4,22 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/styles/auth.css">
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/auth.css">
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Registro promotor</title>
 </head>
 
 <body>
     <main class="container" aria-labelledby="register-promoter-title">
-        <button class="btn-back" type="button" onclick="history.back()" aria-label="Volver a la página anterior">❮</button>
+        <button class="btn-back" type="button" onclick="history.back()"
+            aria-label="Volver a la página anterior">❮</button>
 
         <h1 id="register-promoter-title">Registro de promotor</h1>
 
-        <form action="../../controller/UserController.php" method="post">
+        <form action="/DAM-Transversal/controller/UserController.php" method="post">
 
             <label class="sr-only" for="promoter-name">Nombre</label>
-            <input id="promoter-name" name="name" class="btn-input input-name" type="text" placeholder="Nombre"
-                required minlength="2" maxlength="30">
+            <input id="promoter-name" name="name" class="btn-input input-name" type="text" placeholder="Nombre" required
+                minlength="2" maxlength="30">
 
             <div class="error-box error-name">
                 <span class="icon">ⓘ</span>
@@ -27,8 +28,8 @@
             </div>
 
             <label class="sr-only" for="promoter-lastname">Apellido</label>
-            <input id="promoter-lastname" name="lastname" class="btn-input input-lastname" type="text" placeholder="Apellido"
-                required minlength="2" maxlength="30">
+            <input id="promoter-lastname" name="lastname" class="btn-input input-lastname" type="text"
+                placeholder="Apellido" required minlength="2" maxlength="30">
 
             <div class="error-box error-lastname">
                 <span class="icon">ⓘ</span>
@@ -36,7 +37,8 @@
             </div>
 
             <label class="sr-only" for="promoter-email">Correo electrónico</label>
-            <input id="promoter-email" name="email" class="btn-input input-email" type="email" placeholder="Email" required>
+            <input id="promoter-email" name="email" class="btn-input input-email" type="email" placeholder="Email"
+                required>
 
             <div class="error-box error-email">
                 <span class="icon">ⓘ</span>

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/styles/auth.css">
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/auth.css">
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Registro lector</title>
 </head>
 
@@ -16,11 +16,11 @@
 
         <h1 id="register-reader-title">Registro de lector</h1>
 
-        <form action="../../controller/UserController.php" method="post">
-
+        <form action="/DAM-Transversal/controller/UserController.php" method="post">
+            
             <label class="sr-only" for="reader-name">Nombre</label>
-            <input id="reader-name" class="btn-input input-name" type="text" name="name"
-            placeholder="Nombre" required minlength="2" maxlength="30">
+            <input id="reader-name" class="btn-input input-name" type="text" name="name" placeholder="Nombre" required
+                minlength="2" maxlength="30">
 
             <div class="error-box error-name">
                 <span class="icon">ⓘ</span>
@@ -28,8 +28,8 @@
             </div>
 
             <label class="sr-only" for="reader-lastname">Apellido</label>
-            <input id="reader-lastname" class="btn-input input-lastname" type="text" name="lastname" 
-            placeholder="Apellido" required minlength="2" maxlength="30">
+            <input id="reader-lastname" class="btn-input input-lastname" type="text" name="lastname"
+                placeholder="Apellido" required minlength="2" maxlength="30">
 
             <div class="error-box error-lastname">
                 <span class="icon">ⓘ</span>
@@ -37,8 +37,8 @@
             </div>
 
             <label class="sr-only" for="reader-email">Correo electrónico</label>
-            <input id="reader-email" class="btn-input input-email" type="email"  name="email"
-            placeholder="Email" required>
+            <input id="reader-email" class="btn-input input-email" type="email" name="email" placeholder="Email"
+                required>
 
             <div class="error-box error-email">
                 <span class="icon">ⓘ</span>
@@ -60,7 +60,7 @@
             <input id="reader-confirm" class="btn-input" type="password" name="password_confirm"
                 placeholder="Confirmar Contraseña" required minlength="6" maxlength="20"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$">
-                
+
             <input class="btn btn-primary" type="submit" value="Registrarse" name="register_lector">
         </form>
     </main>

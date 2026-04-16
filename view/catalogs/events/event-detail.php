@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/styles/event.css" />
-    <link rel="stylesheet" href="../assets/styles/main.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/event.css" />
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/main.css" />
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Evento</title>
 </head>
 
 <body>
-    <?php require '../includes/header.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
@@ -49,8 +49,8 @@
             </article>
         </div>
     </main>
-    <?php require '../includes/menu.php'; ?>
-    <?php require '../includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 </body>
 
 </html>

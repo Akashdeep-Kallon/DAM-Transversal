@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../assets/styles/main.css" />
     <link rel="stylesheet" href="../../assets/styles/catalog.css" />
     <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
-    <title>Monogatarya - Catálogo de Animes</title>
+    <title>Monogatarya - Animes</title>
 </head>
 
 <body>
@@ -19,8 +19,9 @@
     $query = $result['query'];
     $page = $result['page'];
     $totalPages = $result['totalPages'];
-    require '../../includes/header.php';
     ?>
+
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
@@ -28,13 +29,13 @@
 
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de animes</h2>
-                    <a class="btn btn-add" href="../create-work.php">Crear Anime</a>
+                    <a class="btn btn-add" href="../create-work.php">Añadir Anime</a>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">
                     <?php while ($anime = mysqli_fetch_assoc($query)) {
                         // Si la BD tiene columna de imagen úsala; si no, placeholder
-                        $img = !empty($anime['Image']) ? htmlspecialchars($anime['Image']) : '../../assets/img/background-image.webp';
+                        $img = !empty($anime['Image']) ? htmlspecialchars($anime['Image']) : '/DAM-Transversal/view/assets/img/background-image.webp';
                         $title = htmlspecialchars($anime['Title']);
                         $subtitle = htmlspecialchars($anime['Subtitle']);
                         $id = $anime['ID_Work'];
@@ -50,14 +51,14 @@
                     <?php } ?>
                 </div>
 
-                <?php require __DIR__ . '/../../includes/pagination.php'; ?>
+                <?php require $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/pagination.php'; ?>
 
             </section>
         </div>
     </main>
 
-    <?php require '../../includes/menu.php'; ?>
-    <?php require '../../includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 </body>
 
 </html>

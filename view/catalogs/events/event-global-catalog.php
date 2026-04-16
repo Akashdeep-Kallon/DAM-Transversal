@@ -12,13 +12,13 @@ $totalPages = $result['totalPages'];
 
     <div class="section-header">
         <h2 id="catalogo-title" class="section-title">Catálogo de eventos</h2>
-        <a class="btn btn-add" href="../create-work.php">Crear Evento</a>
+        <a class="btn btn-add" href="../create-work.php">Añadir Evento</a>
     </div>
 
     <!-- Tarjetas de esta página -->
     <div class="card-grid card-grid-4">
         <?php while ($event = mysqli_fetch_assoc($query)) {
-            $img = !empty($event['Image']) ? htmlspecialchars($event['Image']) : '../../assets/img/background-image.webp';
+            $img = !empty($event['Image']) ? htmlspecialchars($event['Image']) : '/DAM-Transversal/view/assets/img/background-image.webp';
             $title = htmlspecialchars($event['Title']);
             $subtitle = htmlspecialchars($event['Subtitle']);
             $id = $event['ID_Event'];
@@ -42,7 +42,7 @@ $totalPages = $result['totalPages'];
         <?php } ?>
     </div>
 
-    <?php require __DIR__ . '/../includes/pagination.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/pagination.php'; ?>
 
     </div>
 
