@@ -51,8 +51,7 @@ CREATE TABLE IF NOT EXISTS Works (
     Image VARCHAR(500),
     Date_premiere DATE,
     Studio VARCHAR(25),
-    Genre VARCHAR(50),
-    -- renamed from Gender
+    Gender VARCHAR(50),
     Description VARCHAR(500),
     email VARCHAR(50),
     CONSTRAINT PK_Works PRIMARY KEY (ID_Work),

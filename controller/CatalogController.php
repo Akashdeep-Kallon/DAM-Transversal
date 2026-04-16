@@ -116,7 +116,7 @@ class Catalog
             //$video = $_FILES['video']['name'];
             $premiereDate = $_POST['premiere_date'];
             $studio = $_POST['studio'];
-            $genres = $_POST['genres'];
+            $gender = $_POST['gender'];
             $description = $_POST['description'];
  
             $db = new Database();
@@ -129,7 +129,7 @@ class Catalog
                 '$image',
                 '$studio',
                 '$premiereDate',
-                '$genres',
+                '$gender',
                 '$description',
                 NULL
             )");
@@ -139,7 +139,7 @@ class Catalog
                 $redirectType = 'anime';
             }
  
-            header('Location: ../view/catalogs/' . $redirectType . '/' . $redirectType . '-catalog.php');
+            header('Location: /DAM-Transversal/view/catalogs/' . $redirectType . '/' . $redirectType . '-catalog.php');
             exit();
         }
     }

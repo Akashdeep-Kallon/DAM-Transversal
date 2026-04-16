@@ -63,8 +63,8 @@
                         <input id="studio" type="text" name="studio" required>
                     </div>
                     <div class="field-group">
-                        <label for="genres">Genres</label>
-                        <input id="genres" type="text" name="genres" required>
+                        <label for="gender">Gender</label>
+                        <input id="gender" type="text" name="gender" required>
                     </div>
                     <div class="field-group">
                         <label for="description">Description</label>
