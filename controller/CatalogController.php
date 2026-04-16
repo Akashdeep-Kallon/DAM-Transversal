@@ -67,7 +67,6 @@ class Catalog
             $title = $_POST['title'];
             $subtitle = $_POST['subtitle'];
             $episodes = $_POST['episodes'];
-            $duration = $_POST['duration'];
             $image = $_POST['image'];
             //$video = $_FILES['video']['name'];
             $premiereDate = $_POST['premiere_date'];
@@ -90,7 +89,7 @@ class Catalog
                 NULL
             )");
 
-            $redirectType = strtolower($type);
+            $redirectType = $type;
             if (!in_array($redirectType, ['anime', 'manga'])) {
                 $redirectType = 'anime';
             }

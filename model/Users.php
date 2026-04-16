@@ -21,26 +21,26 @@ class Users
         $connection->query("CALL sp_comprovar_email('$this->email', @result)");
         $result = $connection->query("SELECT @result AS exist");
         $row = $result->fetch_assoc();
-        $exist = intval($row["exist"]); // 1 o 0
+        $exist = intval($row["exist"]);
 
         if ($exist === 1) {
-            echo "<span>El correo electrónico ya está registrado. Inténtalo con otro.</span>";
-            return;
+            echo "<span>El correo electronico ya esta registrado. Intentalo con otro.</span>";
+            return false;
         }
 
         if ($this->password !== $password_confirm) {
-            echo "<span>Las contraseñas no coinciden. Inténtalo de nuevo.</span>";
-            return;
+            echo "<span>Las contrasenas no coinciden. Intentalo de nuevo.</span>";
+            return false;
         }
 
         if ($this->password === $password_confirm && $exist === 0) {
             $connection->query("INSERT INTO Users (email, status, name, surname, password)
                 VALUES ('$this->email', $this->status, '$this->name', '$this->surname', '$this->password')");
-            header('Location: ../view/index.php');
-            exit();
+            return true;
         }
 
         $result->close();
         $connection->close();
+        return false;
     }
 }
