@@ -1,3 +1,11 @@
+<?php
+if (empty($_SESSION['usuario'])) {
+    header('Location: /DAM-Transversal/view/auth/login.php');
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
