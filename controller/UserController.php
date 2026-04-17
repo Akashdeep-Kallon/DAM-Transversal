@@ -1,10 +1,15 @@
 <?php
+session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
 require_once __DIR__ . '/../model/Users.php';
 require_once __DIR__ . '/../model/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    // Asegurar que login_error es un array
+    if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
+        $_SESSION['login_error'] = [];
+    }
+    
     $userController = new UserController();
 
     if (isset($_POST['register_lector'])) {
@@ -37,11 +42,6 @@ class UserController
 {
     public function register($status)
     {
-        // Asegurar que login_error es un array
-        if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
-            $_SESSION['login_error'] = [];
-        }
-
         // Validar campos vacíos
         if (empty($_POST['name']) || empty($_POST['lastname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password_confirm'])) {
             $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
@@ -93,7 +93,6 @@ class UserController
 
         if ($registered) {
             $_SESSION['email'] = $email;
-            $_SESSION['usuario'] = $email;
             $_SESSION['status'] = $status ? 1 : 0;
 
             header('Location: /DAM-Transversal/view/profile.php');
@@ -106,11 +105,6 @@ class UserController
     }
     public function login()
     {
-        // Asegurar que login_error es un array
-        if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
-            $_SESSION['login_error'] = [];
-        }
-
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -120,12 +114,11 @@ class UserController
 
             $connection->query("CALL sp_login('$email', '$password', @result)");
             $result = $connection->query("SELECT @result AS exist");
-            $row = $result ? $result->fetch_assoc() : null;
-            $exist = isset($row["exist"]) ? intval($row["exist"]) : 0;
+            $row = $result->fetch_assoc();
+            $exist = intval($row["exist"]); // 1 o 0
 
             if ($exist === 1) {
                 $_SESSION['email'] = $email;
-                $_SESSION['usuario'] = $email;
 
                 $userQuery = $connection->query("SELECT status FROM Users WHERE email = '$email'");
                 if ($userRow = $userQuery->fetch_assoc()) {
@@ -135,11 +128,11 @@ class UserController
                 header('Location: /DAM-Transversal/view/profile.php');
                 exit();
             }
-
-            // $exist === 0 o cualquier valor inesperado
-            $_SESSION['login_error'][] = "Correo electrónico o contraseña incorrectos.";
-            header("Location: /DAM-Transversal/view/auth/login.php");
-            exit();
+            if ($exist === 0) {
+                $_SESSION['login_error'][] = "Correo electrónico o contraseña incorrectos.";
+                header("Location: /DAM-Transversal/view/auth/login.php");
+                exit();
+            }
         } else {
             $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
             header("Location: /DAM-Transversal/view/auth/login.php");
