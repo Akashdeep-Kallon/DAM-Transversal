@@ -17,10 +17,16 @@
 
         <h1 id="login-title">Iniciar sesión</h1>
 
-        <?php if (isset($_SESSION['login_error'])){ ?>
-            <div class="error-box" style="margin-bottom: 1.5rem; background-color: #fee; border-left: 4px solid #c33;">
+        <?php if (isset($_SESSION['login_error']) && is_array($_SESSION['login_error'])) { ?>
+            <div class="error-box">
                 <span class="icon">ⓘ</span>
-                <span><?php echo htmlspecialchars($_SESSION['login_error']); ?></span>
+                <span>
+                    <?php
+                    foreach ($_SESSION['login_error'] as $error) {
+                        echo htmlspecialchars($error) . "<br>";
+                    }
+                    ?>
+                </span>
             </div>
             <?php unset($_SESSION['login_error']); ?>
         <?php } ?>
@@ -31,21 +37,11 @@
             <input id="login-email" name="email" class="btn-input input-email" type="email" placeholder="Email"
                 required>
 
-            <div class="error-box error-email">
-                <span class="icon">ⓘ</span>
-                <span>El correo electrónico no coincide. Introduce un correo electrónico válido.</span>
-            </div>
-
             <label class="sr-only" for="login-password">Contraseña</label>
             <input id="login-password" class="btn-input input-password" type="password" name="password"
                 placeholder="Contraseña" required minlength="6" maxlength="20"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$"
                 title="La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.">
-
-            <div class="error-box error-password">
-                <span class="icon">ⓘ</span>
-                <span>La contraseña no coincide.</span>
-            </div>
 
             <input class="btn btn-primary" type="submit" value="Iniciar sesión" name="login">
         </form>
