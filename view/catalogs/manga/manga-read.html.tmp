@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <div class="header-gruop">
+        <div class="header-group">
             <label for="menu-toggle" class="icon-btn white" aria-label="Menú">
                 <svg class="icon">
                     <use href="#menu"></use>
@@ -176,7 +176,7 @@
                 </div>
 
                 <!-- PAGINACIÓN -->
-                <div class="paginacion">
+                <div class="pagination">
                     <a href="#manga1">1</a>
                     <a href="#manga2">2</a>
                     <a href="#manga3">3</a>
@@ -231,7 +231,7 @@
 
     <input type="checkbox" id="menu-toggle">
 
-    <ul class="menu-width">
+    <ul class="menu-sidebar">
         <li><a href="../../index/index.html">Página de inicio</a></li>
         <li><a href="animes.html">Catálogo de animes</a></li>
         <li><a href="mangas.html">Catálogo de mangas</a></li>

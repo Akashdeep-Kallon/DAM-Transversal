@@ -1,24 +1,22 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
 ?>
 
 <input type="checkbox" id="menu-toggle">
 
-<ul class="menu-width">
+<ul class="menu-sidebar">
     <li><a href="/DAM-Transversal/view/index.php">Página de inicio</a></li>
 
     <li><a href="/DAM-Transversal/view/catalogs/anime/anime-catalog.php">
-            Catálogo de animes
+            Catálogo de Animes
         </a></li>
 
     <li><a href="/DAM-Transversal/view/catalogs/manga/manga-catalog.php">
-            Catálogo de mangas
+            Catálogo de Mangas
         </a></li>
 
-    <li><a href="/DAM-Transversal/view/events/event-detail.php">
-            Eventos
+    <li><a href="/DAM-Transversal/view/catalogs/events/event-catalog.php">
+            Catálogo de Eventos
         </a></li>
 
     <?php if (isset($_SESSION['usuario'])){ ?>

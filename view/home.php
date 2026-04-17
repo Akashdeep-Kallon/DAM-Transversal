@@ -1,19 +1,33 @@
-<?php session_start(); ?>
-
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/styles/home.css" />
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/home.css" />
     <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Inicio</title>
 </head>
 
 <body>
 
-    <?php require 'partials/header.php'; ?>
+    <header>
+        <div class="header-group">
+            <a href="/DAM-Transversal/view/home.php" class="logo-link" aria-label="Volver a inicio">
+                <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Logo de la página Monogatarya">
+            </a>
+            <h1>MONOGATARYA</h1>
+            <div class="right-group">
+                <form action="auth/login.php">
+                    <button class="btn btn-session" type="submit">Iniciar Sesión</button>
+                </form>
+                <form action="auth/register.html">
+                    <button class="btn btn-register" type="submit">Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </header>
 
     <main>
         <section class="hero" aria-labelledby="hero-title">

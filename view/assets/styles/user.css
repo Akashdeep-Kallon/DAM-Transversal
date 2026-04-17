@@ -1,57 +1,53 @@
-/* ===== Layout general ===== */
 .profile-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
 }
 
-/* ===== Caja avatar ===== */
 .avatar-box {
     display: grid;
     place-items: center;
-    background: #2a2a2a;
-    border-radius: 12px;
     padding: 1.5rem;
+    border-radius: 12px;
+    background: #2a2a2a;
     text-align: center;
 }
 
 .avatar-box img {
     width: min(220px, 60%);
-    border-radius: 50%;
-    border: 2px solid #666;
     margin-bottom: 1rem;
+    border: 2px solid #666;
+    border-radius: 50%;
 }
 
-/* input file */
 .file-label {
-    font-weight: 600;
-    margin-bottom: .4rem;
     display: block;
+    margin-bottom: .4rem;
+    font-weight: 600;
 }
 
 .avatar-box input[type="file"] {
     width: 100%;
 }
 
-/* ===== Formulario ===== */
 .profile-form {
     display: grid;
     gap: 1rem;
 }
 
 .field label {
-    font-weight: 600;
     display: block;
     margin-bottom: .35rem;
+    font-weight: 600;
 }
 
 .field input,
 .field textarea {
     width: 100%;
-    background: #181818;
+    padding: .65rem .75rem;
     border: 1px solid #5a5a5a;
     border-radius: 8px;
-    padding: .65rem .75rem;
+    background: #181818;
     color: #f5f5f5;
     font-size: 1rem;
 }
@@ -65,11 +61,10 @@
     grid-column: 1 / -1;
 }
 
-/* ===== Botones ===== */
 .profile-actions {
     display: flex;
-    gap: .8rem;
     flex-wrap: wrap;
+    gap: .8rem;
 }
 
 :where(.field input, .field textarea, .avatar-box input[type="file"]):focus-visible {
@@ -77,9 +72,9 @@
     outline-offset: 2px;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 768px) {
-    .profile-layout {
+    .profile-layout,
+    .profile-grid {
         grid-template-columns: 1fr;
     }
 }

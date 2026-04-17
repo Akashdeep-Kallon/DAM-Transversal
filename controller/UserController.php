@@ -1,7 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
 require_once __DIR__ . '/../model/Users.php';
 require_once __DIR__ . '/../model/db.php';
 
@@ -46,27 +44,28 @@ class UserController
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
+            // VALIDACIONES
 
-        // VALIDACIONES
+            // Validar email
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['login_error'] = "El email no tiene un formato válido";
+                header("Location: /DAM-Transversal/view/auth/register-lector.php");
+                exit();
+            }
 
-        // Validar email
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "El email no tiene un formato válido";
-            exit();
-        }
+            // Validar contraseña (mínimo 6 caracteres)
+            if (strlen($password) < 6) {
+                $_SESSION['login_error'] = "La contraseña debe tener al menos 6 caracteres";
+                header("Location: /DAM-Transversal/view/auth/register-lector.php");
+                exit();
+            }
 
-        // Validar contraseña (mínimo 6 caracteres)
-        if (strlen($password) < 6) {
-            echo "La contraseña debe tener al menos 6 caracteres";
-            exit();
-        }
-
-        // Confirmación de contraseña
-        if ($password !== $password_confirm) {
-            echo "Las contraseñas no coinciden";
-            exit();
-        }
-
+            // Confirmación de contraseña
+            if ($password !== $password_confirm) {
+                $_SESSION['login_error'] = "Las contraseñas no coinciden.";
+                header("Location: /DAM-Transversal/view/auth/register-lector.php");
+                exit();
+            }
 
             $user = new Users($email, $status, $name, $surname, $password);
 
@@ -80,15 +79,14 @@ class UserController
                 $_SESSION['usuario'] = $email;
                 $_SESSION['status'] = $status ? 1 : 0;
 
-                header('Location: /DAM-Transversal/view/profiles/profile.php');
+                header('Location: /DAM-Transversal/view/profile.php');
                 exit();
             }
         } else {
-            // $error = "Por favor, completa todos los campos.";
-            // header("Location: register-lector.php?error=" . urlencode($error));
-            //    exit;
+            $_SESSION['login_error'] = "Por favor, completa todos los campos.";
+            header("Location: /DAM-Transversal/view/auth/register-lector.php");
+            exit();
         }
-        exit();
     }
 
     // read all employees
@@ -118,24 +116,40 @@ class UserController
                 header('Location: /DAM-Transversal/view/profiles/profile.php');
                 exit();
             } else {
-                // $error = "Correo electrónico o contraseña incorrectos. Inténtalo de nuevo.";
-                // header("Location: index.php?error=" . urlencode($error));
-                // exit();
+                $_SESSION['login_error'] = "Correo electrónico o contraseña incorrectos.";
+                header("Location: /DAM-Transversal/view/auth/login.php");
+                exit();
             }
         } else {
-            // $error = "Por favor, completa todos los campos.";
-            // header("Location: register-lector.php?error=" . urlencode($error));
-            //    exit;
+            $_SESSION['login_error'] = "Por favor, completa todos los campos.";
+            header("Location: /DAM-Transversal/view/auth/login.php");
+            exit();
         }
-        exit();
     }
 
     public function logout()
     {
+        // Limpiar todas las variables de sesión
         session_unset();
+        // Destruir la sesión
         session_destroy();
+        // Limpiar la cookie de sesión
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
+        // Redirigir al login
         header("Location: /DAM-Transversal/view/auth/login.php");
-        exit;
+        header("Cache-Control: no-cache, no-store, must-revalidate, max-age=0");
+        exit();
     }
 
     public function getLoggedUserProfile()
@@ -177,7 +191,11 @@ class UserController
         ];
     }
 
-    public function update() {}
+    public function update()
+    {
+    }
     // delete an employee
-    public function delete() {}
+    public function delete()
+    {
+    }
 }

@@ -1,10 +1,8 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
 ?>   
    <header>
-        <div class="header-gruop">
+        <div class="header-group">
             <label for="menu-toggle" class="icon-btn white" aria-label="Menú">
                 <svg class="icon">
                     <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#menu"></use>

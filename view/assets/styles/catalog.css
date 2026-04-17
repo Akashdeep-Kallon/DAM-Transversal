@@ -8,44 +8,64 @@
 .card-image {
     width: 100%;
     aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border-radius: 10px;
     margin-bottom: 1rem;
+    border-radius: 10px;
     background: #1a1a1a;
+    object-fit: cover;
 }
 
 .content-card .btn-link {
     margin-top: auto;
 }
 
+.btn-muted {
+    background: #4b4b4b;
+    color: #d7d7d7;
+    cursor: not-allowed;
+}
+
+.btn-muted:hover {
+    background: #4b4b4b;
+}
+
 .section-header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    flex-wrap: wrap;
 }
 
 .empty-msg {
     grid-column: 1 / -1;
-    text-align: center;
-    color: #aaa;
     padding: 2rem 0;
+    color: #aaa;
+    text-align: center;
 }
 
-/* Paginación  */
-.paginacion {
+.form-vertical {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-vertical input,
+.form-vertical textarea,
+.form-vertical select {
+    width: 100%;
+}
+
+.pagination {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     gap: 0.3rem;
     margin-top: 1.8rem;
 }
 
-.paginacion a,
-.paginacion-ellipsis,
-.paginacion-disabled {
+.pagination a,
+.pagination-ellipsis,
+.pagination-disabled {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -53,48 +73,44 @@
     height: 2rem;
     padding: 0 0.5rem;
     border-radius: 6px;
-    font-weight: 600;
     font-size: 0.9rem;
+    font-weight: 600;
     text-decoration: none;
     transition: background 0.15s, color 0.15s;
 }
 
-/* Enlace normal */
-.paginacion a {
-    color: #ff4141;
+.pagination a {
     border: 1px solid transparent;
+    color: #ff4141;
 }
 
-.paginacion a:hover {
+.pagination a:hover {
     background: rgba(255, 65, 65, 0.12);
     border-color: #ff4141;
 }
 
-.paginacion a:focus-visible {
+.pagination a:focus-visible {
     outline: 3px solid #ff9f9f;
     outline-offset: 2px;
 }
 
-/* Página activa */
-.paginacion a.paginacion-active {
+.pagination a.pagination-active {
+    pointer-events: none;
+    cursor: default;
     background: #ff4141;
     color: #fff;
-    cursor: default;
-    pointer-events: none;
 }
 
-/* Flechas deshabilitadas */
-.paginacion-disabled {
+.pagination-disabled {
+    border: 1px solid transparent;
     color: #555;
     cursor: not-allowed;
-    border: 1px solid transparent;
 }
 
-/* Puntos suspensivos */
-.paginacion-ellipsis {
+.pagination-ellipsis {
+    min-width: 1.2rem;
     color: #888;
     pointer-events: none;
-    min-width: 1.2rem;
 }
 
 @media (max-width: 900px) {
@@ -105,6 +121,67 @@
 
 @media (max-width: 640px) {
     .card-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Event/detail shared layout ===== */
+.event-editorial,
+.event-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.event-hero-image {
+    margin: 0;
+}
+
+.event-hero-image img {
+    width: 100%;
+    max-height: 420px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.event-aside {
+    padding: 1rem;
+    border: 1px solid #2f2f2f;
+    border-radius: 12px;
+    background: #111;
+}
+
+.event-aside dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .5rem .75rem;
+}
+
+.event-aside dt {
+    font-weight: 700;
+}
+
+.stack-actions {
+    display: grid;
+    gap: .75rem;
+    margin-top: 1rem;
+}
+
+.form-vertical {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-vertical input,
+.form-vertical textarea,
+.form-vertical select {
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+
+    .event-editorial,
+    .event-layout {
         grid-template-columns: 1fr;
     }
 }

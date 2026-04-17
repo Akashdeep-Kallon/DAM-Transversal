@@ -1,11 +1,9 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
 ?>
 
 <header>
-    <div class="header-gruop">
+    <div class="header-group">
         <label for="menu-toggle" class="icon-btn white" aria-label="Menú">
             <svg class="icon">
                 <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#menu"></use>
@@ -38,23 +36,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                 </div>
             </form>
 
-            <?php if (isset($_SESSION['usuario'])): ?>
-                <!-- Usuario logueado -->
-                <a href="/DAM-Transversal/view/profiles/profile.php"
-                    class="icon-btn white user-link" aria-label="Ir al perfil de usuario">
-                    <svg class="icon">
-                        <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#usuario"></use>
-                    </svg>
-                </a>
-            <?php else: ?>
-
-                <form action="/DAM-Transversal/view/auth/login.php">
-                    <button class="btn btn-sesion" type="submit">Iniciar Sesión</button>
-                </form>
-                <form action="/DAM-Transversal/view/auth/register.php">
-                    <button class="btn btn-register" type="submit">Registrarse</button>
-                </form>
-            <?php endif; ?>
+            <a href="/DAM-Transversal/view/profile.php"
+                class="icon-btn white user-link" aria-label="Ir al perfil de usuario">
+                <svg class="icon">
+                    <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#usuario"></use>
+                </svg>
+            </a>
         </div>
     </div>
 </header>

@@ -4,18 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/styles/event.css" />
-    <link rel="stylesheet" href="../assets/styles/main.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/catalog.css" />
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/main.css" />
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Evento</title>
 </head>
 
 <body>
-    <?php require '../includes/header.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
-            <article class="card-panel event-editorial" aria-labelledby="evento-titulo">
+            <article class="card-panel event-layout" aria-labelledby="evento-titulo">
                 <section>
                     <h2 id="evento-titulo" class="section-title">Salón Monogatarya 2026</h2>
                     <figure class="event-hero-image">
@@ -39,18 +39,16 @@
                         <dd>10:00 - 21:00</dd>
                     </dl>
                     <div class="stack-actions">
+                        <a href="event-edit.php" class="btn btn-add">Editar evento</a>
                         <button type="button" class="btn btn-add">Reservar plaza</button>
-
                         <button type="button" class="btn btn-delete">Anular reserva</button>
-
-                        <a href="event-edit.html" class="btn btn-add">Editar evento (promotor)</a>
                     </div>
                 </aside>
             </article>
         </div>
     </main>
-    <?php require '../includes/menu.php'; ?>
-    <?php require '../includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 </body>
 
 </html>

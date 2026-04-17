@@ -6,80 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../assets/styles/main.css" />
     <link rel="stylesheet" href="../../assets/styles/catalog.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp"/>
-    <title>Monogatarya - Catálogo de mangas</title>
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <title>Monogatarya - Mangas</title>
 </head>
 
 <body>
     <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
     $catalog = new Catalog();
     $result = $catalog->returnCatalog('Manga');
     $query = $result['query'];
     $page = $result['page'];
     $totalPages = $result['totalPages'];
-    require '../../includes/header.php';
     ?>
 
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
     <main class="page-main">
         <div class="layout-container">
 
             <section class="card-panel" aria-labelledby="catalogo-title">
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de Mangas</h2>
-                    <a class="btn btn-add" href="../create_work.php">Crear Manga</a>
+                    <a class="btn btn-add" href="../work-create.php">Añadir Manga</a>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">
                     <?php while ($manga = mysqli_fetch_assoc($query)) {
                         // Si la BD tiene columna de imagen úsala; si no, placeholder
-                        $img = !empty($manga['Image']) ? htmlspecialchars($manga['Image']) : '../../assets/img/background-image.webp';
+                        $img = !empty($manga['Image']) ? htmlspecialchars($manga['Image']) : '/DAM-Transversal/view/assets/img/background-image.webp';
                         $title = htmlspecialchars($manga['Title']);
                         $subtitle = htmlspecialchars($manga['Subtitle']);
                         $id = $manga['ID_Work'];
-                    ?>
+                        $active = $manga['Active'];
+                        ?>
                         <article class="content-card">
                             <img class="card-image" src="<?php echo $img; ?>" alt="Portada de <?php echo $title; ?>">
                             <h3><?php echo $title; ?></h3>
                             <p><?php echo $subtitle; ?></p>
-                            <a class="btn-link" href="manga-detail.php?id=<?php echo $id; ?>">
-                                Más información
-                            </a>
+                            <?php if ($active) { ?>
+                                <a class="btn-link" href="event-detail.php?id=<?php echo $id; ?>">
+                                    Leer Manga
+                                </a>
+                            <?php } else { ?>
+                                <button class="btn-link btn-muted" type="button" disabled>
+                                    Próximamente
+                                </button>
+                            <?php } ?>
                         </article>
                     <?php } ?>
                 </div>
 
-                <!-- Botones de paginación -->
-                <div class="paginacion">
-
-                    <!-- Botón « anterior -->
-                    <?php if ($page > 1) { ?>
-                        <a href="?page=<?php echo $page - 1; ?>">&laquo;</a>
-                    <?php } ?>
-
-                    <!-- Número de cada página -->
-                    <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-                        <?php if ($i == $page) { ?>
-                            <a href="?page=<?php echo $i; ?>" class="paginacion-active"><?php echo $i; ?></a>
-                        <?php } else { ?>
-                            <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                        <?php } ?>
-                    <?php } ?>
-
-                    <!-- Botón » siguiente -->
-                    <?php if ($page < $totalPages) { ?>
-                        <a href="?page=<?php echo $page + 1; ?>">&raquo;</a>
-                    <?php } ?>
-
-                </div>
+                <?php require $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/pagination.php'; ?>
 
             </section>
         </div>
     </main>
 
-    <?php require '../../includes/menu.php'; ?>
-    <?php require '../../includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 </body>
 
 </html>
