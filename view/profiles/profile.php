@@ -1,5 +1,13 @@
 <?php
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if (empty($_SESSION['usuario'])) {
+    header('Location: /DAM-Transversal/view/auth/login.php');
+    exit;
+}
+
 require_once __DIR__ . '/../../controller/UserController.php';
 
 $userController = new UserController();
