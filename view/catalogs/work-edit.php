@@ -46,11 +46,7 @@ requireRole('promoter');
                     </div>
                     <div class="field-group">
                         <label for="episodes">Number of episodes</label>
-                        <input id="episodes" type="number" name="episodes" required min="1">
-                    </div>
-                    <div class="field-group">
-                        <label for="duration">Episode duration (minutes)</label>
-                        <input id="duration" type="number" name="duration" required min="1">
+                        <input id="episodes" type="number" name="chapters" required min="1">
                     </div>
                     <div class="field-group">
                         <label for="image">Cover image URL</label>

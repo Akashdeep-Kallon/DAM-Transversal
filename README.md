@@ -1,51 +1,108 @@
-Desarrollo backend.
-En esta tarea tendréis que programar el registro y login/logout de vuestra aplicación conectando los formularios con la base de datos.
-1. Requerimiento funcional. Login de usuario (3 puntos)
-1.1.
-Un único formulario de login para ambos tipos de usuario.
-1.2.
-Comprobar si los campos se corresponden con los almacenadas en la base de datos.
-1.3.
-Si los datos son correctos redirecciona al usuario a la página de su perfil.
-1.4.
-Si los datos son incorrectos muestra pantalla login de nuevo con un mensaje de error descriptivo sobre la razón de este.
-1.5.
-Evitar acceso paginas/secciones/componentes privados si no se está logueado.
-1.6.
-Usuario admin puede ver paginas específicas de su tipo de usuario.
-1.7.
-Usuario estándar puede ver páginas específicas de su tipo de usuario.
-2. Requerimiento funcional. Registro de nuevos usuarios (4 puntos)
-2.1.
-Un formulario de registro por cada tipo de usuario.
-2.2.
-Dar de alta el usuario en la base de datos con los datos introducidos en el formulario.
-2.3.
-Si los datos son correctos se ha de redirigir a la página principal.
-2.4.
-Si los datos son incorrectos muestra pantalla registro de nuevo con un mensaje de error descriptivo sobre la razón de este.
-2.5.
-Usuario admin puede subir una imagen de perfil.
-3. Requerimiento funcional. Logout de usuario (1 punto)
-3.1.
-Mostrar un botón para desloguearse solo si se está logueado.
-3.2.
-Limpiar variables de sesión y finalizar esta.
-3.3.
-Redirigir a la página de login.
-4. Requerimiento no funcional. (2 puntos)
-4.1.
-Toda la información se ha de almacenar y leer de una base de datos MySQL .
-4.2.
-Se ha de usar MySQLi Object-oriented.
-4.3.
-Se ha de usar estructura carpetas MVC (model, view, controller)
-4.4.
-Se ha de usar una clase UserController con las funciones login, logout,register.
-4.5.
-Se ha de validar el formato/valores de al menos dos campos a nivel servidor(UserController)
-Documentación
-1.
-Readme.md con Introducción, Funcionalidades, Como funciona (Diagrama de clase de User, Diagrama de sequencias de Login y Registro).
-2.
-Test unitario con las evidencias de cada requerimiento.
+# DAM Transversal Backend
+
+## Introducción
+Este proyecto implementa el registro, login/logout y gestión de usuarios con una estructura MVC en PHP. Se utiliza MySQLi orientado a objetos para acceder a la base de datos y se maneja la autenticación basada en sesión.
+
+## Funcionalidades
+- Login para los distintos tipos de usuario desde un único formulario.
+- Registro de nuevos usuarios con validación en servidor.
+- Logout con cierre de sesión y redirección a login.
+- Acceso restringido a páginas privadas según estado de sesión.
+- Diferenciación de vistas y acciones para usuarios admin y estándar.
+- Estructura de carpetas MVC: `model/`, `view/`, `controller/`.
+
+## Cómo funciona
+
+### Diagrama de Clases
+```mermaid
+classDiagram
+    class UserController {
+        +login($data)
+        +logout()
+        +register($data)
+        +validateLogin($data)
+        +validateRegister($data)
+    }
+
+    class Users {
+        +__construct($db)
+        +findByEmail($email)
+        +create($data)
+        +verifyPassword($password)
+    }
+
+    class db {
+        +connect()
+        +query($sql)
+        +prepare($sql)
+    }
+
+    class View {
+        +render($template, $data)
+    }
+
+    UserController --> Users : uses
+    UserController --> View : renders
+    UserController --> db : queries
+    Users --> db : uses
+```
+
+### Diagrama de Secuencia: Login
+```mermaid
+sequenceDiagram
+    participant Usuario
+    participant LoginView
+    participant UserController
+    participant Users
+    participant DB
+
+    Usuario->>LoginView: Envia email y contraseña
+    LoginView->>UserController: enviarDatosLogin()
+    UserController->>Users: findByEmail(email)
+    Users->>DB: prepararConsulta(email)
+    DB-->>Users: filaUsuario
+    Users-->>UserController: usuario
+    UserController->>Users: verifyPassword(password)
+    Users-->>UserController: passwordValido
+    alt passwordValido
+        UserController->>Usuario: iniciarSesion()
+        UserController->>LoginView: redirigirPerfil()
+    else
+        UserController->>LoginView: mostrarError("Credenciales inválidas")
+    end
+```
+
+### Diagrama de Secuencia: Registro
+```mermaid
+sequenceDiagram
+    participant Usuario
+    participant RegisterView
+    participant UserController
+    participant Users
+    participant DB
+
+    Usuario->>RegisterView: Envia formulario de registro
+    RegisterView->>UserController: enviarDatosRegistro()
+    UserController->>UserController: validateRegister(data)
+    alt datosValidos
+        UserController->>Users: create(data)
+        Users->>DB: insertarUsuario(data)
+        DB-->>Users: resultadoInsercion
+        Users-->>UserController: usuarioCreado
+        UserController->>RegisterView: redirigirPrincipal()
+    else
+        UserController->>RegisterView: mostrarErrores(validaciones)
+    end
+```
+
+## Uso general
+1. Configurar la conexión MySQL en `config.php`.
+2. Importar la base de datos desde `model/Monogatarya_BD.sql`.
+3. Abrir `index.php` y acceder al formulario de login.
+4. Registrar nuevos usuarios desde las vistas de registro.
+5. Usar el botón de logout para cerrar la sesión.
+
+## Notas
+- `UserController` contiene las funciones `login`, `logout` y `register`.
+- La validación de entrada se realiza en el controlador antes de consultar la base de datos.
+- Se evita el acceso a rutas privadas cuando el usuario no está autenticado.
