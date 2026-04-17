@@ -1,3 +1,4 @@
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,7 +16,15 @@
             aria-label="Volver a la página anterior">❮</button>
 
         <h1 id="login-title">Iniciar sesión</h1>
-        
+
+        <?php if (isset($_SESSION['login_error'])){ ?>
+            <div class="error-box" style="margin-bottom: 1.5rem; background-color: #fee; border-left: 4px solid #c33;">
+                <span class="icon">ⓘ</span>
+                <span><?php echo htmlspecialchars($_SESSION['login_error']); ?></span>
+            </div>
+            <?php unset($_SESSION['login_error']); ?>
+        <?php } ?>
+
         <form action="/DAM-Transversal/controller/UserController.php" method="post">
 
             <label class="sr-only" for="login-email">Correo electrónico</label>

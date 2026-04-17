@@ -1,7 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
 ?>
 
 <input type="checkbox" id="menu-toggle">

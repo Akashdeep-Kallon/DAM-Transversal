@@ -1,3 +1,4 @@
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -16,8 +17,16 @@
 
         <h1 id="register-reader-title">Registro de lector</h1>
 
+        <?php if (isset($_SESSION['login_error'])) { ?>
+            <div class="error-box" style="margin-bottom: 1.5rem; background-color: #fee; border-left: 4px solid #c33;">
+                <span class="icon">ⓘ</span>
+                <span><?php echo htmlspecialchars($_SESSION['login_error']); ?></span>
+            </div>
+            <?php unset($_SESSION['login_error']); ?>
+        <?php } ?>
+
         <form action="/DAM-Transversal/controller/UserController.php" method="post">
-            
+
             <label class="sr-only" for="reader-name">Nombre</label>
             <input id="reader-name" class="btn-input input-name" type="text" name="name" placeholder="Nombre" required
                 minlength="2" maxlength="30">
