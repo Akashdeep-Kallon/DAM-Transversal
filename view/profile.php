@@ -8,7 +8,7 @@ if (empty($_SESSION['usuario'])) {
     exit;
 }
 
-require_once __DIR__ . '/../../controller/UserController.php';
+require_once __DIR__ . '/../controller/UserController.php';
 
 $userController = new UserController();
 $userData = $userController->getLoggedUserProfileData();
