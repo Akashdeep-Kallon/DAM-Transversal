@@ -19,7 +19,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
             Catálogo de Eventos
         </a></li>
 
-    <?php if (isset($_SESSION['usuario'])){ ?>
+    <?php if (!isset($_SESSION['status']) || $_SESSION['status'] != 1){ ?>
         <li class="logout">
             <form action="/DAM-Transversal/controller/UserController.php" method="POST">
                 <input type="hidden" name="logout">

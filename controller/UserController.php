@@ -4,6 +4,10 @@ require_once __DIR__ . '/../model/Users.php';
 require_once __DIR__ . '/../model/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Asegurar que login_error es un array
+    if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
+        $_SESSION['login_error'] = [];
+    }
 
     $userController = new UserController();
 
@@ -37,11 +41,6 @@ class UserController
 {
     public function register($status)
     {
-        // Asegurar que login_error es un array
-        if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
-            $_SESSION['login_error'] = [];
-        }
-
         // Validar campos vacíos
         if (empty($_POST['name']) || empty($_POST['lastname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password_confirm'])) {
             $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
@@ -93,7 +92,6 @@ class UserController
 
         if ($registered) {
             $_SESSION['email'] = $email;
-            $_SESSION['usuario'] = $email;
             $_SESSION['status'] = $status ? 1 : 0;
 
             header('Location: /DAM-Transversal/view/profile.php');
@@ -106,11 +104,6 @@ class UserController
     }
     public function login()
     {
-        // Asegurar que login_error es un array
-        if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
-            $_SESSION['login_error'] = [];
-        }
-
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -131,7 +124,7 @@ class UserController
                     $_SESSION['status'] = $userRow['status'];
                 }
 
-                header('Location: /DAM-Transversal/view/profile.php');
+                header('Location: /DAM-Transversal/view/index.php');
                 exit();
             }
             if ($exist === 0) {
