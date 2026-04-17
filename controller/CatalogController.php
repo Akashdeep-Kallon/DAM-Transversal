@@ -10,7 +10,7 @@ class Catalog
 
     public function __construct()
     {
-        $this->connection = new Database()->getConnection();
+        $this->connection = (new Database())->getConnection();
     }
     public function returnCatalog($catalog)
     {
@@ -166,6 +166,8 @@ class Catalog
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
     $catalog = new Catalog();
 
     if (isset($_POST['create_work'])) {
