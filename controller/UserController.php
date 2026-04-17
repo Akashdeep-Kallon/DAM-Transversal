@@ -79,7 +79,7 @@ class UserController
                 $_SESSION['usuario'] = $email;
                 $_SESSION['status'] = $status ? 1 : 0;
 
-                header('Location: /DAM-Transversal/view/profile.php');
+                header('Location: /DAM-Transversal/view/index.php');
                 exit();
             }
         } else {
