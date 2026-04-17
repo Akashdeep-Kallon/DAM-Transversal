@@ -93,7 +93,6 @@ class UserController
 
         if ($registered) {
             $_SESSION['email'] = $email;
-            $_SESSION['usuario'] = $email;
             $_SESSION['status'] = $status ? 1 : 0;
 
             header('Location: /DAM-Transversal/view/profile.php');
@@ -125,7 +124,6 @@ class UserController
 
             if ($exist === 1) {
                 $_SESSION['email'] = $email;
-                $_SESSION['usuario'] = $email;
 
                 $userQuery = $connection->query("SELECT status FROM Users WHERE email = '$email'");
                 if ($userRow = $userQuery->fetch_assoc()) {
