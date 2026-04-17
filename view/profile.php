@@ -3,8 +3,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-if (empty($_SESSION['usuario'])) {
-    header('Location: /DAM-Transversal/view/auth/login.php');
+if (!isset($_SESSION['email'])) {
+    header("Location: /DAM-Transversal/view/auth/login.php");
     exit;
 }
 
