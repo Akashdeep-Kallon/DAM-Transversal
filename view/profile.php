@@ -1,5 +1,13 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if (empty($_SESSION['usuario'])) {
+    header('Location: /DAM-Transversal/view/auth/login.php');
+    exit;
+}
+
 require_once __DIR__ . '/../controller/UserController.php';
 
 $userController = new UserController();
@@ -35,8 +43,10 @@ $status = $userData['status'];
                     <aside class="avatar-box">
                         <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Avatar del usuario">
 
-                        <label for="foto-user" class="file-label">Cambiar foto</label>
-                        <input id="foto-user" type="file" accept="image/*">
+                        <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 1): ?>
+                            <label for="foto-user" class="file-label">Cambiar foto</label>
+                            <input id="foto-user" type="file" accept="image/*">
+                        <?php endif; ?>
                     </aside>
 
                     <!-- COLUMNA DERECHA -->

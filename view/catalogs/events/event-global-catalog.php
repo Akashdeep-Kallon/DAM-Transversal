@@ -1,4 +1,5 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
 $catalog = new Catalog();
@@ -12,7 +13,9 @@ $totalPages = $result['totalPages'];
 
     <div class="section-header">
         <h2 id="catalogo-title" class="section-title">Catálogo de Eventos</h2>
-        <a class="btn btn-add" href="/DAM-Transversal/view/catalogs/events/event-create.php">Añadir Evento</a>
+        <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 1): ?>
+            <a class="btn btn-add" href="/DAM-Transversal/view/catalogs/events/event-create.php">Añadir Evento</a>
+        <?php endif; ?>
     </div>
 
     <!-- Tarjetas -->

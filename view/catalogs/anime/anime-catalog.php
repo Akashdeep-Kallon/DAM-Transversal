@@ -29,7 +29,9 @@
 
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de Animes</h2>
-                    <a class="btn btn-add" href="../work-create.php">Añadir Anime</a>
+                    <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 1): ?>
+                        <a class="btn btn-add" href="../work-create.php">Añadir Anime</a>
+                    <?php endif; ?>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">
