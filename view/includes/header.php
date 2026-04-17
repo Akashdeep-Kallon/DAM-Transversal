@@ -37,7 +37,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
             </form>
 
             <?php if (isset($_SESSION['usuario'])): ?>
-                <a href="/DAM-Transversal/view/profiles/profile.php" class="icon-btn white user-link" aria-label="Ir al perfil de promotor">
+                <a href="/DAM-Transversal/view/profile.php" class="icon-btn white user-link" aria-label="Ir al perfil de promotor">
                     <svg class="icon">
                         <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#usuario"></use>
                     </svg>
