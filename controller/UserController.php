@@ -26,9 +26,9 @@ class UserController
         }
 
         // Recoger datos
-        $name     = $_POST['name'];
-        $surname  = $_POST['lastname'];
-        $email    = $_POST['email'];
+        $name = $_POST['name'];
+        $surname = $_POST['lastname'];
+        $email = $_POST['email'];
         $password = $_POST['password'];
         $password_confirm = $_POST['password_confirm'];
 
@@ -55,7 +55,7 @@ class UserController
 
         $this->connection->query("CALL sp_comprove_email('$email', @result)");
         $result = $this->connection->query("SELECT @result AS exist");
-        $exist  = intval($result->fetch_assoc()["exist"]);
+        $exist = intval($result->fetch_assoc()["exist"]);
 
         if ($exist === 1) {
             $this->errorMessage("El correo electrónico ya está registrado.", $location);
@@ -89,7 +89,7 @@ class UserController
             $this->errorMessage("Por favor, completa todos los campos para poder iniciar sesión.", $location);
         }
 
-        $email    = $_POST['email'];
+        $email = $_POST['email'];
         $password = $_POST['password'];
 
         $userQuery = $this->connection->query(
@@ -164,7 +164,7 @@ class UserController
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $database   = new Database();
+    $database = new Database();
     $connection = $database->getConnection();
 
     $userController = new UserController($connection);

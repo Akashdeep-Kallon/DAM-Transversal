@@ -2,29 +2,20 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/database.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $catalog = new Catalog();
-
-    if (isset($_POST['create_work'])) {
-        $catalog->createWork();
-    }
-    
-    if (isset($_POST['create_event'])) {
-        $catalog->createEvent();
-    }
-}
 class Catalog
 {
     private $ID_Work;
     private $ID_User;
+    private $connection;
 
+    public function __construct()
+    {
+        $this->connection = new Database()->getConnection();
+    }
     public function returnCatalog($catalog)
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-
         // ── 1. Cuántos animes hay en total
-        $queryTotal = mysqli_query($connection, "SELECT COUNT(*) AS total FROM Works WHERE Type = '$catalog'");
+        $queryTotal = mysqli_query($this->connection, "SELECT COUNT(*) AS total FROM Works WHERE Type = '$catalog'");
         $fila = mysqli_fetch_assoc($queryTotal);
         $totalMedia = $fila['total'];
 
@@ -53,9 +44,9 @@ class Catalog
 
         // ── 6. Consulta con LIMIT y OFFSET
 
-        $escapedCatalog = $connection->real_escape_string($catalog);
+        $escapedCatalog = $this->connection->real_escape_string($catalog);
         $sql = "SELECT * FROM Works WHERE Type = '$escapedCatalog' LIMIT $limit OFFSET $offset";
-        $query = mysqli_query($connection, $sql);
+        $query = mysqli_query($this->connection, $sql);
 
         return [
             'page' => $page,
@@ -66,11 +57,8 @@ class Catalog
 
     public function returnCatalogEvent()
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-
         // ── 1. Cuántos animes hay en total
-        $queryTotal = mysqli_query($connection, "SELECT COUNT(*) AS total FROM Events");
+        $queryTotal = mysqli_query($this->connection, "SELECT COUNT(*) AS total FROM Events");
         $fila = mysqli_fetch_assoc($queryTotal);
         $totalMedia = $fila['total'];
 
@@ -100,7 +88,7 @@ class Catalog
         // ── 6. Consulta con LIMIT y OFFSET
 
         $sql = "SELECT * FROM Events LIMIT $limit OFFSET $offset";
-        $query = mysqli_query($connection, $sql);
+        $query = mysqli_query($this->connection, $sql);
 
         return [
             'page' => $page,
@@ -123,9 +111,7 @@ class Catalog
             $gender = $_POST['gender'];
             $description = $_POST['description'];
 
-            $db = new Database();
-            $connection = $db->getConnection();
-            $connection->query("CALL sp_add_Work(
+            $this->connection->query("CALL sp_add_Work(
                 '$type',
                 '$title',
                 '$subtitle',
@@ -160,10 +146,7 @@ class Catalog
             $location = $_POST['location'];
             $capacity = $_POST['capacity'];
 
-            $db = new Database();
-            $connection = $db->getConnection();
-
-            $connection->query("
+            $this->connection->query("
             CALL sp_add_Event(
                 '$title',
                 '$subtitle',
@@ -179,6 +162,18 @@ class Catalog
             header('Location: ' . VIEW_URL . '/catalogs/events/event-catalog.php');
             exit();
         }
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $catalog = new Catalog();
+
+    if (isset($_POST['create_work'])) {
+        $catalog->createWork();
+    }
+
+    if (isset($_POST['create_event'])) {
+        $catalog->createEvent();
     }
 }
 ?>
