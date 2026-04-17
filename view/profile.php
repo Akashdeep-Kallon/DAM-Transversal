@@ -43,8 +43,10 @@ $status = $userData['status'];
                     <aside class="avatar-box">
                         <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Avatar del usuario">
 
-                        <label for="foto-user" class="file-label">Cambiar foto</label>
-                        <input id="foto-user" type="file" accept="image/*">
+                        <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 1): ?>
+                            <label for="foto-user" class="file-label">Cambiar foto</label>
+                            <input id="foto-user" type="file" accept="image/*">
+                        <?php endif; ?>
                     </aside>
 
                     <!-- COLUMNA DERECHA -->
