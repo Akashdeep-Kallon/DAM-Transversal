@@ -143,7 +143,7 @@ class Catalog
                 $redirectType = 'anime';
             }
 
-            header('Location: /DAM-Transversal/view/catalogs/' . $redirectType . '/' . $redirectType . '-catalog.php');
+            header('Location: ' . VIEW_URL . '/catalogs/' . $redirectType . '/' . $redirectType . '-catalog.php');
             exit();
         }
     }
@@ -176,7 +176,7 @@ class Catalog
             )
         ");
 
-            header('Location: /DAM-Transversal/view/catalogs/events/event-catalog.php');
+            header('Location: ' . VIEW_URL . '/catalogs/events/event-catalog.php');
             exit();
         }
     }

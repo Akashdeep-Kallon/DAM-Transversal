@@ -1,9 +1,9 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
-$catalog = new Catalog();
-$result = $catalog->returnCatalogEvent();
+require_once __DIR__ . '/../../../core/config.php';
+require_once __DIR__ . '/../../../core/auth.php';
+require_once __DIR__ . '/../../../controller/CatalogController.php';
+
+$result = new Catalog()->returnCatalogEvent();
 $query = $result['query'];
 $page = $result['page'];
 $totalPages = $result['totalPages'];
@@ -13,15 +13,15 @@ $totalPages = $result['totalPages'];
 
     <div class="section-header">
         <h2 id="catalogo-title" class="section-title">Catálogo de Eventos</h2>
-        <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 1): ?>
-            <a class="btn btn-add" href="/DAM-Transversal/view/catalogs/events/event-create.php">Añadir Evento</a>
-        <?php endif; ?>
+        <?php if (isPromoter()) { ?>
+            <a class="btn btn-add" href="<?php echo VIEW_URL; ?>/catalogs/events/event-create.php">Añadir Evento</a>
+        <?php } ?>
     </div>
 
     <!-- Tarjetas -->
     <div class="card-grid card-grid-3">
         <?php while ($event = mysqli_fetch_assoc($query)) {
-            $img = !empty($event['Image']) ? htmlspecialchars($event['Image']) : '/DAM-Transversal/view/assets/img/background-image.webp';
+            $img = !empty($event['Image']) ? htmlspecialchars($event['Image']) : ASSETS_URL . '/img/background-image.webp';
             $title = htmlspecialchars($event['Title']);
             $subtitle = htmlspecialchars($event['Subtitle']);
             $id = $event['ID_Event'];
@@ -45,10 +45,6 @@ $totalPages = $result['totalPages'];
         <?php } ?>
     </div>
 
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/pagination.php'; ?>
-    </main>
+    <?php require __DIR__ . '/../../includes/pagination.php'; ?>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
-    </body>
-
-    </html>
+</section>

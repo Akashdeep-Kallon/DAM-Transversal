@@ -1,19 +1,20 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php'; ?>
+<?php require_once __DIR__ . '/../../core/config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/main.css" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/index.css" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/catalog.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/main.css" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/index.css" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/catalog.css" />
+    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/logo.webp" />
     <title>Monogatarya - Página principal</title>
 </head>
 
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
+    <?php include __DIR__ . '/includes/clean-header.php'; ?>
 
     <main class="page-main" id="contenido-principal">
         <div class="layout-container">
@@ -33,13 +34,13 @@
                     <input type="radio" name="slider" id="s3">
                     <div class="cards">
                         <label for="s1" class="card" aria-label="Mostrar portada de One Piece">
-                            <img src="/DAM-Transversal/view/assets/gallery/card-onePiece.webp" alt="Portada de One Piece">
+                            <img src="<?php echo ASSETS_URL; ?>/gallery/card-onePiece.webp" alt="Portada de One Piece">
                         </label>
                         <label for="s2" class="card" aria-label="Mostrar portada de Dragon Ball Z">
-                            <img src="/DAM-Transversal/view/assets/gallery/card-dragonBall.webp" alt="Portada de Dragon Ball Z">
+                            <img src="<?php echo ASSETS_URL; ?>/gallery/card-dragonBall.webp" alt="Portada de Dragon Ball Z">
                         </label>
                         <label for="s3" class="card" aria-label="Mostrar portada de Attack on Titan">
-                            <img src="/DAM-Transversal/view/assets/gallery/card-shingekyNoKyojin.webp" alt="Portada de Attack on Titan">
+                            <img src="<?php echo ASSETS_URL; ?>/gallery/card-shingekyNoKyojin.webp" alt="Portada de Attack on Titan">
                         </label>
                     </div>
                 </div>
@@ -63,12 +64,12 @@
                 </div>
             </section>
 
-            <?php require $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/catalogs/events/event-global-catalog.php'; ?>
+            <?php require __DIR__ . '/catalogs/events/event-global-catalog.php'; ?>
 
         </div>
     </main>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
+    <?php include __DIR__ . '/includes/menu.php'; ?>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 </body>
 
 </html>

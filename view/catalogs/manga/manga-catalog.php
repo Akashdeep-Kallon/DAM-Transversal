@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../../../core/config.php';
+require_once __DIR__ . '/../../../core/auth.php';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,37 +11,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../assets/styles/main.css" />
     <link rel="stylesheet" href="../../assets/styles/catalog.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/logo.webp" />
     <title>Monogatarya - Mangas</title>
 </head>
 
 <body>
     <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/db.php';
-    $catalog = new Catalog();
-    $result = $catalog->returnCatalog('Manga');
+    require_once __DIR__ . '/../../../controller/CatalogController.php';
+
+    $result = new Catalog()->returnCatalog('Manga');
     $query = $result['query'];
     $page = $result['page'];
     $totalPages = $result['totalPages'];
     ?>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
+    <?php include __DIR__ . '/../../includes/header.php'; ?>
     <main class="page-main">
         <div class="layout-container">
 
             <section class="card-panel" aria-labelledby="catalogo-title">
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de Mangas</h2>
-                    <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 1): ?>
+                    <?php if (isPromoter()) { ?>
                         <a class="btn btn-add" href="../work-create.php">Añadir Manga</a>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">
                     <?php while ($manga = mysqli_fetch_assoc($query)) {
                         // Si la BD tiene columna de imagen úsala; si no, placeholder
-                        $img = !empty($manga['Image']) ? htmlspecialchars($manga['Image']) : '/DAM-Transversal/view/assets/img/background-image.webp';
+                        $img = !empty($manga['Image']) ? htmlspecialchars($manga['Image']) : ASSETS_URL . '/img/background-image.webp';
                         $title = htmlspecialchars($manga['Title']);
                         $subtitle = htmlspecialchars($manga['Subtitle']);
                         $id = $manga['ID_Work'];
@@ -59,14 +63,14 @@
                     <?php } ?>
                 </div>
 
-                <?php require $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/pagination.php'; ?>
+                <?php require __DIR__ . '/../../includes/pagination.php'; ?>
 
             </section>
         </div>
     </main>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
+    <?php include __DIR__ . '/../../includes/menu.php'; ?>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 </body>
 
 </html>

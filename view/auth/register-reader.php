@@ -1,12 +1,13 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php'; ?>
+<?php require_once __DIR__ . '/../../core/config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/auth.css">
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/auth.css">
+    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/logo.webp" />
     <title>Monogatarya - Registro lector</title>
 </head>
 
@@ -31,7 +32,7 @@
             <?php unset($_SESSION['login_error']); ?>
         <?php } ?>
 
-        <form action="/DAM-Transversal/controller/UserController.php" method="post">
+        <form action="<?php echo CONTROLLER_URL; ?>/UserController.php" method="post">
 
             <label class="sr-only" for="reader-name">Nombre</label>
             <input id="reader-name" class="btn-input input-name" type="text" name="name" placeholder="Nombre" required

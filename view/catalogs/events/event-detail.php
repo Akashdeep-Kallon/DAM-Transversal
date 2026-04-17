@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/main.css" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/catalog.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/main.css" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/catalog.css" />
+    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/logo.webp" />
     <title>Monogatarya - Evento</title>
 </head>
 
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
+    <?php include __DIR__ . '/../../includes/clean-header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
@@ -47,8 +47,8 @@
             </article>
         </div>
     </main>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
+    <?php include __DIR__ . '/../../includes/menu.php'; ?>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 </body>
 
 </html>

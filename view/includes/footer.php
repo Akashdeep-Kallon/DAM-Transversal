@@ -1,18 +1,29 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+require_once __DIR__ . '/../../core/config.php';
+require_once __DIR__ . '/../../core/auth.php';
 ?>
+
 <footer class="site-footer">
     <nav class="container" aria-label="Mapa web del sitio">
         <ul class="footer-links">
-            <li><a href="/DAM-Transversal/view/index.php">Inicio</a></li>
-            <li><a href="/DAM-Transversal/view/profiles/profile.php">Perfil</a></li>
-            <li><a href="/DAM-Transversal/view/catalogs/anime/anime-catalog.php">Catálogo de animes</a></li>
-            <li><a href="/DAM-Transversal/view/catalogs/manga/manga-catalog.php">Catálogo de mangas</a></li>
-            <li><a href="/DAM-Transversal/view/events/event-detail.php">Eventos</a></li>
-            <li><a href="/DAM-Transversal/view/home.php">Home</a></li>
+            <li><a href="<?php echo VIEW_URL; ?>/index.php">Inicio</a></li>
+            <li><a href="<?php echo VIEW_URL; ?>/profile.php">Perfil</a></li>
+            <li><a href="<?php echo VIEW_URL; ?>/catalogs/anime/anime-catalog.php">Catálogo de animes</a></li>
+            <li><a href="<?php echo VIEW_URL; ?>/catalogs/manga/manga-catalog.php">Catálogo de mangas</a></li>
+            <li><a href="<?php echo VIEW_URL; ?>/catalogs/events/event-detail.php">Eventos</a></li>
+
+            <?php if (isLogged()) { ?>
+                <li>
+                    <form action="<?php echo CONTROLLER_URL; ?>/UserController.php" method="POST">
+                        <input type="hidden" name="logout">
+                        <button type="submit">Home</button>
+                    </form>
+                </li>
+            <?php } ?>
+
         </ul>
     </nav>
+
+
     <p class="footer-legal">© 2026 Monogatarya. Todos los derechos reservados.</p>
 </footer>

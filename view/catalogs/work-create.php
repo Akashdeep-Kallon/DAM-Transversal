@@ -1,9 +1,7 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
-if (!isset($_SESSION['status']) || $_SESSION['status'] != 1) {
-    header("Location: /DAM-Transversal/view/index.php");
-    exit;
-}
+require_once __DIR__ . '/../../core/config.php';
+require_once __DIR__ . '/../../core/auth.php';
+requireRole('promoter');
 ?>
 
 <!DOCTYPE html>
@@ -13,21 +11,21 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != 1) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/styles/main.css" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/catalog.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/catalog.css" />
+    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/logo.webp" />
     <title>Monogatarya - Publicar Obra</title>
 </head>
 
 <body>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
+    <?php include __DIR__ . '/../includes/clean-header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel" aria-labelledby="crear-evento-title">
                 <h2 id="crear-evento-title" class="section-title">Formulario de creación de obra</h2>
 
-                <form class="form-vertical" action="/DAM-Transversal/controller/CatalogController.php" method="post"
+                <form class="form-vertical" action="<?php echo CONTROLLER_URL; ?>/CatalogController.php" method="post"
                     enctype="multipart/form-data">
 
                     <div class="field-group">
@@ -92,8 +90,8 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != 1) {
 
     <input type="checkbox" id="menu-toggle">
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
+    <?php include __DIR__ . '/../includes/menu.php'; ?>
+    <?php include __DIR__ . '/../includes/footer.php'; ?>
 
 </body>
 

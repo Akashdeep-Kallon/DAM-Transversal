@@ -1,11 +1,13 @@
+<?php require_once __DIR__ . '/../../core/config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/home.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/home.css" />
+    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/logo.webp" />
     <title>Monogatarya - Inicio</title>
 </head>
 
@@ -13,8 +15,8 @@
 
     <header>
         <div class="header-group">
-            <a href="/DAM-Transversal/view/home.php" class="logo-link" aria-label="Volver a inicio">
-                <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Logo de la página Monogatarya">
+            <a href="<?php echo VIEW_URL; ?>/home.php" class="logo-link" aria-label="Volver a inicio">
+                <img src="<?php echo ASSETS_URL; ?>/img/logo.webp" alt="Logo de la página Monogatarya">
             </a>
             <h1>MONOGATARYA</h1>
             <div class="right-group">

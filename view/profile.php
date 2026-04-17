@@ -1,52 +1,38 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-if (!isset($_SESSION['email'])) {
-    header("Location: /DAM-Transversal/view/auth/login.php");
-    exit;
-}
-
-require_once __DIR__ . '/../controller/UserController.php';
-
-$userController = new UserController();
-$userData = $userController->getLoggedUserProfileData();
-
-$name = $userData['name'];
-$surname = $userData['surname'];
-$email = $userData['email'];
-$status = $userData['status'];
+require_once __DIR__ . '/../../core/config.php';
+require_once __DIR__ . '/../../core/auth.php';
+requireLogin();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/main.css" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/user.css" />
-    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/main.css" />
+    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/user.css" />
+    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/logo.webp" />
     <title>Monogatarya - Perfil de Usuario</title>
 </head>
 
 <body>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
+    <?php include __DIR__ . '/includes/clean-header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel profile-panel" aria-labelledby="perfil-titulo">
-                <?php echo "<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil " . htmlspecialchars(ucfirst($status)) . "</h2>"; ?>
-                <form class="profile-layout" action="/DAM-Transversal/controller/UserController.php" method="post">
+                <?php echo "<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil " . htmlspecialchars(ucfirst($_SESSION['status'])) . "</h2>"; ?>
+                <form class="profile-layout" action="<?php echo CONTROLLER_URL; ?>/UserController.php" method="post">
                     <!-- COLUMNA IZQUIERDA -->
                     <aside class="avatar-box">
-                        <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Avatar del usuario">
+                        <img src="<?php echo ASSETS_URL; ?>/img/logo.webp" alt="Avatar del usuario">
 
-                        <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 1): ?>
+                        <?php if (isPromoter()) { ?>
                             <label for="foto-user" class="file-label">Cambiar foto</label>
                             <input id="foto-user" type="file" accept="image/*">
-                        <?php endif; ?>
+                        <?php } ?>
                     </aside>
 
                     <!-- COLUMNA DERECHA -->
@@ -55,19 +41,19 @@ $status = $userData['status'];
                         <div class="field">
                             <label for="nombre">Nombre</label>
                             <input id="nombre" name="nombre" required minlength="2"
-                                value="<?php echo htmlspecialchars($name); ?>">
+                                value="<?php echo htmlspecialchars($_SESSION['name']); ?>">
                         </div>
 
                         <div class="field">
                             <label for="apellido">Apellidos</label>
                             <input id="apellido" name="apellido" required minlength="2"
-                                value="<?php echo htmlspecialchars($surname); ?>">
+                                value="<?php echo htmlspecialchars($_SESSION['surname']); ?>">
                         </div>
 
                         <div class="field">
                             <label for="usuario">Correo electrónico</label>
                             <input id="usuario" name="usuario" required minlength="4"
-                                value="<?php echo htmlspecialchars($email); ?>">
+                                value="<?php echo htmlspecialchars($_SESSION['email']); ?>">
                         </div>
 
                         <div class="field">
@@ -93,8 +79,8 @@ $status = $userData['status'];
             </section>
         </div>
     </main>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
+    <?php include __DIR__ . '/includes/menu.php'; ?>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 </body>
 
 </html>

@@ -1,21 +1,19 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
-require_once __DIR__ . '/../model/Users.php';
-require_once __DIR__ . '/../model/db.php';
+require_once __DIR__ . '/../core/config.php';
+require_once __DIR__ . '/../core/database.php';
+require_once __DIR__ . '/../model/User.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Asegurar que login_error es un array
-    if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
-        $_SESSION['login_error'] = [];
-    }
 
-    $userController = new UserController();
+    $connection = new Database()->getConnection();
+
+    $userController = new UserController($connection);
 
     if (isset($_POST['register_lector'])) {
         $userController->register(false);
     }
 
-    if (isset($_POST['register_promotor'])) {
+    if (isset($_POST['register_promoter'])) {
         $userController->register(true);
     }
 
@@ -39,13 +37,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 class UserController
 {
+    private $connection;
+
+    public function __construct($connection)
+    {
+        $this->connection = $connection;
+    }
+
     public function register($status)
     {
+        $location = AUTH_URL . "/register-" . ($status ? 'promoter' : 'reader') . ".php";
+
         // Validar campos vacíos
         if (empty($_POST['name']) || empty($_POST['lastname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password_confirm'])) {
-            $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
-            header("Location: /DAM-Transversal/view/auth/register-" . ($status ? 'promotor' : 'lector') . ".php");
-            exit();
+            $this->errorMessage("Por favor, completa todos los campos para poder registrarse.", $location);
         }
 
         // Recoger datos
@@ -57,95 +62,85 @@ class UserController
 
         // VALIDACIONES
         if (strlen($name) < 2) {
-            $_SESSION['login_error'][] = "Introduce un nombre válido (mínimo 2 caracteres).";
-            header("Location: /DAM-Transversal/view/auth/register-lector.php");
-            exit();
+            $this->errorMessage("Introduce un nombre válido (mínimo 2 caracteres).", $location);
         }
 
         if (strlen($surname) < 2) {
-            $_SESSION['login_error'][] = "Introduce un apellido válido (mínimo 2 caracteres).";
-            header("Location: /DAM-Transversal/view/auth/register-lector.php");
-            exit();
+            $this->errorMessage("Introduce un apellido válido (mínimo 2 caracteres).", $location);
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['login_error'][] = "Introduce un correo electrónico válido.";
-            header("Location: /DAM-Transversal/view/auth/register-lector.php");
-            exit();
+            $this->errorMessage("Introduce un correo electrónico válido.", $location);
         }
 
         if (strlen($password) < 6) {
-            $_SESSION['login_error'][] = "La contraseña debe tener al menos 6 caracteres.";
-            header("Location: /DAM-Transversal/view/auth/register-lector.php");
-            exit();
+            $this->errorMessage("La contraseña debe tener al menos 6 caracteres.", $location);
         }
 
-        // Crear usuario
-        $user = new Users($email, $status, $name, $surname, $password);
+        if ($password !== $password_confirm) {
+            $this->errorMessage("Las contraseñas no coinciden.", $location);
+        }
 
-        // Conexión BD
-        $db = new Database();
-        $connection = $db->getConnection();
+        $this->connection->query("CALL sp_comprove_email('$email', @result)");
+        $result = $this->connection->query("SELECT @result AS exist");
+        $exist = intval($result->fetch_assoc()["exist"]);
 
-        // Registrar
-        $registered = $user->register($password_confirm, $connection);
+        if ($exist === 1) {
+            $this->errorMessage("El correo electrónico ya está registrado.", $location);
+        }
 
-        if ($registered) {
-            $_SESSION['email'] = $email;
-            $_SESSION['status'] = $status ? 1 : 0;
+        if ($exist === 0) {
+            $this->connection->query("INSERT INTO Users (email, status, name, surname, password)
+            VALUES ('$email', $status, '$name', '$surname', '$password')");
 
-            header('Location: /DAM-Transversal/view/profile.php');
+            session_unset();
+
+            $user = new User($email, $status, $name, $surname, $password);
+            $user->setSessionUser();
+
+            header('Location: ' . VIEW_URL . '/profile.php');
             exit();
         }
 
         // Si no se registró
-        header("Location: /DAM-Transversal/view/auth/register-" . ($status ? 'promotor' : 'lector') . ".php");
+        header("Location: " . $location);
         exit();
     }
+
     public function login()
     {
-        if (!empty($_POST['email']) && !empty($_POST['password'])) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+        $location = AUTH_URL . "/login.php";
 
-            $db = new Database();
-            $connection = $db->getConnection();
-
-            $connection->query("CALL sp_login('$email', '$password', @result)");
-            $result = $connection->query("SELECT @result AS exist");
-            $row = $result->fetch_assoc();
-            $exist = intval($row["exist"]); // 1 o 0
-
-            if ($exist === 1) {
-                $_SESSION['email'] = $email;
-
-                $userQuery = $connection->query("SELECT status FROM Users WHERE email = '$email'");
-                if ($userRow = $userQuery->fetch_assoc()) {
-                    $_SESSION['status'] = $userRow['status'];
-                }
-
-                header('Location: /DAM-Transversal/view/index.php');
-                exit();
-            }
-            if ($exist === 0) {
-                $_SESSION['login_error'][] = "Correo electrónico o contraseña incorrectos.";
-                header("Location: /DAM-Transversal/view/auth/login.php");
-                exit();
-            }
-        } else {
-            $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
-            header("Location: /DAM-Transversal/view/auth/login.php");
-            exit();
+        if (empty($_POST['email']) || empty($_POST['password'])) {
+            $this->errorMessage("Por favor, completa todos los campos para poder iniciar sesión.", $location);
         }
+
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $userQuery = $this->connection->query("SELECT * FROM Users WHERE email = '$email' AND password = '$password'");
+
+        if ($userRow = $userQuery->fetch_assoc()) {
+            session_unset();
+
+            $user = new User($userRow['email'], $userRow['status'], $userRow['name'], $userRow['surname'], $userRow['password']);
+            $user->setSessionUser();
+
+            header('Location: ' . VIEW_URL . '/index.php');
+            exit();
+        } else {
+            $this->errorMessage("El correo electrónico o contraseña incorrectos.", $location);
+        }
+        // Si no se logea
+        header("Location: " . $location);
+        exit();
     }
+
 
     public function logout()
     {
-        // Limpiar todas las variables de sesión
         session_unset();
-        // Destruir la sesión
-        session_destroy();
-        // Limpiar la cookie de sesión
+
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(
@@ -158,49 +153,12 @@ class UserController
                 $params["httponly"]
             );
         }
-        // Redirigir al login
-        header("Location: /DAM-Transversal/view/auth/login.php");
+
+        session_destroy();
+
         header("Cache-Control: no-cache, no-store, must-revalidate, max-age=0");
+        header("Location: " . AUTH_URL . "/login.php");
         exit();
-    }
-
-    public function getLoggedUserProfile()
-    {
-        if (empty($_SESSION['email'])) {
-            return null;
-        }
-
-        $db = new Database();
-        $connection = $db->getConnection();
-
-        $stmt = $connection->prepare("SELECT name, surname, email, status FROM Users WHERE email = ?");
-        $stmt->bind_param('s', $_SESSION['email']);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_assoc() ?: null;
-    }
-
-    public function getLoggedUserProfileData()
-    {
-        $data = [
-            'name' => '',
-            'surname' => '',
-            'email' => '',
-            'status' => 'invitado',
-        ];
-
-        $profile = $this->getLoggedUserProfile();
-        if (empty($profile)) {
-            return $data;
-        }
-
-        return [
-            'name' => $profile['name'],
-            'surname' => $profile['surname'],
-            'email' => $profile['email'],
-            'status' => $profile['status'] ? 'promotor' : 'lector',
-        ];
     }
 
     public function update()
@@ -209,5 +167,16 @@ class UserController
     // delete an employee
     public function delete()
     {
+    }
+
+    public function errorMessage($message, $location)
+    {
+        if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
+            $_SESSION['login_error'] = [];
+        }
+
+        $_SESSION['login_error'][] = $message;
+        header("Location: " . $location);
+        exit();
     }
 }

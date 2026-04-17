@@ -1,5 +1,4 @@
 <?php
-
 // ssh -i ssh-key-Monogatarya.key -L 3307:127.0.0.1:3306 ubuntu@130.110.233.182
 class Database
 {
@@ -7,8 +6,7 @@ class Database
     private $port;
     private $user;
     private $password;
-    private $base_date;
-
+    private $date_base;
     public $connection;
 
     public function __construct()
@@ -25,7 +23,7 @@ class Database
 
         $this->user = "admin";
         $this->password = "Monogatarya@2025";
-        $this->base_date = "Monogatarya";
+        $this->date_base = "Monogatarya";
     }
 
     public function getConnection()
@@ -34,7 +32,7 @@ class Database
             $this->host,
             $this->user,
             $this->password,
-            $this->base_date,
+            $this->date_base,
             $this->port
         );
 
@@ -46,3 +44,5 @@ class Database
         return $this->connection;
     }
 }
+
+?>
