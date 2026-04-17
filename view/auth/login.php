@@ -17,6 +17,20 @@
 
         <h1 id="login-title">Iniciar sesión</h1>
 
+        <?php if (isset($_SESSION['login_error']) && is_array($_SESSION['login_error'])) { ?>
+            <div class="error-box">
+                <span class="icon">ⓘ</span>
+                <span>
+                    <?php
+                    foreach ($_SESSION['login_error'] as $error) {
+                        echo htmlspecialchars($error) . "<br>";
+                    }
+                    ?>
+                </span>
+            </div>
+            <?php unset($_SESSION['login_error']); ?>
+        <?php } ?>
+
         <form action="/DAM-Transversal/controller/UserController.php" method="post">
 
             <label class="sr-only" for="login-email">Correo electrónico</label>
@@ -28,20 +42,6 @@
                 placeholder="Contraseña" required minlength="6" maxlength="20"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$"
                 title="La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.">
-
-            <?php if (isset($_SESSION['login_error']) && is_array($_SESSION['login_error'])) { ?>
-                <div class="error-box">
-                    <span class="icon">ⓘ</span>
-                    <span>
-                        <?php 
-                        foreach($_SESSION['login_error'] as $error) {
-                            echo htmlspecialchars($error) . "<br>";
-                        }
-                         ?>
-                    </span>
-                </div>
-                <?php unset($_SESSION['login_error']); ?>
-            <?php } ?>
 
             <input class="btn btn-primary" type="submit" value="Iniciar sesión" name="login">
         </form>

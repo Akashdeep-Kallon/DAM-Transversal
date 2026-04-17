@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/styles/catalog.css" />
     <link rel="stylesheet" href="../assets/styles/main.css" />
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/catalog.css" />
     <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Publicar Obra</title>
 </head>
@@ -68,7 +68,8 @@
                     </div>
                     <div class="field-group">
                         <label for="description">Description</label>
-                        <textarea id="description" name="description" required minlength="10" maxlength="500"></textarea>
+                        <textarea id="description" name="description" required minlength="10"
+                            maxlength="500"></textarea>
                     </div>
 
                     <div class="inline-actions">

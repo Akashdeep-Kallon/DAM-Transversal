@@ -15,34 +15,31 @@ class Users
         $this->surname = $surname;
         $this->password = $password;
     }
-
-    public function register($password_confirm, $connection, $type)
+    public function register($password_confirm, $connection)
     {
+        if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
+            $_SESSION['login_error'] = [];
+        }
+
         $connection->query("CALL sp_comprove_email('$this->email', @result)");
         $result = $connection->query("SELECT @result AS exist");
         $row = $result->fetch_assoc();
         $exist = intval($row["exist"]);
 
         if ($exist === 1) {
-            $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
-            header("Location: /DAM-Transversal/view/auth/register-" . $type . ".php");
+            $_SESSION['login_error'][] = "El correo ya está registrado.";
             return false;
         }
 
         if ($this->password !== $password_confirm) {
-            $_SESSION['login_error'][] = "Las contrasenas no coinciden. Intentalo de nuevo.";
-            header("Location: /DAM-Transversal/view/auth/register-" . $type . ".php");
+            $_SESSION['login_error'][] = "Las contraseñas no coinciden.";
             return false;
         }
 
-        if ($this->password === $password_confirm && $exist === 0) {
-            $connection->query("INSERT INTO Users (email, status, name, surname, password)
-                VALUES ('$this->email', $this->status, '$this->name', '$this->surname', '$this->password')");
-            return true;
-        }
+        $connection->query("INSERT INTO Users (email, status, name, surname, password)
+        VALUES ('$this->email', $this->status, '$this->name', '$this->surname', '$this->password')");
 
-        $result->close();
-        $connection->close();
-        return false;
+        return true;
     }
+
 }
