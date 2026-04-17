@@ -1,5 +1,3 @@
-<?php require_once __DIR__ . '/../../core/config.php'; ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
