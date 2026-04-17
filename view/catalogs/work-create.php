@@ -1,6 +1,7 @@
 <?php
-if (empty($_SESSION['usuario'])) {
-    header('Location: /DAM-Transversal/view/auth/login.php');
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
+if (!isset($_SESSION['status']) || $_SESSION['status'] != 1) {
+    header("Location: /DAM-Transversal/view/index.php");
     exit;
 }
 ?>
