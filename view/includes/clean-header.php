@@ -13,13 +13,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
             </a>
             <h1>MONOGATARYA</h1>
             <div class="right-group">
-                <?php if (isset($_SESSION['usuario'])): ?>
-                    <a href="/DAM-Transversal/view/profiles/profile.php" class="icon-btn white user-link" aria-label="Ir al perfil de promotor">
-                        <svg class="icon">
-                            <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#usuario"></use>
-                        </svg>
-                    </a>
-                <?php endif; ?>
+                <a href="/DAM-Transversal/view/profiles/profile.php" class="icon-btn white user-link" aria-label="Ir al perfil de promotor">
+                    <svg class="icon">
+                        <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#usuario"></use>
+                    </svg>
+                </a>
             </div>
         </div>
     </header>

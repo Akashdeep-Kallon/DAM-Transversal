@@ -28,7 +28,9 @@
             <section class="card-panel" aria-labelledby="catalogo-title">
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de Mangas</h2>
-                    <a class="btn btn-add" href="../work-create.php">Añadir Manga</a>
+                    <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 1): ?>
+                        <a class="btn btn-add" href="../work-create.php">Añadir Manga</a>
+                    <?php endif; ?>
                 </div>
                 <!-- Tarjetas de esta página -->
                 <div class="card-grid card-grid-3">
