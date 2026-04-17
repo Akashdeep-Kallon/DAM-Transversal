@@ -17,7 +17,7 @@
 
         <h1 id="login-title">Iniciar sesión</h1>
 
-        <?php if (isset($_SESSION['login_error']) && is_array($_SESSION['login_error'])) { ?>
+        <?php if (!empty($_SESSION['login_error']) && is_array($_SESSION['login_error'])) { ?>
             <div class="error-box">
                 <span class="icon">ⓘ</span>
                 <span>

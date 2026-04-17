@@ -120,11 +120,12 @@ class UserController
 
             $connection->query("CALL sp_login('$email', '$password', @result)");
             $result = $connection->query("SELECT @result AS exist");
-            $row = $result->fetch_assoc();
-            $exist = intval($row["exist"]); // 1 o 0
+            $row = $result ? $result->fetch_assoc() : null;
+            $exist = isset($row["exist"]) ? intval($row["exist"]) : 0;
 
             if ($exist === 1) {
                 $_SESSION['email'] = $email;
+                $_SESSION['usuario'] = $email;
 
                 $userQuery = $connection->query("SELECT status FROM Users WHERE email = '$email'");
                 if ($userRow = $userQuery->fetch_assoc()) {
@@ -134,11 +135,11 @@ class UserController
                 header('Location: /DAM-Transversal/view/profile.php');
                 exit();
             }
-            if ($exist === 0) {
-                $_SESSION['login_error'][] = "Correo electrónico o contraseña incorrectos.";
-                header("Location: /DAM-Transversal/view/auth/login.php");
-                exit();
-            }
+
+            // $exist === 0 o cualquier valor inesperado
+            $_SESSION['login_error'][] = "Correo electrónico o contraseña incorrectos.";
+            header("Location: /DAM-Transversal/view/auth/login.php");
+            exit();
         } else {
             $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
             header("Location: /DAM-Transversal/view/auth/login.php");
