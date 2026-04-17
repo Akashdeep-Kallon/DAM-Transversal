@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/config.php';
 require_once __DIR__ . '/../model/Users.php';
 require_once __DIR__ . '/../model/db.php';
@@ -9,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
         $_SESSION['login_error'] = [];
     }
-    
+
     $userController = new UserController();
 
     if (isset($_POST['register_lector'])) {
@@ -125,7 +124,7 @@ class UserController
                     $_SESSION['status'] = $userRow['status'];
                 }
 
-                header('Location: /DAM-Transversal/view/profile.php');
+                header('Location: /DAM-Transversal/view/index.php');
                 exit();
             }
             if ($exist === 0) {
