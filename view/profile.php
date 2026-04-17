@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../core/config.php';
-require_once __DIR__ . '/../../core/auth.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
 requireLogin();
 ?>
 
@@ -10,24 +10,24 @@ requireLogin();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/main.css" />
-    <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/styles/user.css" />
-    <link rel="icon" type="image/png" href="<?php echo ASSETS_URL; ?>/img/logo.webp" />
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/main.css" />
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/user.css" />
+    <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Perfil de Usuario</title>
 </head>
 
 <body>
 
-    <?php include __DIR__ . '/includes/clean-header.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel profile-panel" aria-labelledby="perfil-titulo">
                 <?php echo "<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil " . htmlspecialchars(ucfirst($_SESSION['status'])) . "</h2>"; ?>
-                <form class="profile-layout" action="<?php echo CONTROLLER_URL; ?>/UserController.php" method="post">
+                <form class="profile-layout" action="/DAM-Transversal/controller/UserController.php" method="post">
                     <!-- COLUMNA IZQUIERDA -->
                     <aside class="avatar-box">
-                        <img src="<?php echo ASSETS_URL; ?>/img/logo.webp" alt="Avatar del usuario">
+                        <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Avatar del usuario">
 
                         <?php if (isPromoter()) { ?>
                             <label for="foto-user" class="file-label">Cambiar foto</label>
@@ -79,8 +79,8 @@ requireLogin();
             </section>
         </div>
     </main>
-    <?php include __DIR__ . '/includes/menu.php'; ?>
-    <?php include __DIR__ . '/includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 </body>
 
 </html>

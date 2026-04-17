@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../../core/config.php'; ?>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -18,7 +20,7 @@
 
         <h1 id="register-promoter-title">Registro de promotor</h1>
 
-        <?php if (!empty($_SESSION['login_error']) && is_array($_SESSION['login_error'])) { ?>
+        <?php if (!empty($_SESSION['login_error'])) { ?>
             <div class="error-box">
                 <span class="icon">ⓘ</span>
                 <span>
@@ -32,7 +34,7 @@
             <?php unset($_SESSION['login_error']); ?>
         <?php } ?>
 
-        <form action="<?php echo CONTROLLER_URL; ?>/UserController.php" method="post">
+        <form action="/controller/UserController.php" method="post">
 
             <label class="sr-only" for="promoter-name">Nombre</label>
             <input id="promoter-name" name="name" class="btn-input input-name" type="text" placeholder="Nombre" required

@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../../core/config.php'; ?>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -18,7 +20,7 @@
 
         <h1 id="login-title">Iniciar sesión</h1>
 
-        <?php if (!empty($_SESSION['login_error']) && is_array($_SESSION['login_error'])) { ?>
+        <?php if (!empty($_SESSION['login_error'])) { ?>
             <div class="error-box">
                 <span class="icon">ⓘ</span>
                 <span>

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../core/config.php';
-require_once __DIR__ . '/../model/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $catalog = new Catalog();

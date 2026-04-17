@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../../core/config.php';
-require_once __DIR__ . '/../../../core/auth.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
 ?>
 
 <!DOCTYPE html>
@@ -17,15 +17,15 @@ require_once __DIR__ . '/../../../core/auth.php';
 
 <body>
     <?php
-    require_once __DIR__ . '/../../../controller/CatalogController.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
     
-    $result = new Catalog()->returnCatalog('Anime');
+    $result = (new Catalog())->returnCatalog('Anime');
     $query = $result['query'];
     $page = $result['page'];
     $totalPages = $result['totalPages'];
     ?>
 
-    <?php include __DIR__ . '/../../includes/header.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
@@ -70,8 +70,8 @@ require_once __DIR__ . '/../../../core/auth.php';
         </div>
     </main>
 
-    <?php include __DIR__ . '/../../includes/menu.php'; ?>
-    <?php include __DIR__ . '/../../includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 </body>
 
 </html>

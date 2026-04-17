@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../../../core/config.php';
-require_once __DIR__ . '/../../../core/auth.php';
-require_once __DIR__ . '/../../../controller/CatalogController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
 
-$result = new Catalog()->returnCatalogEvent();
+$result = (new Catalog())->returnCatalogEvent();
 $query = $result['query'];
 $page = $result['page'];
 $totalPages = $result['totalPages'];

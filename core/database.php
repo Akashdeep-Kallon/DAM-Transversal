@@ -1,12 +1,12 @@
 <?php
-// ssh -i ssh-key-Monogatarya.key -L 3307:127.0.0.1:3306 ubuntu@130.110.233.182
+//ssh -i ssh-key-Monogatarya.key -L 3307:127.0.0.1:3306 ubuntu@130.110.233.182
 class Database
 {
     private $host;
     private $port;
     private $user;
     private $password;
-    private $date_base;
+    private $database;
     public $connection;
 
     public function __construct()
@@ -23,7 +23,7 @@ class Database
 
         $this->user = "admin";
         $this->password = "Monogatarya@2025";
-        $this->date_base = "Monogatarya";
+        $this->database = "Monogatarya";
     }
 
     public function getConnection()
@@ -32,17 +32,15 @@ class Database
             $this->host,
             $this->user,
             $this->password,
-            $this->date_base,
+            $this->database,
             $this->port
         );
 
         if ($this->connection->connect_error) {
-            die("Error de conexion: " . $this->connection->connect_error);
+            die("Error de conexión: " . $this->connection->connect_error);
         }
 
         $this->connection->set_charset("utf8mb4");
         return $this->connection;
     }
 }
-
-?>

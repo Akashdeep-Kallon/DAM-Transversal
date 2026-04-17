@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../../core/config.php';
-require_once __DIR__ . '/../../../core/auth.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
 requireRole('promoter');
 ?>
 
@@ -18,7 +18,7 @@ requireRole('promoter');
 
 <body>
 
-    <?php include __DIR__ . '/../../includes/clean-header.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
@@ -66,8 +66,8 @@ requireRole('promoter');
         </div>
     </main>
 
-    <?php include __DIR__ . '/../../includes/menu.php'; ?>
-    <?php include __DIR__ . '/../../includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 
 </body>
 

@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../core/config.php'; ?>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +16,7 @@
 </head>
 
 <body>
-    <?php include __DIR__ . '/includes/clean-header.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/clean-header.php'; ?>
 
     <main class="page-main" id="contenido-principal">
         <div class="layout-container">
@@ -68,8 +70,8 @@
 
         </div>
     </main>
-    <?php include __DIR__ . '/includes/menu.php'; ?>
-    <?php include __DIR__ . '/includes/footer.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
 </body>
 
 </html>
