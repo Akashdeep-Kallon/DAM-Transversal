@@ -43,26 +43,40 @@ class UserController
             $email = $_POST['email'];
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
-
+            
             // VALIDACIONES
+
+            // Validar name
+            if (strlen($name) < 2) {
+                $_SESSION['login_error'][] = "Introduce un nombre válido. El nombre debe tener al menos entre 2 a 30 caracteres.";
+                header("Location: /DAM-Transversal/view/auth/register-lector.php");
+                exit();
+            }
+
+            // Validar surname
+            if (strlen($surname) < 2) {
+                $_SESSION['login_error'][] = "Introduce un apellido válido. El apellido debe tener al menos entre 2 a 30 caracteres.";
+                header("Location: /DAM-Transversal/view/auth/register-lector.php");
+                exit();
+            }
 
             // Validar email
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['login_error'] = "El email no tiene un formato válido";
+                $_SESSION['login_error'][] = "El correo electrónico no coincide. Introduce un correo electrónico válido.";
                 header("Location: /DAM-Transversal/view/auth/register-lector.php");
                 exit();
             }
 
             // Validar contraseña (mínimo 6 caracteres)
             if (strlen($password) < 6) {
-                $_SESSION['login_error'] = "La contraseña debe tener al menos 6 caracteres";
+                $_SESSION['login_error'][] = "La contraseña debe tener al menos 6 caracteres, una mayúscula, una minúscula y un número.";
                 header("Location: /DAM-Transversal/view/auth/register-lector.php");
                 exit();
             }
 
             // Confirmación de contraseña
             if ($password !== $password_confirm) {
-                $_SESSION['login_error'] = "Las contraseñas no coinciden.";
+                $_SESSION['login_error'][] = "Las contraseñas no coinciden.";
                 header("Location: /DAM-Transversal/view/auth/register-lector.php");
                 exit();
             }
@@ -72,7 +86,7 @@ class UserController
             $db = new Database();
             $connection = $db->getConnection();
 
-            $registered = $user->register($password_confirm, $connection);
+            $registered = $user->register($password_confirm, $connection, $status ? 'promotor' : 'lector');
 
             if ($registered) {
                 $_SESSION['email'] = $email;
@@ -83,8 +97,8 @@ class UserController
                 exit();
             }
         } else {
-            $_SESSION['login_error'] = "Por favor, completa todos los campos.";
-            header("Location: /DAM-Transversal/view/auth/register-lector.php");
+            $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
+            header("Location: /DAM-Transversal/view/auth/register-" . ($status ? 'promotor' : 'lector') . ".php");
             exit();
         }
     }

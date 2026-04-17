@@ -16,7 +16,7 @@ class Users
         $this->password = $password;
     }
 
-    public function register($password_confirm, $connection)
+    public function register($password_confirm, $connection, $type)
     {
         $connection->query("CALL sp_comprove_email('$this->email', @result)");
         $result = $connection->query("SELECT @result AS exist");
@@ -24,12 +24,14 @@ class Users
         $exist = intval($row["exist"]);
 
         if ($exist === 1) {
-            echo "<span>El correo electronico ya esta registrado. Intentalo con otro.</span>";
+            $_SESSION['login_error'][] = "Por favor, completa todos los campos.";
+            header("Location: /DAM-Transversal/view/auth/register-" . $type . ".php");
             return false;
         }
 
         if ($this->password !== $password_confirm) {
-            echo "<span>Las contrasenas no coinciden. Intentalo de nuevo.</span>";
+            $_SESSION['login_error'][] = "Las contrasenas no coinciden. Intentalo de nuevo.";
+            header("Location: /DAM-Transversal/view/auth/register-" . $type . ".php");
             return false;
         }
 
