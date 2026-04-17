@@ -48,19 +48,22 @@ class UserController
 
             // Validar email
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                echo "El email no tiene un formato válido";
+                $_SESSION['login_error'] = "El email no tiene un formato válido";
+                header("Location: /DAM-Transversal/view/auth/register-lector.php");
                 exit();
             }
 
             // Validar contraseña (mínimo 6 caracteres)
             if (strlen($password) < 6) {
-                echo "La contraseña debe tener al menos 6 caracteres";
+                $_SESSION['login_error'] = "La contraseña debe tener al menos 6 caracteres";
+                header("Location: /DAM-Transversal/view/auth/register-lector.php");
                 exit();
             }
 
             // Confirmación de contraseña
             if ($password !== $password_confirm) {
-                echo "Las contraseñas no coinciden";
+                $_SESSION['login_error'] = "Las contraseñas no coinciden.";
+                header("Location: /DAM-Transversal/view/auth/register-lector.php");
                 exit();
             }
 
