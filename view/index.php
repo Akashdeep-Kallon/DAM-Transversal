@@ -41,11 +41,6 @@
                             <img src="/DAM-Transversal/view/assets/gallery/card-shingekyNoKyojin.webp" alt="Portada de Attack on Titan">
                         </label>
                     </div>
-                    <div class="gallery-controls" aria-label="Controles de galería">
-                        <label for="s1" title="One Piece"></label>
-                        <label for="s2" title="Dragon Ball"></label>
-                        <label for="s3" title="Attack on Titan"></label>
-                    </div>
                 </div>
             </section>
 

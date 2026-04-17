@@ -8,14 +8,11 @@ $page = $result['page'];
 $totalPages = $result['totalPages'];
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
-
-
 <section class="card-panel" aria-labelledby="catalogo-title">
 
     <div class="section-header">
         <h2 id="catalogo-title" class="section-title">Catálogo de Eventos</h2>
-        <a class="btn btn-add" href="event-create.php">Añadir Evento</a>
+        <a class="btn btn-add" href="/DAM-Transversal/view/catalogs/events/event-create.php">Añadir Evento</a>
     </div>
 
     <!-- Tarjetas -->
@@ -49,7 +46,6 @@ $totalPages = $result['totalPages'];
     </main>
 
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/menu.php'; ?>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/footer.php'; ?>
     </body>
 
     </html>

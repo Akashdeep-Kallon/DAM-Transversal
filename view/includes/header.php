@@ -5,7 +5,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 ?>
 
 <header>
-    <div class="header-gruop">
+    <div class="header-group">
         <label for="menu-toggle" class="icon-btn white" aria-label="Menú">
             <svg class="icon">
                 <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#menu"></use>
@@ -38,7 +38,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                 </div>
             </form>
 
-            <a href="/DAM-Transversal/view/profiles/profile.php"
+            <a href="/DAM-Transversal/view/profile.php"
                 class="icon-btn white user-link" aria-label="Ir al perfil de usuario">
                 <svg class="icon">
                     <use href="/DAM-Transversal/view/assets/img/icon-sprites.svg#usuario"></use>

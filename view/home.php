@@ -12,14 +12,14 @@
 <body>
 
     <header>
-        <div class="header-gruop">
+        <div class="header-group">
             <a href="/DAM-Transversal/view/home.php" class="logo-link" aria-label="Volver a inicio">
                 <img src="/DAM-Transversal/view/assets/img/logo.webp" alt="Logo de la página Monogatarya">
             </a>
             <h1>MONOGATARYA</h1>
             <div class="right-group">
                 <form action="auth/login.php">
-                    <button class="btn btn-sesion" type="submit">Iniciar Sesión</button>
+                    <button class="btn btn-session" type="submit">Iniciar Sesión</button>
                 </form>
                 <form action="auth/register.html">
                     <button class="btn btn-register" type="submit">Registrarse</button>

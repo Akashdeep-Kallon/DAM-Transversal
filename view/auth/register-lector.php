@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <main class="container" aria-labelledby="register-reader-title">
+    <main class="auth-container" aria-labelledby="register-reader-title">
         <button class="btn-back" type="button" onclick="history.back()"
             aria-label="Volver a la página anterior">❮</button>
 

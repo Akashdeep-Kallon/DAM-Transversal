@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/event.css" />
+    <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/catalog.css" />
     <link rel="stylesheet" href="/DAM-Transversal/view/assets/styles/main.css" />
     <link rel="icon" type="image/png" href="/DAM-Transversal/view/assets/img/logo.webp" />
     <title>Monogatarya - Evento</title>
@@ -15,7 +15,7 @@
 
     <main class="page-main">
         <div class="layout-container">
-            <article class="card-panel event-editorial" aria-labelledby="evento-titulo">
+            <article class="card-panel event-layout" aria-labelledby="evento-titulo">
                 <section>
                     <h2 id="evento-titulo" class="section-title">Salón Monogatarya 2026</h2>
                     <figure class="event-hero-image">

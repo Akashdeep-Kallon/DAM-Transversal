@@ -6,7 +6,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
 <input type="checkbox" id="menu-toggle">
 
-<ul class="menu-width">
+<ul class="menu-sidebar">
     <li><a href="/DAM-Transversal/view/index.php">Página de inicio</a></li>
 
     <li><a href="/DAM-Transversal/view/catalogs/anime/anime-catalog.php">
