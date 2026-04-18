@@ -80,7 +80,7 @@ requireLogin();
 
                         <div class="profile-actions">
                             <button type="submit" class="btn btn-delete" name="update">Guardar cambios</button>
-                            <button type="reset" class="btn btn-delete" name="delete">Borrar cuenta</button>
+                            <button type="submit" class="btn btn-delete" name="delete">Borrar cuenta</button>
                             <button type="reset" class="btn btn-add">Reiniciar</button>
                         </div>
 

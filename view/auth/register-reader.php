@@ -41,7 +41,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
                 minlength="2" maxlength="30">
 
             <label class="sr-only" for="reader-lastname">Apellido</label>
-            <input id="reader-lastname" class="btn-input input-lastname" type="text" name="lastname"
+            <input id="reader-lastname" class="btn-input input-lastname" type="text" name="username"
                 placeholder="Apellido" required minlength="2" maxlength="30">
 
             <label class="sr-only" for="reader-email">Correo electrónico</label>

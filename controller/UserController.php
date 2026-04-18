@@ -18,12 +18,12 @@ class UserController
         $location = AUTH_URL . "/register-" . ($status ? 'promoter' : 'reader') . ".php";
         $errors = [];
         // Validar campos vacíos
-        if (empty($_POST['name']) || empty($_POST['lastname']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password_confirm'])) {
+        if (empty($_POST['name']) || empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password_confirm'])) {
             $this->message("Por favor, completa todos los campos para poder registrarse.", $location);
         }
         // Recoger datos
         $name = $_POST['name'];
-        $surname = $_POST['lastname'];
+        $surname = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $password_confirm = $_POST['password_confirm'];
