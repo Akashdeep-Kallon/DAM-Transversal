@@ -120,7 +120,7 @@ class UserController
 
     public function update()
     {
-        $location = AUTH_URL . "/profile.php";
+        $location = "/DAM-Transversal/view/profile.php";
         $errors = [];
         if (empty($_POST['name']) || empty($_POST['surname']) || empty($_POST['email']) || empty($_POST['password'])) {
             $this->message("Por favor, completa todos los campos.", $location);
@@ -150,6 +150,7 @@ class UserController
         );
 
         if ($userRow = $userQuery->fetch_assoc()) {
+
             $mensages = [];
             $user = new User(
                 $userRow['email'],
@@ -171,7 +172,7 @@ class UserController
             }
             session_unset();
             $user->setSessionUser();
-            $menssages[] = "Los datos se han actualizado correctamente.";
+            $mensages[] = "Los datos se han actualizado correctamente.";
             $this->message($mensages, $location);
 
         }
@@ -188,7 +189,11 @@ class UserController
         if (!isset($_SESSION['login_error']) || !is_array($_SESSION['login_error'])) {
             $_SESSION['login_error'] = [];
         }
-        $_SESSION['login_error'][] = $message;
+        if (is_array($message)) {
+            $_SESSION['login_error'] = array_merge($_SESSION['login_error'], $message);
+        } else {
+            $_SESSION['login_error'][] = $message;
+        }
         header("Location: " . $location);
         exit();
     }
