@@ -113,7 +113,66 @@
     pointer-events: none;
 }
 
-/* ── Work detail ── */
+.event-editorial {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.event-hero-image {
+    margin: 0;
+}
+
+.event-hero-image img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.event-aside {
+    font-family: inherit;
+    background: #111;
+    border: 1px solid #2f2f2f;
+    border-radius: 12px;
+    padding: 1rem;
+    align-self: start;
+}
+
+.event-aside dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .5rem .75rem;
+    margin: 0;
+}
+
+.event-aside dt {
+    font-weight: 700;
+}
+
+.stack-actions {
+    display: grid;
+    gap: .75rem;
+    margin-top: 1rem;
+}
+
+video,
+audio {
+    width: 100%;
+    margin-top: .4rem;
+    border-radius: 8px;
+}
+
+details {
+    margin-top: 0.5rem;
+}
+
+.field-help {
+    margin: .25rem 0 0;
+    color: #cdcdcd;
+    font-size: .92rem;
+}
+
 .work-subtitle {
     color: #aaa;
     margin-top: -0.5rem;
@@ -129,7 +188,7 @@
     margin-bottom: 1rem;
 }
 
-/* ── Lista de capítulos ── */
+/* Lista de capítulos */
 .chapter-heading {
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
@@ -161,15 +220,15 @@
 }
 
 .chapter-item:hover {
-    border-color: #ff4141;
-    background: rgba(255, 65, 65, 0.06);
+    border-color: var(--accent, #b00020);
+    background: rgba(176, 0, 32, 0.06);
 }
 
 .chapter-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #ff4141;
+    background: var(--accent, #b00020);
     flex-shrink: 0;
 }
 
@@ -217,5 +276,11 @@
     .event-editorial,
     .event-layout {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .event-aside {
+        margin-top: 1rem;
     }
 }

@@ -71,7 +71,7 @@ $linkMedia = ($redirectType === 'manga') ? MANGA_URL : ANIME_URL;
                     <h3>Descripción</h3>
                     <p><?php echo htmlspecialchars($description); ?></p>
 
-                    <!-- Lista de capítulos ── -->
+                    <!-- Lista de capítulos -->
                     <?php if (!empty($chapters)) { ?>
                         <h3 class="chapter-heading">
                             <?php echo count($chapters); ?> capítulos en total
@@ -82,11 +82,14 @@ $linkMedia = ($redirectType === 'manga') ? MANGA_URL : ANIME_URL;
                                 $chNum = $ch['Chapter_Number'];
                                 $chTitle = !empty($ch['Title']) ? $ch['Title'] : 'Capítulo ' . $chNum;
                                 ?>
+                                <?php
+                                $chUrl = $redirectType . '/' . $redirectType . '-read.php'
+                                    . '?type=' . urlencode($type)
+                                    . '&id=' . urlencode($id)
+                                    . '&idChapter=' . urlencode($chId);
+                                ?>
                                 <li>
-                                    <a class="chapter-item" href="<?php echo $redirectType; ?>/<?php echo $redirectType; ?>-read.php
-                                         ?type=<?php echo urlencode($type); ?>
-                                         &id=<?php echo urlencode($id); ?>
-                                         &idChapter=<?php echo urlencode($chId); ?>">
+                                    <a class="chapter-item" href="<?php echo $chUrl; ?>">
                                         <span class="chapter-dot" aria-hidden="true"></span>
                                         <span class="chapter-info">
                                             <span class="chapter-title">
@@ -144,12 +147,13 @@ $linkMedia = ($redirectType === 'manga') ? MANGA_URL : ANIME_URL;
                     </dl>
 
                     <div class="stack-actions">
-                        <?php if (!empty($chapters)) { ?>
-                            <a href="<?php echo $redirectType; ?>/<?php echo $redirectType; ?>-read.php
-                                     ?type=<?php echo urlencode($type); ?>
-                                     &id=<?php echo urlencode($id); ?>
-                                     &idChapter=<?php echo urlencode($chapters[0]['ID_Chapter']); ?>"
-                                class="btn btn-add">
+                        <?php if (!empty($chapters)) {
+                            $firstUrl = $redirectType . '/' . $redirectType . '-read.php'
+                                . '?type=' . urlencode($type)
+                                . '&id=' . urlencode($id)
+                                . '&idChapter=' . urlencode($chapters[0]['ID_Chapter']);
+                        ?>
+                            <a href="<?php echo $firstUrl; ?>" class="btn btn-add">
                                 Empezar a ver
                             </a>
                         <?php } ?>
