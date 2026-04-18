@@ -20,4 +20,9 @@ define('ASSETS_URL', BASE_URL . '/view/assets');
 define('VIEW_URL', BASE_URL . '/view');
 define('CONTROLLER_URL', BASE_URL . '/controller');
 define('AUTH_URL', BASE_URL . '/view/auth');
+
+define('ANIME_URL', BASE_URL . '/var/www/uploads/Anime/');
+define('EVENT_URL', BASE_URL . '/var/www/uploads/Event/');
+define('MANGA_URL', BASE_URL . '/var/www/uploads/Manga/');
+define('USER_URL', BASE_URL . '/var/www/uploads/User/');
 ?>

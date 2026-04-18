@@ -28,9 +28,9 @@ requireLogin();
                     enctype="multipart/form-data">
                     <!-- COLUMNA IZQUIERDA -->
                     <aside class="avatar-box">
-                        <?php // !empty($user['avatar']) 
-                        if (false) { ?>
-                            <img src="/uploads/<?php echo $user['avatar']; ?>" class="avatar">
+                        <?php
+                        if (!empty($user['avatar'])) { ?>
+                            <img src="<?php echo USER_URL . $user['avatar']; ?>" class="avatar">
                         <?php } else { ?>
                             <svg class="avatar">
                                 <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#usuario"></use>

@@ -6,10 +6,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/User.php';
 class UploadController
 {
     private $connection;
-    private $animeLocation = '/var/www/uploads/Anime/';
-    private $eventLocation = '/var/www/uploads/Event/';
-    private $mangaLocation = '/var/www/uploads/Manga/';
-    private $userLocation = '/var/www/uploads/User/';
+    private $animeLocation = ANIME_URL;
+    private $eventLocation = EVENT_URL;
+    private $mangaLocation = MANGA_URL;
+    private $userLocation = 'USER_URL';
 
     public function __construct()
     {
@@ -24,7 +24,6 @@ class UploadController
         $userId = $user->getUserID();
         $destination = $this->userLocation . $userId . '/';
         $file_destination = $destination . 'avatar.' . $type;
-
         // 1. Error de subida → PRIMERO
         if ($avatar['error'] !== UPLOAD_ERR_OK) {
             $errors[] = "Error al recibir el archivo.";
