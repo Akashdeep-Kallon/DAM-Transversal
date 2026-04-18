@@ -46,11 +46,6 @@ class UploadController
             $errors[] = "La imagen no se ha subido.";
             return $errors;
         }
-        error_log("DESTINATION: " . $destination);
-        error_log("AVATAR ERROR: " . $avatar['error']);
-        error_log("AVATAR SIZE: " . $avatar['size']);
-        error_log("IS_DIR: " . (is_dir($destination) ? 'true' : 'false'));
-
         // Crear carpeta si no existe
         if (!is_dir($destination)) {
             mkdir($destination, 0755, true);
@@ -62,6 +57,20 @@ class UploadController
             return "Imagen subida correctamente.";
         } else {
             return ["Hubo un error al mover el archivo."];
+        }
+    }
+
+    public function deleteUserUploads($userId)
+    {
+        $userDir = $this->userLocation . $userId . '/';
+        if (is_dir($userDir)) {
+            // Primero elimina los archivos dentro
+            $archivos = glob($userDir . '*');
+            foreach ($archivos as $archivo) {
+                unlink($archivo);
+            }
+            // Luego elimina la carpeta vacía
+            rmdir($userDir);
         }
     }
 }

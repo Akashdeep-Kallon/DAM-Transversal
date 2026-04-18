@@ -77,16 +77,8 @@ class UserController
         }
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $userQuery = $this->connection->query("SELECT * FROM Users WHERE email = '$email' AND password = '$password'");
-        if ($userRow = $userQuery->fetch_assoc()) {
+        if ($user = $this->getUser($email, $password)) {
             session_unset();
-            $user = new User(
-                $userRow['email'],
-                $userRow['status'],
-                $userRow['name'],
-                $userRow['surname'],
-                $userRow['password']
-            );
             $user->setSessionUser();
             header('Location: ' . VIEW_URL . '/index.php');
             exit();
@@ -95,27 +87,6 @@ class UserController
         }
         // Si no se logea
         $this->message("Credenciales incorrectas.", $location);
-    }
-
-    public function logout()
-    {
-        session_unset();
-        if (ini_get("session.use_cookies")) {
-            $params = session_get_cookie_params();
-            setcookie(
-                session_name(),
-                '',
-                time() - 42000,
-                $params["path"],
-                $params["domain"],
-                $params["secure"],
-                $params["httponly"]
-            );
-        }
-        session_destroy();
-        header("Cache-Control: no-cache, no-store, must-revalidate, max-age=0");
-        header("Location: " . AUTH_URL . "/login.php");
-        exit();
     }
 
     public function update()
@@ -145,21 +116,9 @@ class UserController
             $this->message($errors, $location);
         }
 
-        $userQuery = $this->connection->query(
-            "SELECT * FROM Users WHERE email = '$email'"
-        );
-
-        if ($userRow = $userQuery->fetch_assoc()) {
+        if ($user = $this->getUser($email, $password)) {
 
             $mensages = [];
-            $user = new User(
-                $userRow['email'],
-                $userRow['status'],
-                $userRow['name'],
-                $userRow['surname'],
-                $userRow['password']
-            );
-
             $user->updateUser($email, $name, $surname, $password, $bio);
 
             if ($user->isPromoter() && isset($_FILES['avatar']) && $_FILES['avatar']['error'] !== UPLOAD_ERR_NO_FILE) {
@@ -182,6 +141,67 @@ class UserController
 
     public function delete()
     {
+        $location = "/DAM-Transversal/view/profile.php";
+        $errors = [];
+        if (empty($_POST['name']) || empty($_POST['surname']) || empty($_POST['email']) || empty($_POST['password'])) {
+            $this->message("Por favor, completa todos los campos.", $location);
+        }
+        // Recoger datos
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        // VALIDACIONES
+        if (strlen($password) < 6) {
+            $errors[] = "La contraseña debe tener al menos 6 caracteres.";
+        }
+        if (!empty($errors)) {
+            $this->message($errors, $location);
+        }
+
+        if ($user = $this->getUser($email, $password)) {
+            $userID = $user->getUserID();
+            $this->connection->query("DELETE FROM Users WHERE ID_User = '$userID';");
+            (new UploadController)->deleteUserUploads($userID);
+            $this->logout();
+        } else {
+            $this->message("Contraseña incorrecta. Asegurate de poner la contraseña correcta para borrar la cuenta", $location);
+        }
+
+        $this->message("Credenciales incorrectas.", $location);
+    }
+
+    public function logout()
+    {
+        session_unset();
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
+            );
+        }
+        session_destroy();
+        header("Cache-Control: no-cache, no-store, must-revalidate, max-age=0");
+        header("Location: " . AUTH_URL . "/login.php");
+        exit();
+    }
+    public function getUser($email, $password)
+    {
+        $userQuery = $this->connection->query("SELECT * FROM Users WHERE email = '$email' AND password = '$password'");
+        if ($userRow = $userQuery->fetch_assoc()) {
+            return new User(
+                $userRow['email'],
+                $userRow['status'],
+                $userRow['name'],
+                $userRow['surname'],
+                $userRow['password']
+            );
+        }
+        return false;
     }
 
     public function message($message, $location)
