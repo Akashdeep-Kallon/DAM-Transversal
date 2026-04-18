@@ -1,7 +1,28 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
 requireRole('promoter');
+
+$type = $_GET['type'];
+$id = $_GET['id'];
+
+$result = (new Catalog())->returnWorkDetail($type, $id);
+
+$title = $result['title'];
+$subtitle = $result['subtitle'];
+$image = $result['image'];
+$trailer = $result['trailer'];
+$description = $result['description'];
+$premiere = $result['premiere'];
+$studio = $result['studio'];
+$gender = $result['gender'];
+$chapters = $result['chapters'];
+
+$redirectType = strtolower($type);
+if (!in_array($redirectType, ['anime', 'manga'])) {
+    $redirectType = 'anime';
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,53 +50,67 @@ requireRole('promoter');
                     enctype="multipart/form-data">
 
                     <div class="field-group">
-                        <label for="tipo-obra">Type</label>
-                        <select id="tipo-obra" name="type" required>
-                            <option value="">Choose an option</option>
-                            <option value="Anime">Anime</option>
-                            <option value="Manga">Manga</option>
-                        </select>
+                        <label for="tipo-obra">Tipo</label>
+                        <input id="title" type="text" name="type" value="<?php echo $type; ?>" readonly>
                     </div>
+
                     <div class="field-group">
-                        <label for="title">Work title</label>
-                        <input id="title" type="text" name="title" required minlength="5" maxlength="50">
+                        <label for="title">Título de la obra</label>
+                        <input id="title" type="text" name="title" value="<?php echo htmlspecialchars($title); ?>"
+                            required minlength="5" maxlength="50">
                     </div>
+
                     <div class="field-group">
-                        <label for="subtitle">Subtitle</label>
-                        <input id="subtitle" type="text" name="subtitle" required minlength="5" maxlength="50">
+                        <label for="subtitle">Subtítulo</label>
+                        <input id="subtitle" type="text" name="subtitle"
+                            value="<?php echo htmlspecialchars($subtitle); ?>" required minlength="5" maxlength="75">
                     </div>
+
                     <div class="field-group">
-                        <label for="episodes">Number of episodes</label>
-                        <input id="episodes" type="number" name="chapters" required min="1">
+                        <label for="image-file" class="file-label">Subir imagen de portada</label>
+                        <input id="image-file" type="file" accept="image/*" name="image_file">
                     </div>
+
                     <div class="field-group">
-                        <label for="image">Cover image URL</label>
-                        <input id="image" type="text" name="image">
+                        <label for="image-url">URL de la imagen de portada</label>
+                        <input id="image-url" type="text" name="image_url"
+                            value="<?php echo htmlspecialchars($image); ?>">
                     </div>
+
                     <div class="field-group">
-                        <label for="video">Upload video</label>
+                        <label for="video">Subir tráiler</label>
                         <input id="video" type="file" name="video" accept="video/*">
                     </div>
+
                     <div class="field-group">
-                        <label for="premiere_date">Premiere date</label>
-                        <input id="premiere_date" type="date" name="premiere_date" required>
+                        <label for="premiere_date">Fecha de estreno</label>
+                        <input id="premiere_date" type="date" name="premiere_date" value="<?php echo $premiere; ?>"
+                            required>
                     </div>
+
                     <div class="field-group">
-                        <label for="studio">Studio / platform</label>
-                        <input id="studio" type="text" name="studio" required>
+                        <label for="studio">Estudio / plataforma</label>
+                        <input id="studio" type="text" name="studio" value="<?php echo htmlspecialchars($studio); ?>"
+                            max="25" required>
                     </div>
+
                     <div class="field-group">
-                        <label for="gender">Gender</label>
-                        <input id="gender" type="text" name="gender" required>
+                        <label for="gender">Género</label>
+                        <input id="gender" type="text" name="gender" value="<?php echo htmlspecialchars($gender); ?>"
+                            max="50" required>
                     </div>
+
                     <div class="field-group">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" required minlength="1" maxlength="300"></textarea>
+                        <label for="description">Descripción</label>
+                        <textarea id="description" name="description" required minlength="10" maxlength="500"><?php
+                        echo htmlspecialchars($description);
+                        ?></textarea>
                     </div>
 
                     <div class="inline-actions">
-                        <button type="submit" class="btn btn-add" name="create_work">Publicar obra</button>
-                        <button type="reset" class="btn btn-delete" name="cancelar">Cancelar</button>
+                        <button type="submit" class="btn btn-add" name="edit_work">Guardar cambios</button>
+                        <button type="submit" class="btn btn-delete" name="delete">Eliminar Obra</button>
+                        <button type="reset" class="btn btn-delete" name="">Reiniciar</button>
                     </div>
                 </form>
 

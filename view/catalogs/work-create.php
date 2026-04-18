@@ -29,51 +29,44 @@ requireRole('promoter');
                     enctype="multipart/form-data">
 
                     <div class="field-group">
-                        <label for="tipo-obra">Type</label>
-                        <select id="tipo-obra" name="type" required>
-                            <option value="">Choose an option</option>
-                            <option value="Anime">Anime</option>
-                            <option value="Manga">Manga</option>
-                        </select>
+                        <label for="tipo-obra">Tipo</label>
+                        <input id="title" type="text" name="type" value="<?php echo $_GET['type']; ?>" readonly>
                     </div>
                     <div class="field-group">
-                        <label for="title">Work title</label>
+                        <label for="title">Título de la obra</label>
                         <input id="title" type="text" name="title" required minlength="5" maxlength="50">
                     </div>
                     <div class="field-group">
-                        <label for="subtitle">Subtitle</label>
+                        <label for="subtitle">Subtítulo</label>
                         <input id="subtitle" type="text" name="subtitle" required minlength="5" maxlength="75">
                     </div>
                     <div class="field-group">
-                        <label for="episodes">Number of episodes</label>
-                        <input id="episodes" type="number" name="episodes" required min="1">
+                        <label for="image-file" class="file-label">Subir imagen de portada</label>
+                        <input id="image-file" type="file" accept="image/*" name="image_file">
+                    </div>
+
+                    <div class="field-group">
+                        <label for="image-url">URL de la imagen de portada</label>
+                        <input id="image-url" type="text" name="image_url">
                     </div>
                     <div class="field-group">
-                        <label for="duration">Episode duration (minutes)</label>
-                        <input id="duration" type="number" name="duration" required min="1">
-                    </div>
-                    <div class="field-group">
-                        <label for="image">Cover image URL</label>
-                        <input id="image" type="text" name="image" required>
-                    </div>
-                    <div class="field-group">
-                        <label for="video">Upload video</label>
+                        <label for="video">Subir tráiler</label>
                         <input id="video" type="file" name="video" accept="video/*">
                     </div>
                     <div class="field-group">
-                        <label for="premiere_date">Premiere date</label>
+                        <label for="premiere_date">Fecha de estreno</label>
                         <input id="premiere_date" type="date" name="premiere_date" required>
                     </div>
                     <div class="field-group">
-                        <label for="studio">Studio / platform</label>
+                        <label for="studio">Estudio / plataforma</label>
                         <input id="studio" type="text" name="studio" max="25" required>
                     </div>
                     <div class="field-group">
-                        <label for="gender">Gender</label>
+                        <label for="gender">Género</label>
                         <input id="gender" type="text" name="gender" max="50" required>
                     </div>
                     <div class="field-group">
-                        <label for="description">Description</label>
+                        <label for="description">Descripción</label>
                         <textarea id="description" name="description" required minlength="10"
                             maxlength="500"></textarea>
                     </div>
@@ -87,6 +80,7 @@ requireRole('promoter');
             </section>
         </div>
     </main>
+
 
     <input type="checkbox" id="menu-toggle">
 

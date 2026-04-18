@@ -113,6 +113,45 @@
     pointer-events: none;
 }
 
+/* ===== Lista de capítulos ===== */
+.chapter-list {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    list-style: none;
+    padding: 0;
+}
+
+.chapter-list li {
+    background: #111;
+    border: 1px solid #2f2f2f;
+    border-radius: 8px;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.chapter-list li:hover {
+    background: #1a1a1a;
+    border-color: #ff4141;
+}
+
+.chapter-list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    text-decoration: none;
+    color: #d7d7d7;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.chapter-list a::after {
+    content: '▶';
+    font-size: 0.75rem;
+    color: #ff4141;
+    flex-shrink: 0;
+}
+
 @media (max-width: 900px) {
     .card-grid-3 {
         grid-template-columns: repeat(2, minmax(0, 1fr));

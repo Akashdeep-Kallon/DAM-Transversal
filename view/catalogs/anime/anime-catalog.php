@@ -18,14 +18,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
 <body>
     <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogController.php';
-    
+
     $result = (new Catalog())->returnCatalog('Anime');
     $query = $result['query'];
     $page = $result['page'];
     $totalPages = $result['totalPages'];
     ?>
 
-    <?php $showSearch = true; include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
+    <?php $showSearch = true;
+    include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
 
     <main class="page-main">
         <div class="layout-container">
@@ -33,8 +34,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
 
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de Animes</h2>
-                    <?php if (isset($_SESSION['status']) && $_SESSION['status'] === 'promoter') { ?>
-                        <a class="btn btn-add" href="../work-create.php">Añadir Anime</a>
+                    <?php if (isPromoter()) { ?>
+                        <a class="btn btn-add" href="../work-create.php?type=Anime">Añadir Anime</a>
                     <?php } ?>
                 </div>
                 <!-- Tarjetas de esta página -->
@@ -52,7 +53,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
                             <h3><?php echo $title; ?></h3>
                             <p><?php echo $subtitle; ?></p>
                             <?php if ($active) { ?>
-                                <a class="btn-link" href="event-detail.php?id=<?php echo $id; ?>">
+                                <a class="btn-link" href="event-detail.php?type=Anime&id=<?php echo $id; ?>">
                                     Ver Anime
                                 </a>
                             <?php } else { ?>

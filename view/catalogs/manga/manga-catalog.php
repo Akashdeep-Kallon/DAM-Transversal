@@ -25,8 +25,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
     $totalPages = $result['totalPages'];
     ?>
 
-    <?php $showSearch = true; include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
-    
+    <?php $showSearch = true;
+    include $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/view/includes/header.php'; ?>
+
     <main class="page-main">
         <div class="layout-container">
 
@@ -34,7 +35,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
                 <div class="section-header">
                     <h2 id="catalogo-title" class="section-title">Catálogo de Mangas</h2>
                     <?php if (isPromoter()) { ?>
-                        <a class="btn btn-add" href="../work-create.php">Añadir Manga</a>
+                        <a class="btn btn-add" href="../work-create.php?type=Manga">Añadir Manga</a>
                     <?php } ?>
                 </div>
                 <!-- Tarjetas de esta página -->
@@ -52,7 +53,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
                             <h3><?php echo $title; ?></h3>
                             <p><?php echo $subtitle; ?></p>
                             <?php if ($active) { ?>
-                                <a class="btn-link" href="event-detail.php?id=<?php echo $id; ?>">
+                                <a class="btn-link" href="event-detail.php?type=Manga&id=<?php echo $id; ?>">
                                     Leer Manga
                                 </a>
                             <?php } else { ?>

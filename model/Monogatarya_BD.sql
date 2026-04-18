@@ -53,15 +53,15 @@ CREATE TABLE IF NOT EXISTS Works (
     Title VARCHAR(50),
     Subtitle VARCHAR(100),
     Image VARCHAR(500),
+    Trailer VARCHAR(500),
     Date_premiere DATE,
     Studio VARCHAR(25),
     Gender VARCHAR(50),
     Description VARCHAR(500),
+    Chapters INT NULL,
     Active BOOLEAN DEFAULT FALSE,
-    ID_User INT,
 
     CONSTRAINT PK_Works PRIMARY KEY (ID_Work),
-    FOREIGN KEY (ID_User) REFERENCES Users(ID_User) ON DELETE SET NULL
 );
  
 CREATE TABLE IF NOT EXISTS Chapters (
@@ -88,10 +88,8 @@ CREATE TABLE IF NOT EXISTS Events (
     Location VARCHAR(150),
     Capacity INT,
     Active BOOLEAN DEFAULT FALSE,
-    ID_User INT,
-    -- normalised to lowercase
+
     CONSTRAINT PK_Events PRIMARY KEY (ID_Event),
-    FOREIGN KEY (ID_User) REFERENCES Users(ID_User) ON DELETE SET NULL
 );
  
 CREATE TABLE IF NOT EXISTS Event_Media (

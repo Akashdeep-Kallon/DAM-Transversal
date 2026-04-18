@@ -161,6 +161,35 @@ class Catalog
             exit();
         }
     }
+
+    public function returnWorkDetail($id, $type)
+    {
+        //Titulo,  link trailer , descripcion, tipo, fecha de estreno, estudio, genero, capitulos
+        $workQuery = $this->connection->query(
+            "SELECT * FROM Works WHERE ID_Work = '$id' AND Type = '$type'"
+        );
+
+        if ($workRow = $workQuery->fetch_assoc()) {
+            return [
+                'title' => $workRow['Title'],
+                'subtitle' => $workRow['Subtitle'],
+                'image' => $workRow['Image'],
+                'trailer' => $workRow['Trailer'],
+                'description' => $workRow['Description'],
+                'premiere' => $workRow['Date_premiere'],
+                'studio' => $workRow['Studio'],
+                'gender' => $workRow['Gender'],
+                'chapters' => $workRow['Chapters']
+            ];
+        }
+
+        $redirectType = strtolower($type);
+        if (!in_array($redirectType, ['anime', 'manga'])) {
+            $redirectType = 'anime';
+        }
+        header('Location: ' . VIEW_URL . '/catalogs/' . $redirectType . '/' . $redirectType . '-catalog.php');
+        exit();
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

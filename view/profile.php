@@ -23,7 +23,9 @@ requireLogin();
     <main class="page-main">
         <div class="layout-container">
             <section class="card-panel profile-panel" aria-labelledby="perfil-titulo">
+                
                 <?php echo "<h2 id=\"perfil-titulo\" class=\"section-title\">Perfil " . htmlspecialchars(ucfirst($_SESSION['status'])) . "</h2>"; ?>
+
                 <form class="profile-layout" action="/DAM-Transversal/controller/UserController.php" method="post"
                     enctype="multipart/form-data">
                     <!-- COLUMNA IZQUIERDA -->
@@ -37,7 +39,6 @@ requireLogin();
                         <?php } ?>
 
                         <?php if (isPromoter()) { ?>
-                            <!-- Sin form, solo el input -->
                             <label for="foto-user" class="file-label">Cambiar foto de perfil</label>
                             <input id="foto-user" type="file" accept="image/*" name="avatar">
                         <?php } ?>
