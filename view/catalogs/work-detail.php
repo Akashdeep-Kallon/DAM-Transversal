@@ -6,7 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/controller/CatalogCon
 $type = $_GET['type'];
 $id = $_GET['id'];
 
-$result = (new Catalog())->returnWorkDetail($type, $id);
+$result = (new Catalog())->returnWorkDetail($id, $type);
 
 $title = $result['title'];
 $image = $result['image'];
