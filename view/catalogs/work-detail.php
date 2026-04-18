@@ -51,7 +51,7 @@ $linkMedia = ($redirectType === 'manga') ? MANGA_URL : ANIME_URL;
                     <?php } ?>
 
                     <?php if (!empty($trailer)) { ?>
-                        <details>
+                        <details open>
                             <summary>Tráiler oficial</summary>
                             <p id="trailer-desc" class="field-help">
                                 Tráiler oficial de <?php echo htmlspecialchars($title); ?>
@@ -137,7 +137,9 @@ $linkMedia = ($redirectType === 'manga') ? MANGA_URL : ANIME_URL;
                         <?php if (!empty($chapters)) { ?>
                             <dt>Capítulos</dt>
                             <dd><?php echo count($chapters); ?></dd>
-                        <?php } ?>
+                        <?php } else {
+                            echo "Sin capitulos";
+                        } ?>
                     </dl>
 
                     <div class="stack-actions">
@@ -153,10 +155,17 @@ $linkMedia = ($redirectType === 'manga') ? MANGA_URL : ANIME_URL;
                         <?php } ?>
 
                         <?php if (isPromoter()) { ?>
+                            <a href="" class="btn btn-add">
+                                Subir capitulo
+                            </a>
                             <a href="work-edit.php?type=<?php echo urlencode($type); ?>&id=<?php echo urlencode($id); ?>"
                                 class="btn btn-add">
                                 Editar obra
                             </a>
+                            <a href="" class="btn btn-delete">
+                                Elimminar obra
+                            </a>
+
                         <?php } ?>
                     </div>
 
