@@ -7,7 +7,7 @@ requireRole('promoter');
 $type = $_GET['type'];
 $id = $_GET['id'];
 
-$result = (new Catalog())->returnWorkDetail($type, $id);
+$result = (new Catalog())->returnWorkDetail($id, $type);
 
 $title = $result['title'];
 $subtitle = $result['subtitle'];
@@ -101,6 +101,13 @@ $chapters = $result['chapters'];
                         <textarea id="description" name="description" required minlength="10" maxlength="500"><?php
                         echo htmlspecialchars($description);
                         ?></textarea>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="remember" for="remember-me">
+                            <input id="remember-me" type="checkbox">
+                            Recuérdame
+                        </label>ea>
                     </div>
 
                     <div class="inline-actions">
