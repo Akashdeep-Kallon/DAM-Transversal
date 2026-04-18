@@ -6,10 +6,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/model/User.php';
 class UploadController
 {
     private $connection;
-    private $animeLocation = ANIME_URL;
-    private $eventLocation = EVENT_URL;
-    private $mangaLocation = MANGA_URL;
-    private $userLocation = 'USER_URL';
+    private $animeLocation = '/var/www/uploads/Anime/';
+    private $eventLocation = '/var/www/uploads/Event/';
+    private $mangaLocation = '/var/www/uploads/Manga/';
+    private $userLocation = '/var/www/uploads/User/';
 
     public function __construct()
     {
