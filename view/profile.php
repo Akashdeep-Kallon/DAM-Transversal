@@ -29,7 +29,7 @@ requireLogin();
                     <!-- COLUMNA IZQUIERDA -->
                     <aside class="avatar-box">
                         <?php if (isPromoter() && !empty($_SESSION['avatar'])) { ?>
-                            <img src="<?php echo USER_URL . $user['avatar']; ?>" class="avatar avatar-img">
+                            <img src="<?php echo USER_URL . $_SESSION['avatar']; ?>" class="avatar avatar-img">
                         <?php } else { ?>
                             <svg class="avatar avatar-svg">
                                 <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#usuario"></use>
