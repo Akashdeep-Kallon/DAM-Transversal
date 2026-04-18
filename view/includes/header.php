@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
 ?>
 
 <header>
@@ -17,26 +18,52 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
         <h1>MONOGATARYA</h1>
 
         <div class="right-group">
-            <form action="" autocomplete="on" method="get">
-                <div class="search">
-                    <button class="icon-btn red" aria-label="Buscar">
-                        <svg class="icon">
-                            <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#buscar"></use>
-                        </svg>
-                    </button>
 
-                    <input class="search-input" type="search" name="search" placeholder="Buscar" required minlength="2"
-                        maxlength="40">
+            <?php if (!empty($showSearch)) { ?>
+                <form action="" autocomplete="on" method="get">
+                    <div class="search">
+                        <button class="icon-btn red" aria-label="Buscar">
+                            <svg class="icon">
+                                <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#buscar"></use>
+                            </svg>
+                        </button>
 
-                    <button class="icon-btn red" aria-label="Micrófono">
-                        <svg class="icon">
-                            <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#microfono"></use>
-                        </svg>
-                    </button>
-                </div>
-            </form>
-            <a href="<?php echo VIEW_URL; ?>/profile.php" class="icon-btn white user-link"
-                aria-label="Ir al perfil de promotor">
+                        <input class="search-input" type="search" name="search" placeholder="Buscar" required minlength="2"
+                            maxlength="40">
+
+                        <button class="icon-btn red" aria-label="Micrófono">
+                            <svg class="icon">
+                                <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#microfono"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            <?php } ?>
+
+            <div class="user-info">
+                <span>
+                    <?php
+                    if (isLogged()) {
+                        echo htmlspecialchars($_SESSION['name']) . " " . htmlspecialchars($_SESSION['surname']);
+                    } else {
+                        echo "Inicia Sesión";
+                    }
+                    ?>
+                </span>
+
+                <span>
+                    <?php
+                    if (isRole('guest'))
+                        echo "Invitado";
+                    if (isRole('reader'))
+                        echo "Lector";
+                    if (isRole('promoter'))
+                        echo "Promotor";
+                    ?>
+                </span>
+            </div>
+
+            <a href="<?php echo VIEW_URL; ?>/profile.php" class="icon-btn white user-link" aria-label="Ir al perfil">
                 <svg class="icon">
                     <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#usuario"></use>
                 </svg>

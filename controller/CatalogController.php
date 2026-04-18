@@ -103,7 +103,6 @@ class Catalog
             $type = $_POST['type'];
             $title = $_POST['title'];
             $subtitle = $_POST['subtitle'];
-            $chapters = $_POST['chapters'];
             $image = $_POST['image'];
             //$video = $_FILES['video']['name'];
             $premiereDate = $_POST['premiere_date'];
@@ -115,7 +114,6 @@ class Catalog
                 '$type',
                 '$title',
                 '$subtitle',
-                $chapters,
                 '$image',
                 '$studio',
                 '$premiereDate',

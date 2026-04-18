@@ -21,8 +21,14 @@ function isPromoter()
     return isset($_SESSION['status']) && $_SESSION['status'] === 'promoter';
 }
 
-function isLogged() {
+function isLogged()
+{
     return isset($_SESSION['status']) && $_SESSION['status'] !== 'guest';
+}
+
+function isRole($role)
+{
+    return isset($_SESSION['status']) && $_SESSION['status'] === $role;
 }
 
 ?>

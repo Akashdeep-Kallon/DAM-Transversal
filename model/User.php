@@ -1,6 +1,8 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/database.php';
 class User
 {
+    private $connection;
     private $email;
     private $status;
     private $name;
@@ -14,8 +16,8 @@ class User
         $this->name = $name;
         $this->surname = $surname;
         $this->password = $password;
+        $this->connection = (new Database())->getConnection();
     }
-
 
     public function setSessionUser()
     {
@@ -24,6 +26,38 @@ class User
         $_SESSION['name'] = $this->name;
         $_SESSION['surname'] = $this->surname;
         $_SESSION['password'] = $this->password;
+
+        $userQuery = $this->connection->query("SELECT * FROM Users WHERE email = '$this->email'");
+        $userRow = $userQuery->fetch_assoc();
+        $_SESSION['avatar'] = $userRow['avatar'];
+        $_SESSION['bio'] = $userRow['bio'];
+    }
+
+    public function updateUser($email, $name, $surname, $password, $bio)
+    {
+        $this->email = $email;
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->password = $password;
+
+        $this->connection->query("CALL sp_update_user('$this->name', '$this->surname', '$this->email', '$this->password','$bio')");
+    }
+
+    public function updateAvatar($avatar)
+    {
+        $this->connection->query("UPDATE Users SET avatar = '$avatar' WHERE email = '$this->email'");
+    }
+
+    public function isPromoter()
+    {
+        return $this->status === 'promoter';
+    }
+
+    public function getUserID()
+    {
+        $userQuery = $this->connection->query("SELECT * FROM Users WHERE email = '$this->email'");
+        $userRow = $userQuery->fetch_assoc();
+        return $userRow['ID_User'];
     }
 
     /*     public function getLoggedUserProfile()

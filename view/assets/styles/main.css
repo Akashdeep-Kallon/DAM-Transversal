@@ -193,6 +193,12 @@ header {
     margin-left: auto;
 }
 
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
 /* ===== Buscador ===== */
 .search {
     display: flex;

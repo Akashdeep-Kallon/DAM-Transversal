@@ -34,7 +34,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/config.php';
             <?php unset($_SESSION['login_error']); ?>
         <?php } ?>
 
-        <form action="<?php echo CONTROLLER_URL; ?>/UserController.php" method="post">
+        <form action="<?php echo CONTROLLER_URL; ?>/UserController.php" method="POST">
 
             <label class="sr-only" for="reader-name">Nombre</label>
             <input id="reader-name" class="btn-input input-name" type="text" name="name" placeholder="Nombre" required

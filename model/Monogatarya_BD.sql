@@ -35,13 +35,16 @@
 USE Monogatarya;
  
 CREATE TABLE IF NOT EXISTS Users (
-    email VARCHAR(100) NOT NULL,
+    ID_User INT AUTO_INCREMENT,
+    email VARCHAR(100) UNIQUE NOT NULL,
     status BOOLEAN DEFAULT FALSE,
-    logo VARCHAR(100),
     name VARCHAR(50) NOT NULL,
     surname VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    CONSTRAINT PK_Users PRIMARY KEY (email)
+    avatar VARCHAR(255) DEFAULT NULL,
+    bio TEXT DEFAULT NULL,
+
+    CONSTRAINT PK_Users PRIMARY KEY (ID_User)
 );
  
 CREATE TABLE IF NOT EXISTS Works (
@@ -55,9 +58,10 @@ CREATE TABLE IF NOT EXISTS Works (
     Gender VARCHAR(50),
     Description VARCHAR(500),
     Active BOOLEAN DEFAULT FALSE,
-    email VARCHAR(50),
+    ID_User INT,
+
     CONSTRAINT PK_Works PRIMARY KEY (ID_Work),
-    FOREIGN KEY (email) REFERENCES Users(email) ON DELETE SET NULL
+    FOREIGN KEY (ID_User) REFERENCES Users(ID_User) ON DELETE SET NULL
 );
  
 CREATE TABLE IF NOT EXISTS Chapters (
@@ -68,6 +72,7 @@ CREATE TABLE IF NOT EXISTS Chapters (
     Duration INT NULL,
     Link VARCHAR(500),
     ID_Work INT,
+
     CONSTRAINT PK_Chapters PRIMARY KEY (ID_Chapter),
     FOREIGN KEY (ID_Work) REFERENCES Works(ID_Work) ON DELETE CASCADE
 );
@@ -83,10 +88,10 @@ CREATE TABLE IF NOT EXISTS Events (
     Location VARCHAR(150),
     Capacity INT,
     Active BOOLEAN DEFAULT FALSE,
-    email VARCHAR(50),
+    ID_User INT,
     -- normalised to lowercase
     CONSTRAINT PK_Events PRIMARY KEY (ID_Event),
-    FOREIGN KEY (email) REFERENCES Users(email) ON DELETE SET NULL
+    FOREIGN KEY (ID_User) REFERENCES Users(ID_User) ON DELETE SET NULL
 );
  
 CREATE TABLE IF NOT EXISTS Event_Media (
@@ -98,6 +103,7 @@ CREATE TABLE IF NOT EXISTS Event_Media (
     Transcription_Video TEXT,
     Transcription_Audio TEXT,
     Description VARCHAR(200),
+    
     CONSTRAINT PK_Event_Media PRIMARY KEY (ID_Media),
     FOREIGN KEY (ID_Event) REFERENCES Events(ID_Event) ON DELETE CASCADE
 );
@@ -110,6 +116,25 @@ CREATE PROCEDURE sp_comprove_email(
 ) BEGIN
 SELECT
     EXISTS(SELECT 1 FROM Users WHERE email = emailP) INTO exist;
+END // 
+
+DELIMITER //
+CREATE PROCEDURE sp_update_user(
+    IN nameP VARCHAR(50),
+    IN surnameP VARCHAR(50),    
+    IN emailP VARCHAR(50),
+    IN passwordP VARCHAR(100),
+    IN bioP TEXT
+
+) BEGIN
+SELECT
+UPDATE Users
+    SET
+    name = nameP,
+    surname = surnameP,
+    password = passwordP,
+    bio = bioP
+WHERE email = emailP;
 END // 
 
 CREATE PROCEDURE sp_login(
@@ -126,7 +151,6 @@ CREATE PROCEDURE sp_add_Work(
     IN p_Type ENUM('Manga', 'Anime'),
     IN p_Title VARCHAR(25),
     IN p_Subtitle VARCHAR(100),
-    IN p_Chapters INT,
     IN p_Image VARCHAR(500),
     IN p_Studio VARCHAR(25),
     IN p_Date_premiere DATE,
@@ -146,7 +170,6 @@ INSERT INTO
         Type,
         Title,
         Subtitle,
-        Chapters,
         Image,
         Studio,
         Date_premiere,
@@ -159,7 +182,6 @@ VALUES
         p_Type,
         p_Title,
         p_Subtitle,
-        p_Chapters,
         p_Image,
         p_Studio,
         p_Date_premiere,
@@ -217,7 +239,7 @@ BEGIN
 END //
 
 DELIMITER //
-CREATE PROCEDURE drop_tables() BEGIN 
+CREATE PROCEDURE drop_all() BEGIN 
 DROP TABLE Chapters;
 DROP TABLE Event_Media;
 DROP TABLE Events;
