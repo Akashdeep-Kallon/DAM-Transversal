@@ -16,12 +16,19 @@
 .avatar {
     width: min(220px, 60%);
     aspect-ratio: 1 / 1;
-    padding: 25px;
     border-radius: 50%;
     border: 2px solid #666;
     background: #1f1f1f;
+}
 
+.avatar.avatar-svg {
+    padding: 25px;
     fill: #fff;
+}
+
+.avatar.avatar-img {
+    object-fit: cover;
+    object-position: center;
 }
 
 .file-label {

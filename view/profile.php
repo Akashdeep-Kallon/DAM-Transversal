@@ -28,11 +28,10 @@ requireLogin();
                     enctype="multipart/form-data">
                     <!-- COLUMNA IZQUIERDA -->
                     <aside class="avatar-box">
-                        <?php
-                        if (isPromoter()) { ?>
-                            <img src="<?php echo USER_URL . $user['avatar']; ?>" class="avatar">
+                        <?php if (isPromoter() && !empty($user['avatar'])) { ?>
+                            <img src="<?php echo USER_URL . $user['avatar']; ?>" class="avatar avatar-img">
                         <?php } else { ?>
-                            <svg class="avatar">
+                            <svg class="avatar avatar-svg">
                                 <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#usuario"></use>
                             </svg>
                         <?php } ?>
@@ -75,7 +74,7 @@ requireLogin();
 
                         <div class="field full">
                             <label for="bio">Biografía</label>
-                            <textarea id="bio" name="bio"></textarea>
+                            <textarea id="bio" name="bio"><?php echo htmlspecialchars($_SESSION['bio']); ?></textarea>
                         </div>
 
                         <div class="profile-actions">
@@ -83,6 +82,20 @@ requireLogin();
                             <button type="submit" class="btn btn-delete" name="delete">Borrar cuenta</button>
                             <button type="reset" class="btn btn-add">Reiniciar</button>
                         </div>
+
+                        <?php if (!empty($_SESSION['login_error'])) { ?>
+                            <div class="error-box">
+                                <span class="icon">ⓘ</span>
+                                <span>
+                                    <?php
+                                    foreach ($_SESSION['login_error'] as $error) {
+                                        echo htmlspecialchars($error) . "<br>";
+                                    }
+                                    ?>
+                                </span>
+                            </div>
+                            <?php unset($_SESSION['login_error']); ?>
+                        <?php } ?>
 
                     </section>
                 </form>

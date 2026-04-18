@@ -64,9 +64,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
             </div>
 
             <a href="<?php echo VIEW_URL; ?>/profile.php" class="icon-btn white user-link" aria-label="Ir al perfil">
-                <svg class="icon">
-                    <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#usuario"></use>
-                </svg>
+                <?php if (isPromoter() && !empty($_SESSION['avatar'])) { ?>
+                    <img src="<?php echo USER_URL . $_SESSION['avatar']; ?>" class="header-avatar">
+                <?php } else { ?>
+                    <svg class="icon">
+                        <use href="<?php echo ASSETS_URL; ?>/img/icon-sprites.svg#usuario"></use>
+                    </svg>
+                <?php } ?>
             </a>
         </div>
     </div>
