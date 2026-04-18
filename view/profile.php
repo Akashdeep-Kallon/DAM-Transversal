@@ -28,7 +28,7 @@ requireLogin();
                     enctype="multipart/form-data">
                     <!-- COLUMNA IZQUIERDA -->
                     <aside class="avatar-box">
-                        <?php if (isPromoter() && !empty($user['avatar'])) { ?>
+                        <?php if (isPromoter() && !empty($_SESSION['avatar'])) { ?>
                             <img src="<?php echo USER_URL . $user['avatar']; ?>" class="avatar avatar-img">
                         <?php } else { ?>
                             <svg class="avatar avatar-svg">
