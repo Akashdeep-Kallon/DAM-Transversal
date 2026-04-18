@@ -54,6 +54,7 @@
     width: 100%;
 }
 
+/* ── Paginación ── */
 .pagination {
     display: flex;
     flex-wrap: wrap;
@@ -81,12 +82,12 @@
 
 .pagination a {
     border: 1px solid transparent;
-    color: #ff4141;
+    color: var(--accent, #b00020);
 }
 
 .pagination a:hover {
-    background: rgba(255, 65, 65, 0.12);
-    border-color: #ff4141;
+    background: rgba(176, 0, 32, 0.12);
+    border-color: var(--accent, #b00020);
 }
 
 .pagination a:focus-visible {
@@ -97,7 +98,7 @@
 .pagination a.pagination-active {
     pointer-events: none;
     cursor: default;
-    background: #ff4141;
+    background: var(--accent, #b00020);
     color: #fff;
 }
 
@@ -112,6 +113,7 @@
     color: #888;
     pointer-events: none;
 }
+
 
 .event-editorial {
     display: grid;
@@ -167,17 +169,33 @@ details {
     margin-top: 0.5rem;
 }
 
+details summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.4rem 0;
+    color: inherit;
+}
+
 .field-help {
     margin: .25rem 0 0;
     color: #cdcdcd;
     font-size: .92rem;
 }
 
+
 .work-subtitle {
     color: #aaa;
     margin-top: -0.5rem;
     margin-bottom: 1rem;
     font-size: 1rem;
+}
+
+.work-description {
+    font-size: 0.9rem;
+    color: #cdcdcd;
+    line-height: 1.6;
+    margin: 0 0 1rem;
 }
 
 .aside-cover {
@@ -199,11 +217,29 @@ details {
 
 .chapter-list {
     list-style: none;
-    padding: 0;
+    padding: 0 4px 0 0;
     margin: 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    max-height: calc(5 * 4rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent, #b00020) #1a1a1a;
+}
+
+.chapter-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chapter-list::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+}
+
+.chapter-list::-webkit-scrollbar-thumb {
+    background: var(--accent, #b00020);
+    border-radius: 4px;
 }
 
 .chapter-item {
@@ -259,6 +295,7 @@ details {
     flex-shrink: 0;
 }
 
+/* Responsive */
 @media (max-width: 900px) {
     .card-grid-3 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -272,7 +309,6 @@ details {
 }
 
 @media (max-width: 1024px) {
-
     .event-editorial,
     .event-layout {
         grid-template-columns: 1fr;
