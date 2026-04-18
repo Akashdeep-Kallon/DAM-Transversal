@@ -164,12 +164,23 @@ class Catalog
 
     public function returnWorkDetail($id, $type)
     {
-        //Titulo,  link trailer , descripcion, tipo, fecha de estreno, estudio, genero, capitulos
+        $id = intval($id);
+        $type = $this->connection->real_escape_string($type);
+
         $workQuery = $this->connection->query(
-            "SELECT * FROM Works WHERE ID_Work = '$id' AND Type = '$type'"
+            "SELECT * FROM Works WHERE ID_Work = $id AND Type = '$type'"
         );
 
         if ($workRow = $workQuery->fetch_assoc()) {
+
+            $chapQuery = $this->connection->query(
+                "SELECT * FROM Chapters WHERE ID_Work = $id ORDER BY Chapter_Number ASC"
+            );
+            $chapters = [];
+            while ($ch = $chapQuery->fetch_assoc()) {
+                $chapters[] = $ch;
+            }
+
             return [
                 'title' => $workRow['Title'],
                 'subtitle' => $workRow['Subtitle'],
@@ -179,14 +190,13 @@ class Catalog
                 'premiere' => $workRow['Date_premiere'],
                 'studio' => $workRow['Studio'],
                 'gender' => $workRow['Gender'],
-                'chapters' => $workRow['Chapters']
+                'chapters' => $chapters
             ];
         }
 
         $redirectType = strtolower($type);
-        if (!in_array($redirectType, ['anime', 'manga'])) {
+        if (!in_array($redirectType, ['anime', 'manga']))
             $redirectType = 'anime';
-        }
         header('Location: ' . VIEW_URL . '/catalogs/' . $redirectType . '/' . $redirectType . '-catalog.php');
         exit();
     }
