@@ -19,10 +19,6 @@ $studio = $result['studio'];
 $gender = $result['gender'];
 $chapters = $result['chapters'];
 
-$redirectType = strtolower($type);
-if (!in_array($redirectType, ['anime', 'manga'])) {
-    $redirectType = 'anime';
-}
 ?>
 
 <!DOCTYPE html>

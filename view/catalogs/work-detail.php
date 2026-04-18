@@ -87,7 +87,7 @@ $linkMedia = ($redirectType === 'manga') ? 'MANGA_URL' : 'ANIME_URL';
                     <?php } ?>
 
                     <?php if (isPromoter()) { ?>
-                        <a href="<?php echo $redirectType; ?>-edit.php?type=<?php echo urlencode($type); ?>&id=<?php echo urlencode($id); ?>"
+                        <a href="work-edit.php?type=<?php echo urlencode($type); ?>&id=<?php echo urlencode($id); ?>"
                             class="btn btn-add">
                             Editar obra
                         </a>

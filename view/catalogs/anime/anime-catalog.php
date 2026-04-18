@@ -53,7 +53,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/auth.php';
                             <h3><?php echo $title; ?></h3>
                             <p><?php echo $subtitle; ?></p>
                             <?php if ($active) { ?>
-                                <a class="btn-link" href="event-detail.php?type=Anime&id=<?php echo $id; ?>">
+                                <a class="btn-link" href="../work-detail.php?type=Anime&id=<?php echo $id; ?>">
                                     Ver Anime
                                 </a>
                             <?php } else { ?>
