@@ -33,7 +33,7 @@ $totalPages = $result['totalPages'];
                 <p><?php echo $subtitle; ?></p>
 
                 <?php if ($active || isPromoter()) { ?>
-                    <a class="btn-link" href="event-detail.php?id=<?php echo $id; ?>">
+                    <a class="btn-link" href="<?php echo VIEW_URL; ?>/catalogs/events/event-detail.php?id=<?php echo $id; ?>">
                         Más información
                     </a>
                 <?php } else { ?>
