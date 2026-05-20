@@ -2,6 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/DAM-Transversal/core/database.php';
 class User
 {
+    private $ID_User;
     private $connection;
     private $email;
     private $status;
@@ -9,7 +10,8 @@ class User
     private $surname;
     private $password;
 
-    public function __construct($email, $status, $name, $surname, $password)
+
+    public function __construct($email, $status, $name, $surname, $password, $ID_User = null)
     {
         $this->email = $email;
         $this->status = $status ? 'promoter' : 'reader';
@@ -17,6 +19,7 @@ class User
         $this->surname = $surname;
         $this->password = $password;
         $this->connection = (new Database())->getConnection();
+        $this->ID_User = $ID_User;
     }
 
     public function setSessionUser()
@@ -69,11 +72,8 @@ class User
         return $this->status === 'promoter';
     }
 
-    public function getUserID()
+    public function getID()
     {
-        $stmt = $this->connection->prepare("SELECT ID_User FROM Users WHERE email = :email");
-        $stmt->execute([':email' => $this->email]);
-        $userRow = $stmt->fetch();
-        return $userRow['ID_User'];
+        return $this->ID_User;
     }
 }

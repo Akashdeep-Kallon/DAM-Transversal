@@ -199,7 +199,7 @@ class UserController
         }
 
         if ($user = $this->getUser($email, $password)) {
-            $userID = $user->getUserID();
+            $userID = $user->getID();
 
             $stmt = $this->connection->prepare("DELETE FROM Users WHERE ID_User = :id");
             $stmt->execute([':id' => $userID]);
@@ -246,7 +246,8 @@ class UserController
                 $userRow['status'],
                 $userRow['name'],
                 $userRow['surname'],
-                $userRow['password']
+                $userRow['password'],
+                $userRow['ID_User']
             );
         }
         return false;

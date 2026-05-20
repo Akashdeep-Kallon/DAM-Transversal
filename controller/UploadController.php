@@ -25,7 +25,7 @@ class UploadController
         $errors = [];
 
         $type = strtolower(pathinfo($avatar['name'], PATHINFO_EXTENSION));
-        $userId = $user->getUserID();
+        $userId = $user->getID();
         $destination = $this->userLocation . $userId . '/';
         $file_dest = $destination . 'avatar.' . $type;
 
