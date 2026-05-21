@@ -1,48 +1,49 @@
-# Monogatarya – Práctica 5: Login, Registro y Logout con MySQLi
-### Link de la Página: https://monogatarya.run.place/
+# Monogatarya — Práctica 5: Login, Registro y Logout (MySQLi)
+
+### Sitio (demo)
+https://monogatarya.run.place/
 
 ## Introducción
 
-**Monogatarya** es una aplicación web de gestión de contenido manga/anime desarrollada en PHP con arquitectura MVC. Esta práctica implementa el sistema de autenticación completo (login, registro y logout) conectando los formularios con una base de datos MySQL mediante **MySQLi orientado a objetos**.
+**Monogatarya** es una aplicación web para gestionar contenido manga/anime, desarrollada en PHP siguiendo la arquitectura MVC. Esta práctica implementa el sistema de autenticación (login, registro y logout) conectando los formularios con una base de datos MySQL usando **MySQLi orientado a objetos**.
 
-Existen dos tipos de usuario:
-- **Lector** (`reader`): usuario estándar que puede explorar catálogos y gestionar su perfil.
-- **Promotor** (`promoter`): usuario administrador con acceso a funcionalidades adicionales como subir imágenes de perfil, gestionar obras y eventos.
+Tipos de usuario:
+- **Lector** (`reader`): usuario estándar que explora catálogos y gestiona su perfil.
+- **Promotor** (`promoter`): usuario con permisos adicionales para gestionar obras, eventos y subir avatar.
 
 ---
 
 ## Funcionalidades
 
 ### Login (RF1)
-- Formulario único de login para ambos tipos de usuario (`login.php`).
+- Formulario único de login para ambos tipos (`view/auth/login.php`).
 - Verificación de email y contraseña contra la base de datos.
-- Redirección al perfil (`profile.php`) si las credenciales son correctas.
-- Mensaje de error descriptivo si los datos son incorrectos.
+- Redirección al perfil (`view/profile.php`) si las credenciales son correctas.
+- Mensajes de error descriptivos para credenciales inválidas.
 - Protección de páginas privadas mediante `requireLogin()` y `requireRole()`.
-- El promotor accede a funcionalidades exclusivas (creación de obras, eventos, subida de avatar).
-- El lector accede únicamente a catálogos y su perfil básico.
+- Permisos: el promotor accede a funcionalidades adicionales; el lector, solo a catálogos y perfil.
 
 ### Registro (RF2)
-- Formulario de registro independiente por tipo de usuario:
-  - `register-reader.php` → lector (status = 0)
-  - `register-promoter.php` → promotor (status = 1)
-- Alta del usuario en la base de datos con los datos del formulario.
-- Redirección a `index.php` si el registro es correcto.
-- Mensajes de error descriptivos si la validación falla (nombre, email, contraseña, confirmación).
-- El promotor puede subir una imagen de avatar durante el registro/edición de perfil.
+- Formularios de registro según tipo de usuario:
+  - `view/auth/register-reader.php` → lector (status = 0)
+  - `view/auth/register-promoter.php` → promotor (status = 1)
+- Inserción del usuario en la base de datos con los datos del formulario.
+- Redirección a `index.php` tras un registro exitoso.
+- Mensajes de error descriptivos en fallos de validación (nombre, email, contraseña, confirmación).
+- El promotor puede subir un avatar durante registro o edición de perfil.
 
 ### Logout (RF3)
-- Botón de cerrar sesión visible únicamente si el usuario está logueado (función `isLogged()`).
-- Limpieza de variables de sesión con `session_unset()` y destrucción con `session_destroy()`.
+- Botón de cerrar sesión visible solo si el usuario está logueado (`isLogged()`).
+- Limpieza de sesión con `session_unset()` y `session_destroy()`.
 - Invalidación de la cookie de sesión.
-- Redirección automática a `login.php`.
+- Redirección a `view/auth/login.php`.
 
 ### Requisitos no funcionales (RNF4)
-- Toda la información se almacena y lee desde MySQL.
-- Se usa **MySQLi orientado a objetos** (`new mysqli(...)`).
-- Estructura de carpetas **MVC**: `model/`, `view/`, `controller/`, `core/`.
-- Clase `UserController` con los métodos `login()`, `logout()` y `register()`.
-- Validación de al menos dos campos en servidor: formato de email (`filter_var`) y longitud mínima de contraseña (≥ 6 caracteres).
+- Toda la información se almacena y consulta desde MySQL.
+- Uso de **MySQLi orientado a objetos** (`new mysqli(...)`).
+- Estructura de carpetas basada en MVC: `model/`, `view/`, `controller/`, `core/`.
+- `UserController` contiene los métodos `login()`, `logout()` y `register()`.
+- Validaciones servidor: email (`filter_var`) y contraseña (≥ 6 caracteres).
 
 ---
 
@@ -82,7 +83,7 @@ DAM-Transversal/
 
 ---
 
-### Diagrama de Clases – User
+### Diagrama de clases — User
 
 ```mermaid
 classDiagram
@@ -136,7 +137,7 @@ classDiagram
 
 ---
 
-### Diagrama de Secuencia – Login
+### Diagrama de secuencia — Login
 
 ```mermaid
 sequenceDiagram
@@ -172,7 +173,7 @@ sequenceDiagram
 
 ---
 
-### Diagrama de Secuencia – Registro
+### Diagrama de secuencia — Registro
 
 ```mermaid
 sequenceDiagram
@@ -220,7 +221,7 @@ sequenceDiagram
 
 ---
 
-### Diagrama de Secuencia – Logout
+### Diagrama de secuencia — Logout
 
 ```mermaid
 sequenceDiagram
