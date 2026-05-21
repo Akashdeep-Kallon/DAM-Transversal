@@ -1,270 +1,190 @@
-# Monogatarya — Práctica 5: Login, Registro y Logout (MySQLi)
+﻿# Práctica 6: CRUD
 
-### Sitio (demo)
-https://monogatarya.run.place/
+## Descripción
 
-## Introducción
+Este proyecto es una aplicación web desarrollada en PHP para gestionar un CRUD completo sobre usuarios, obras, capítulos y eventos. Utiliza PDO para la conexión con MySQL, y está organizado en controladores, modelos y vistas.
 
-**Monogatarya** es una aplicación web para gestionar contenido manga/anime, desarrollada en PHP siguiendo la arquitectura MVC. Esta práctica implementa el sistema de autenticación (login, registro y logout) conectando los formularios con una base de datos MySQL usando **MySQLi orientado a objetos**.
+El sistema permite:
+- Registrar y autenticar lectores y promotores.
+- Crear, editar y eliminar obras de anime y manga.
+- Añadir, actualizar y borrar capítulos.
+- Crear, editar y eliminar eventos.
+- Gestionar archivos multimedia asociados a las obras y eventos.
 
-Tipos de usuario:
-- **Lector** (`reader`): usuario estándar que explora catálogos y gestiona su perfil.
-- **Promotor** (`promoter`): usuario con permisos adicionales para gestionar obras, eventos y subir avatar.
+## ¿Qué es PDO y por qué se usa?
 
----
+PDO (PHP Data Objects) es una extensión de PHP que permite conectarse a bases de datos de manera segura y uniforme. En este proyecto se usa PDO porque:
+- ofrece consultas preparadas para prevenir inyecciones SQL.
+- centraliza la conexión en una clase `Database`.
+- maneja errores mediante excepciones (`PDO::ERRMODE_EXCEPTION`).
+- devuelve resultados en formato asociativo fácil de manejar (`PDO::FETCH_ASSOC`).
 
-## Funcionalidades
+## Tecnologías utilizadas
 
-### Login (RF1)
-- Formulario único de login para ambos tipos (`view/auth/login.php`).
-- Verificación de email y contraseña contra la base de datos.
-- Redirección al perfil (`view/profile.php`) si las credenciales son correctas.
-- Mensajes de error descriptivos para credenciales inválidas.
-- Protección de páginas privadas mediante `requireLogin()` y `requireRole()`.
-- Permisos: el promotor accede a funcionalidades adicionales; el lector, solo a catálogos y perfil.
+- PHP
+- MySQL
+- PDO
+- HTML/CSS
+- JavaScript
 
-### Registro (RF2)
-- Formularios de registro según tipo de usuario:
-  - `view/auth/register-reader.php` → lector (status = 0)
-  - `view/auth/register-promoter.php` → promotor (status = 1)
-- Inserción del usuario en la base de datos con los datos del formulario.
-- Redirección a `index.php` tras un registro exitoso.
-- Mensajes de error descriptivos en fallos de validación (nombre, email, contraseña, confirmación).
-- El promotor puede subir un avatar durante registro o edición de perfil.
+## Requisitos previos
 
-### Logout (RF3)
-- Botón de cerrar sesión visible solo si el usuario está logueado (`isLogged()`).
-- Limpieza de sesión con `session_unset()` y `session_destroy()`.
-- Invalidación de la cookie de sesión.
-- Redirección a `view/auth/login.php`.
+- Servidor local como XAMPP.
+- PHP con extensión PDO MySQL habilitada.
+- MySQL / MariaDB.
+- Proyecto ubicado en `htdocs/DAM-Transversal` o ruta equivalente.
 
-### Requisitos no funcionales (RNF4)
-- Toda la información se almacena y consulta desde MySQL.
-- Uso de **MySQLi orientado a objetos** (`new mysqli(...)`).
-- Estructura de carpetas basada en MVC: `model/`, `view/`, `controller/`, `core/`.
-- `UserController` contiene los métodos `login()`, `logout()` y `register()`.
-- Validaciones servidor: email (`filter_var`) y contraseña (≥ 6 caracteres).
+## Configuración de la base de datos
 
----
+La conexión se configura en `core/database.php`.
 
-## Cómo funciona
+Valores de ejemplo encontrados en el proyecto:
+- Host local: `127.0.0.1`
+- Puerto local: `3307`
+- Usuario: `admin`
+- Contraseña: `Monogatarya@2025`
+- Base de datos: `Monogatarya`
+- Charset: `utf8mb4`
 
-### Estructura de carpetas
+El comportamiento local está controlado en el constructor de `Database`: si `$_SERVER['HTTP_HOST']` es `localhost` o `127.0.0.1`, usa `127.0.0.1:3307`; de lo contrario, usa `localhost:3306`.
+
+## Cómo importar el archivo .sql
+
+El proyecto incluye:
+- `model/Monogatarya_BD.sql` → definición de tablas y procedimientos.
+- `model/CargarAnimesIni.sql` → datos de ejemplo.
+
+Importar desde la terminal:
+
+```bash
+mysql -u admin -pMonogatarya@2025 < model/Monogatarya_BD.sql
+mysql -u admin -pMonogatarya@2025 Monogatarya < model/CargarAnimesIni.sql
+```
+
+También puedes importar los archivos desde phpMyAdmin o MySQL Workbench.
+
+## Configuración de la conexión PDO
+
+El archivo `core/database.php` define la conexión PDO:
+
+```php
+$dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->database};charset=utf8mb4";
+$this->connection = new PDO($dsn, $this->user, $this->password);
+$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+```
+
+Si tu instalación usa `localhost` sin puerto personalizado, ajusta `host` y `port` en ese archivo.
+
+## Instalación y ejecución paso a paso
+
+1. Copia `DAM-Transversal` a `htdocs` de tu servidor local.
+2. Importa `model/Monogatarya_BD.sql` en MySQL.
+3. (Opcional) importa `model/CargarAnimesIni.sql`.
+4. Revisa y ajusta las credenciales en `core/database.php`.
+5. Abre el navegador en: `http://localhost/DAM-Transversal/view/index.php`.
+6. Accede a `http://localhost/DAM-Transversal/view/auth/login.php` para iniciar sesión.
+
+## Operaciones CRUD
+
+### Create
+
+- `UserController::register()` inserta nuevos usuarios en `Users`.
+- `Catalog::createWork()` crea obras en `Works`.
+- `Catalog::addChapter()` añade capítulos en `Chapters`.
+- `Catalog::createEvent()` crea eventos en `Events`.
+
+### Read
+
+- `Catalog::returnCatalog()` obtiene listados de obras y eventos.
+- `Catalog::returnWorkDetail()` recupera detalles de una obra.
+- `Catalog::returnChapter()` y `Catalog::getChapter()` leen capítulos.
+- `Catalog::eventDetail()` obtiene datos de eventos.
+- Las vistas usan `fetch()` y `fetchAll()` para mostrar resultados.
+
+### Update
+
+- `UserController::update()` modifica los datos del perfil.
+- `Catalog::updateWork()` actualiza obras.
+- `Catalog::updateChapter()` modifica capítulos.
+- `Catalog::updateEvent()` edita eventos.
+- `User::updateAvatar()` actualiza el avatar del usuario.
+
+### Delete
+
+- `UserController::delete()` elimina cuentas de usuario.
+- `Catalog::deleteWork()` borra obras.
+- `Catalog::deleteChapter()` borra capítulos.
+- `Catalog::deleteEvent()` borra eventos.
+
+## Estructura del proyecto
 
 ```
 DAM-Transversal/
 ├── controller/
-│   ├── UserController.php      # Lógica de autenticación
 │   ├── CatalogController.php
-│   └── UploadController.php
+│   ├── UploadController.php
+│   └── UserController.php
 ├── core/
-│   ├── config.php              # Constantes de rutas y URLs
-│   ├── database.php            # Clase Database (MySQLi OO)
-│   └── auth.php                # Funciones de control de sesión
+│   ├── auth.php
+│   ├── config.php
+│   └── database.php
 ├── model/
-│   ├── User.php                # Clase User
-│   ├── Chapters.php
-│   ├── Events.php
-│   └── Monogatarya_BD.sql      # Script SQL de la base de datos
+│   ├── CargarAnimesIni.sql
+│   ├── Monogatarya_BD.sql
+│   └── User.php
 └── view/
     ├── auth/
-    │   ├── login.php
-    │   ├── register.html
-    │   ├── register-reader.php
-    │   └── register-promoter.php
     ├── catalogs/
     ├── includes/
-    │   ├── header.php
-    │   ├── menu.php            # Botón logout condicional
-    │   └── footer.php
     ├── profile.php
     └── index.php
 ```
 
----
+## Ejemplos de consultas PDO utilizadas
 
-### Diagrama de clases — User
+```php
+$stmt = $this->connection->prepare("CALL sp_comprove_email(:email, @result)");
+$stmt->execute([':email' => $email]);
 
-```mermaid
-classDiagram
-    class Database {
-        -host : string
-        -port : int
-        -user : string
-        -password : string
-        -database : string
-        +connection : mysqli
-        +getConnection() mysqli
-    }
+$stmt = $this->connection->prepare(
+    "INSERT INTO Users (email, status, name, surname, password)
+     VALUES (:email, :status, :name, :surname, :password)"
+);
+$stmt->execute([
+    ':email' => $email,
+    ':status' => $status ? 1 : 0,
+    ':name' => $name,
+    ':surname' => $surname,
+    ':password' => $hashedPassword,
+]);
 
-    class User {
-        -connection : mysqli
-        -email : string
-        -status : string
-        -name : string
-        -surname : string
-        -password : string
-        +__construct(email, status, name, surname, password)
-        +setSessionUser() void
-        +updateUser(email, name, surname, password, bio) void
-        +updateAvatar(avatar) void
-        +isPromoter() bool
-        +getUserID() int
-    }
-
-    class UserController {
-        -connection : mysqli
-        +__construct()
-        +register(status) void
-        +login() void
-        +logout() void
-        +update() void
-        +delete() void
-        +getUser(email, password) User|false
-        +message(message, location) void
-    }
-
-    class UploadController {
-        +uploadAvatar(user, file) string|array
-        +deleteUserUploads(userID) void
-    }
-
-    UserController --> Database : instancia
-    UserController --> User : crea / consulta
-    UserController --> UploadController : delega subida de avatar
-    User --> Database : instancia
+$query = $this->connection->query("SELECT * FROM Works WHERE Type = $escapedCatalog LIMIT $limit OFFSET $offset");
+$row = $query->fetch();
 ```
 
----
+También se usan `quote()`, `lastInsertId()`, `fetchAll()` y `closeCursor()`.
 
-### Diagrama de secuencia — Login
+## Ejemplos de uso
 
-```mermaid
-sequenceDiagram
-    actor Usuario
-    participant login.php as Login View
-    participant UserController
-    participant User
-    participant DB as Base de Datos MySQL
+- Registro de usuario en `view/auth/register-reader.php` o `view/auth/register-promoter.php`.
+- Inicio de sesión en `view/auth/login.php`.
+- Creación de obras desde los formularios de catálogo.
+- Edición de obras, capítulos y eventos.
+- Eliminación de usuarios, obras, capítulos y eventos.
 
-    Usuario->>login.php: Introduce email y contraseña
-    login.php->>UserController: POST login (email, password)
+> Capturas de uso: puedes insertar aquí imágenes del flujo de la aplicación según tu entorno.
 
-    alt Campos vacíos
-        UserController-->>login.php: $_SESSION[login_error] + redirect login
-    end
+## Posibles mejoras
 
-    UserController->>DB: SELECT * FROM Users WHERE email=? AND password=?
-    DB-->>UserController: fila usuario o null
+- Refactorizar consultas en repositorios/DAO independientes.
+- Usar transacciones PDO para operaciones múltiples.
+- Parametrizar todas las consultas en lugar de concatenar SQL.
+- Añadir validación del lado cliente.
+- Implementar pruebas unitarias y de integración.
+- Añadir control de roles más estricto.
 
-    alt Usuario encontrado
-        UserController->>User: new User(email, status, name, surname, password)
-        User->>DB: SELECT avatar, bio FROM Users WHERE email=?
-        User-->>UserController: objeto User
-        UserController->>UserController: session_unset()
-        UserController->>User: setSessionUser()
-        User-->>UserController: $_SESSION poblado
-        UserController-->>Usuario: header Location → index.php
-    else Usuario no encontrado
-        UserController-->>login.php: $_SESSION[login_error] = "Email o contraseña incorrectos"
-        login.php-->>Usuario: Muestra mensaje de error
-    end
-```
+## Autor y fecha
 
----
-
-### Diagrama de secuencia — Registro
-
-```mermaid
-sequenceDiagram
-    actor Usuario
-    participant register.php as Register View
-    participant UserController
-    participant DB as Base de Datos MySQL
-
-    Usuario->>register.php: Rellena formulario (nombre, email, password...)
-    register.php->>UserController: POST register_reader / register_promoter
-
-    alt Algún campo vacío
-        UserController-->>register.php: Error "Completa todos los campos"
-    end
-
-    UserController->>UserController: Validar nombre (≥ 2 chars)
-    UserController->>UserController: Validar email (filter_var)
-    UserController->>UserController: Validar password (≥ 6 chars)
-    UserController->>UserController: Confirmar passwords coinciden
-
-    alt Errores de validación
-        UserController-->>register.php: $_SESSION[login_error] + redirect
-        register.php-->>Usuario: Muestra errores descriptivos
-    end
-
-    UserController->>DB: CALL sp_comprove_email(email)
-    DB-->>UserController: @result (0 = libre, 1 = ya existe)
-
-    alt Email ya registrado
-        UserController-->>register.php: Error "Email ya registrado"
-    end
-
-    UserController->>DB: INSERT INTO Users (email, status, name, surname, password)
-    DB-->>UserController: OK
-
-    alt Promotor con avatar
-        UserController->>UploadController: uploadAvatar(user, file)
-        UploadController-->>UserController: ruta avatar guardada
-    end
-
-    UserController->>UserController: session_unset()
-    UserController->>User: new User(...) → setSessionUser()
-    UserController-->>Usuario: header Location → profile.php
-```
-
----
-
-### Diagrama de secuencia — Logout
-
-```mermaid
-sequenceDiagram
-    actor Usuario
-    participant menu.php as Menú (View)
-    participant UserController
-
-    Usuario->>menu.php: Clic en "Cerrar sesión"
-    note over menu.php: Botón visible solo si isLogged() === true
-    menu.php->>UserController: POST logout
-
-    UserController->>UserController: session_unset()
-    UserController->>UserController: setcookie() → invalida cookie
-    UserController->>UserController: session_destroy()
-    UserController->>UserController: header Cache-Control: no-cache
-    UserController-->>Usuario: header Location → login.php
-```
-
----
-
-## 🌐 Demo en vivo
-https://monogatarya.run.place/
-
-## Instalación y uso
-
-1. Importar la base de datos: ejecutar `model/Monogatarya_BD.sql` en MySQL.
-2. Configurar credenciales de conexión en `core/database.php` si es necesario.
-3. Desplegar en servidor local (XAMPP / Apache) en la ruta `/DAM-Transversal/`.
-4. Acceder a `view/auth/login.php` para iniciar sesión.
-5. Desde `view/auth/register.html` elegir el tipo de usuario para registrarse.
-6. El botón **Cerrar sesión** aparece en el menú lateral solo cuando hay sesión activa.
-
----
-
-## Notas técnicas
-
-| Aspecto | Detalle |
-|---|---|
-| Lenguaje | PHP 8+ |
-| Lenguaje | PHP 8+ |
-| Base de datos | MySQL con MySQLi Object-Oriented |
-| Sesiones | `$_SESSION` gestionadas en `UserController` y `User` |
-| Control de acceso | `auth.php` → `requireLogin()`, `requireRole()`, `isLogged()` |
-| Validaciones servidor | email (`filter_var`), password (≥6 chars), nombre (≥2 chars) |
-| Subida de imágenes | Solo promotores, gestionada por `UploadController` |
-| Stored procedures | `sp_comprove_email`, `sp_update_user` |
+- Autor: Práctica 6 — DAM Transversal
+- Fecha: 2026-05-21
