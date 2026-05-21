@@ -1,4 +1,4 @@
-﻿# Práctica 6: CRUD
+﻿# Monogatarya - Práctica 6
 
 ## Descripción
 
@@ -116,6 +116,30 @@ Si tu instalación usa `localhost` sin puerto personalizado, ajusta `host` y `po
 - `Catalog::deleteWork()` borra obras.
 - `Catalog::deleteChapter()` borra capítulos.
 - `Catalog::deleteEvent()` borra eventos.
+
+## Diagrama de secuencia
+
+El siguiente diagrama muestra el flujo principal de autenticación y creación de contenido dentro del sistema:
+
+```mermaid
+sequenceDiagram
+    actor Usuario
+    participant Login as Login View
+    participant UserController
+    participant DB as Base de Datos MySQL
+    participant Catalog as CatalogController
+
+    Usuario->>Login: Envía formulario de login/registro
+    Login->>UserController: POST login / register
+    UserController->>DB: SELECT / INSERT Users
+    DB-->>UserController: Resultado de consulta
+    UserController-->>Usuario: Redirige a perfil o muestra errores
+
+    Usuario->>Catalog: Envía formulario de nueva obra/evento
+    Catalog->>DB: INSERT INTO Works / Events / Chapters
+    DB-->>Catalog: ID creado
+    Catalog-->>Usuario: Confirma creación
+```
 
 ## Estructura del proyecto
 
